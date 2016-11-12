@@ -241,8 +241,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/12/Volley获取网络数据出现乱码 /" itemprop="url">
-                  Volley获取网络数据出现乱码
+                <a class="post-title-link" href="/2016/11/12/hello-world/" itemprop="url">
+                  Hello World
                 </a>
               
             
@@ -255,7 +255,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-12T21:15:20+08:00" content="2016-11-12">
+            <time itemprop="dateCreated" datetime="2016-11-12T22:11:28+08:00" content="2016-11-12">
               2016-11-12
             </time>
           </span>
@@ -285,8 +285,15 @@
       
         
           
-            <p>这里以StringRequest请求为例，其它的类似写一个类继承StringRequest，然后重写Response<string> parseNetworkResponse(NetworkResponse response)方法，将编码指定为utf-8，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public class MyStringRequest extends StringRequest &#123;</div><div class="line"></div><div class="line">    public MyStringRequest(String url, Response.Listener&lt;String&gt; listener,</div><div class="line">                           Response.ErrorListener errorListener) &#123;</div><div class="line">        super(url, listener, errorListener);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 重写以解决乱码问题</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    protected Response&lt;String&gt; parseNetworkResponse(NetworkResponse response) &#123;</div><div class="line">        String str = null;</div><div class="line">        try &#123;</div><div class="line">            str = new String(response.data, &quot;utf-8&quot;);</div><div class="line">        &#125; catch (UnsupportedEncodingException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return Response.success(str,</div><div class="line">                HttpHeaderParser.parseCacheHeaders(response));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></string></p>
-<p>使用用的时候用你继承过的MyStringRequest 类，而不是StringRequest ，问题就解决了。</p>
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start-开始"><a href="#Quick-Start-开始" class="headerlink" title="Quick Start 开始"></a>Quick Start 开始</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
           
         
@@ -363,13 +370,6 @@
 
           
 
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
           
 
         </nav>
