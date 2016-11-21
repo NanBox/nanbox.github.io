@@ -310,7 +310,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-11-21T22:45:53+08:00">
+            <time title="Post modified" itemprop="dateModified" datetime="2016-11-21T22:56:07+08:00">
               2016-11-21
             </time>
             
@@ -350,18 +350,14 @@
 
       
         
-          
-            <p>我们都知道点九图的作用，这里就不多说了，反正就是各种好各种美如画，这次我们把点九图用到自定义控件中。我们用drawBitmap来绘制点九图，然而似乎有点问题。</p>
-<p>我找了这张图来演示一下：<br><img src="/uploads/images/201611212239/bubble.png" alt=""><br>这是用drawBitmap的代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bubble);</div><div class="line">Rect rect = <span class="keyword">new</span> Rect(l, t, r, b);</div><div class="line">canvas.drawBitmap(bitmap, <span class="keyword">null</span>, rect, <span class="keyword">new</span> Paint());</div></pre></td></tr></table></figure>
-<p>然后编译运行。<br><img src="/uploads/images/201611212239/bubble1.png" alt=""></p>
-<p>哎呦，我去！这是什么鬼！说好的美如画呢。     </p>
-<p>没事，我们换两句代码来实现。当绘制点九图时，我们要用到NinePatch这个类，代码改成这样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bubble);</div><div class="line">NinePatch ninePatch = <span class="keyword">new</span> NinePatch(bitmap, bitmap.getNinePatchChunk(), <span class="keyword">null</span>);</div><div class="line">RectF rectF = <span class="keyword">new</span> RectF(l, t, r, b);</div><div class="line">ninePatch.draw(canvas, rectF);</div></pre></td></tr></table></figure>
-<p><img src="/uploads/images/201611212239/bubble2.png" alt=""></p>
-<p>看，妥妥的。</p>
-
-          
+          <p>我们都知道点九图的作用，这里就不多说了，反正就是各种好各种美如画，这次我们把点九图用到自定义控件中。我们用drawBitmap来绘制点九图，然而似乎有点问题。</p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/21/201611212239/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
