@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="SouthernBox">
 <meta property="og:description" content="介绍现在有通讯录的项目基本都会用到侧边快速索引栏，网上也有不少第三方开源控件可以使用。但我讲的这个还是稍稍有点不一样的。">
 <meta property="og:image" content="http://yoursite.com/uploads/images/IndexBar/IndexBar.gif">
-<meta property="og:updated_time" content="2016-11-20T03:44:21.020Z">
+<meta property="og:updated_time" content="2016-11-21T14:43:30.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义侧边快速索引栏">
 <meta name="twitter:description" content="介绍现在有通讯录的项目基本都会用到侧边快速索引栏，网上也有不少第三方开源控件可以使用。但我讲的这个还是稍稍有点不一样的。">
@@ -308,8 +308,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-11-20T11:44:21+08:00">
-              2016-11-20
+            <time title="Post modified" itemprop="dateModified" datetime="2016-11-21T22:43:30+08:00">
+              2016-11-21
             </time>
             
           </span>
@@ -353,7 +353,7 @@
 <ul>
 <li>只显示有出现的首字母</li>
 <li>出现的索引字母居中显示</li>
-<li>代码较简单</li>
+<li>代码相对较简单</li>
 </ul>
 <p>好吧，编不下去了，其实也没什么不一样的，可以看一下效果图。<br><img src="/uploads/images/IndexBar/IndexBar.gif" alt=""></p>
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>大致的实现过程如下：</p>
@@ -386,7 +386,7 @@
 <p>然后就是设置索引字母数组，设置要吐司的TextView，设置回调方法。在RecyclerView中，我们可以使用LayoutManager来定位。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">mIndexBar.setIndexs(letters);</div><div class="line">mIndexBar.setSelectedIndexTextView(tvToast);</div><div class="line">mIndexBar.setOnIndexChangedListener(<span class="keyword">new</span> IndexBar.OnIndexChangedListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onIndexChanged</span><span class="params">(String index)</span> </span>&#123;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mList.size(); i++) &#123;</div><div class="line">                    String firstword = mList.get(i).getFirstword();</div><div class="line">                    <span class="keyword">if</span> (index.equals(firstword)) &#123;</div><div class="line">                        <span class="comment">// 滚动列表到指定的位置</span></div><div class="line">                        layoutManager.scrollToPositionWithOffset(i, <span class="number">0</span>);</div><div class="line">                        <span class="keyword">return</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure></p>
 <p>最后，我们需要写一个方法用来排序，插入索引item，顺便把要显示的索引字母数组获取到。在item的实体类里面，我用isIndex这个字段来区分是索引item，还是普通item。可以参考一下我的排序方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">convertSortList</span><span class="params">(List&lt;Entity&gt; list)</span> </span>&#123;</div><div class="line">    HashMap&lt;String, List&lt;Entity&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">    <span class="keyword">for</span> (Entity item : list) &#123;</div><div class="line">        String firstWord;</div><div class="line">        <span class="keyword">if</span> (TextUtils.isEmpty(item.getFirstWord())) &#123;</div><div class="line">            firstWord = <span class="string">"#"</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            firstWord = item.getFirstWord().toUpperCase();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (map.containsKey(firstWord)) &#123;</div><div class="line">            map.get(firstWord).add(item);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            List&lt;Entity&gt; mList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">            mList.add(item);</div><div class="line">            map.put(firstWord, mList);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Object[] keys = map.keySet().toArray();</div><div class="line">    Arrays.sort(keys);</div><div class="line">    List&lt;Entity&gt; sortList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (Object key : keys) &#123;</div><div class="line">        Entity t = getIndexItem(key.toString());</div><div class="line">        sortList.add(t);</div><div class="line">        sortList.addAll(map.get(key));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    HashMap&lt;String, Object&gt; resultMap = <span class="keyword">new</span> HashMap();</div><div class="line">    resultMap.put(<span class="string">"sortList"</span>, sortList);</div><div class="line">    resultMap.put(<span class="string">"keys"</span>, keys);</div><div class="line">    <span class="keyword">return</span> resultMap;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>还有一点要说明一下的是，一般情况下侧边索引栏的”#”是放在最后一个的，但是用Arrays.sort排序的话会把它放在第一个，要放最后一个的话还要再做一个转换，这里就不再赘述了。</p>
-<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这个控件还是比较简单的，这也是一个比较适合用来入门的控件，可能要理解一下的地方在计算方面。<br>个人觉得，如果一个控件不是太复杂的话，最好是自己实现，或者至少要看明白源码。这样一方面可以修改控件适合自己的项目使用，一方面出现了bug也可以快速定位修改。<br>就到这吧。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这个控件还是比较简单的，这也是一个比较适合用来入门的控件，可能要理解一下的地方在计算方面。<br>个人觉得，如果一个控件不是太复杂的话，最好是自己实现，或者至少要看明白源码。这样一方面可以修改控件适合自己的项目使用，一方面出现了bug也可以快速定位修改。<br>妥妥的。</p>
 <p><a href="https://github.com/SouthernBox/IndexBar" target="_blank" rel="external">源码地址</a></p>
 
       
@@ -431,6 +431,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/21/201611212239/" rel="prev" title="解决用drawBitmap绘制点九图时，点九图不生效的问题">
+                解决用drawBitmap绘制点九图时，点九图不生效的问题 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -502,7 +506,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
