@@ -17,7 +17,7 @@
 
     
     <entry>
-      <title><![CDATA[解决5.0以上系统，ScrollView嵌套RecyleView时，惯性滑动失效的问题]]></title>
+      <title><![CDATA[解决5.0以上系统，ScrollView嵌套RecyclerView时，惯性滑动失效的问题]]></title>
       <url>%2F2016%2F11%2F13%2F201611130905%2F</url>
       <content type="text"><![CDATA[大家知道ScrollView是带有惯性滑动效果的。但是在5.0以上系统使用ScrollView嵌套RecyleView时，惯性滑动会失效，滑起来会感觉很不顺畅。那怎么解决呢？ 方法很简单，我们只要让RecyleView不可滑动就可以了。RecyleView是否可左右、上下滑动，是由LayoutManager的canScrollHorizontally和canScrollVertically方法控制的，我们让相应的方法返回false就可以了。代码如下： 1234567LinearLayoutManager layoutManager = new LinearLayoutManager(mContext)&#123; @Override public boolean canScrollVertically() &#123; return false; &#125;&#125;;recyclerView.setLayoutManager(layoutManager); 妥妥的。]]></content>
     </entry>
@@ -26,7 +26,7 @@
     <entry>
       <title><![CDATA[解决Volley获取网络数据出现乱码]]></title>
       <url>%2F2016%2F11%2F12%2F201611122333%2F</url>
-      <content type="text"><![CDATA[刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。 以StringRequest请求为例，其它的类似写一个类继承StringRequest，然后重写Response parseNetworkResponse(NetworkResponse response)方法，将编码指定为utf-8，代码如下： 12345678910111213141516171819202122public class MyStringRequest extends StringRequest &#123; public MyStringRequest(String url, Response.Listener&lt;String&gt; listener, Response.ErrorListener errorListener) &#123; super(url, listener, errorListener); &#125; /** * 重写以解决乱码问题 */ @Override protected Response&lt;String&gt; parseNetworkResponse(NetworkResponse response) &#123; String str = null; try &#123; str = new String(response.data, "utf-8"); &#125; catch (UnsupportedEncodingException e) &#123; e.printStackTrace(); &#125; return Response.success(str, HttpHeaderParser.parseCacheHeaders(response)); &#125;&#125; 使用用的时候用你继承过的MyStringRequest 类，而不是StringRequest ，问题就解决了。妥妥的。]]></content>
+      <content type="text"><![CDATA[刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。 以StringRequest请求为例，其它的类似写一个类继承StringRequest，然后重写Response parseNetworkResponse(NetworkResponse response)方法，将编码指定为utf-8，代码如下： 12345678910111213141516171819202122public class MyStringRequest extends StringRequest &#123; public MyStringRequest(String url, Response.Listener&lt;String&gt; listener, Response.ErrorListener errorListener) &#123; super(url, listener, errorListener); &#125; /** * 重写以解决乱码问题 */ @Override protected Response&lt;String&gt; parseNetworkResponse(NetworkResponse response) &#123; String str = null; try &#123; str = new String(response.data, "utf-8"); &#125; catch (UnsupportedEncodingException e) &#123; e.printStackTrace(); &#125; return Response.success(str, HttpHeaderParser.parseCacheHeaders(response)); &#125;&#125; 使用的时候用我们继承过的MyStringRequest类，而不是StringRequest，问题就解决了。妥妥的。]]></content>
     </entry>
 
     
