@@ -24,7 +24,7 @@
 
     
     <entry>
-      <title><![CDATA[解决5.0以上系统，ScrollView嵌套RecyclerView时，惯性滑动失效的问题]]></title>
+      <title><![CDATA[解决ScrollView嵌套RecyclerView时，惯性滑动失效的问题]]></title>
       <url>%2F2016%2F11%2F13%2F201611130905%2F</url>
       <content type="text"><![CDATA[大家知道ScrollView是带有惯性滑动效果的。但是在5.0以上系统使用ScrollView嵌套RecyleView时，惯性滑动会失效，滑起来会感觉很不顺畅。那怎么解决呢？ 方法很简单，我们只要让RecyleView不可滑动就可以了。RecyleView是否可左右、上下滑动，是由LayoutManager的canScrollHorizontally和canScrollVertically方法控制的，我们让相应的方法返回false就可以了。代码如下： 1234567LinearLayoutManager layoutManager = new LinearLayoutManager(mContext)&#123; @Override public boolean canScrollVertically() &#123; return false; &#125;&#125;;recyclerView.setLayoutManager(layoutManager); 妥妥的。]]></content>
     </entry>
