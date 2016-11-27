@@ -262,6 +262,167 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/27/201611271321/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="SouthernBox">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="SouthernBox">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="SouthernBox" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/27/201611271321/" itemprop="url">
+                  实现一个带浮动标签的输入框
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-27T13:22:03+08:00">
+              2016-11-27
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2016-11-27T13:26:57+08:00">
+              2016-11-27
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/27/201611271321/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/27/201611271321/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/11/27/201611271321/" class="leancloud_visitors" data-flag-title="实现一个带浮动标签的输入框">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个TextInputLayout的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。</p>
+<p>还是先看看效果吧：</p>
+<p><img src="/uploads/images/FloatEditText/FloatEditText.gif" alt=""></p>
+<p>大概的思路是这样的：</p>
+<ul>
+<li>控件有两层，一层是浮动的标签，一层是输入框。  </li>
+<li>当点击控件后，标签同时执行一个横向和纵向的缩放动画，还有一个向上移动的动画，让输入框获取到焦点并弹出键盘。  </li>
+<li>当输入框失去焦点时，判断是否有内容，如果没有则让标签执行一个复原的动画。</li>
+</ul>
+<p>下面看看控件的布局：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/fl_content"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"55dp"</span></div><div class="line">    <span class="attr">android:background</span>=<span class="string">"@color/white"</span></div><div class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></div><div class="line">    <span class="attr">android:paddingLeft</span>=<span class="string">"20dp"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">EditText</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/et_content_name"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"30dp"</span></div><div class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center_vertical"</span></div><div class="line">        <span class="attr">android:background</span>=<span class="string">"@color/white"</span></div><div class="line">        <span class="attr">android:textColor</span>=<span class="string">"@color/black"</span></div><div class="line">        <span class="attr">android:textCursorDrawable</span>=<span class="string">"@null"</span></div><div class="line">        <span class="attr">android:textSize</span>=<span class="string">"14sp"</span></div><div class="line">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/tv_content_hint"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center_vertical"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"标题"</span></div><div class="line">        <span class="attr">android:textColor</span>=<span class="string">"@color/text_gray"</span></div><div class="line">        <span class="attr">android:textSize</span>=<span class="string">"14sp"</span></div><div class="line">        <span class="attr">android:transformPivotX</span>=<span class="string">"0dp"</span></div><div class="line">        <span class="attr">android:transformPivotY</span>=<span class="string">"-30dp"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>由于EditText会默认获取到焦点，所以我先把它隐藏了。这里面值得注意的是transformPivotXY这个参数，等下会讲到。</p>
+<p>然后我们创建标签向上缩放的方法，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">animationUp</span><span class="params">()</span> </span>&#123;</div><div class="line">    ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleX"</span>, <span class="number">0.6f</span>);</div><div class="line">    ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleY"</span>, <span class="number">0.6f</span>);</div><div class="line"></div><div class="line">    AnimatorSet animatorSet = <span class="keyword">new</span> AnimatorSet();</div><div class="line">    animatorSet.setDuration(<span class="number">100</span>);</div><div class="line">    animatorSet.setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</div><div class="line">    animatorSet.play(scaleX).with(scaleY); <span class="comment">//两个动画同时开始</span></div><div class="line">    animatorSet.start();</div><div class="line"></div><div class="line">    animatorSet.addListener(<span class="keyword">new</span> Animator.AnimatorListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">            etContent.setVisibility(View.VISIBLE);</div><div class="line">            etContent.requestFocus();</div><div class="line">            <span class="comment">//弹出键盘</span></div><div class="line">            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);</div><div class="line">            imm.showSoftInput(etContent, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationCancel</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">        </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码不难理解，就是同时执行了横向和纵向的缩放动画，让标签缩小到60%。动画执行完后显示EditText，让它获取到焦点并弹出键盘。如果animatorSet.setInterpolator(new DecelerateInterpolator());这句不懂的话，看看下面这张图就明白了：</p>
+<p><img src="/uploads/images/FloatEditText/Interpolator.png" alt=""></p>
+<p>到这里，你可能还有的一个疑问就是，向上移动的动画呢？<br>缩放动画是根据控件的基准坐标来进行缩放的。也就是说，当我们把基准坐标设在控件上方时，缩放的时候也会有一个移动的效果。所以在布局里面用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android:transformPivotX=&quot;0dp&quot;</div><div class="line">android:transformPivotY=&quot;-30dp&quot;</div></pre></td></tr></table></figure>
+<p>将标签的基准点设为(0dp, -30dp)，这样我们就省去了移动动画。</p>
+<p>至于复原的动画，就更简单了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">animationDown</span><span class="params">()</span> </span>&#123;</div><div class="line">    etContent.setVisibility(View.GONE);</div><div class="line"></div><div class="line">    ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleX"</span>, <span class="number">1</span>);</div><div class="line">    ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleY"</span>, <span class="number">1</span>);</div><div class="line"></div><div class="line">    AnimatorSet animatorSet = <span class="keyword">new</span> AnimatorSet();</div><div class="line">    animatorSet.setDuration(<span class="number">100</span>);</div><div class="line">    animatorSet.setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</div><div class="line">    animatorSet.play(scaleX).with(scaleY); <span class="comment">//两个动画同时开始</span></div><div class="line">    animatorSet.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了实现失去焦点，标签复原，我们需要监听输入框是否有焦点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">etContent.setOnFocusChangeListener(<span class="keyword">new</span> OnFocusChangeListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFocusChange</span><span class="params">(View view, <span class="keyword">boolean</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!b &amp;&amp; TextUtils.isEmpty(etContent.getText())) &#123;</div><div class="line">            animationDown();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这样就已经完成了一个带浮动标签的输入框，妥妥的。  </p>
+<p>虽然实现一个这样的控件不难，但我个人还是希望可以使用原生控件的，希望移动端的设计能多去了解一下材料设计吧。(T_T)</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/21/201611212239/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -310,8 +471,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-11-21T22:56:07+08:00">
-              2016-11-21
+            <time title="Post modified" itemprop="dateModified" datetime="2016-11-27T13:27:43+08:00">
+              2016-11-27
             </time>
             
           </span>
@@ -858,7 +1019,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

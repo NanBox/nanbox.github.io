@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="坑," />
+  <meta name="keywords" content="教程,自定义控件," />
 
 
 
@@ -84,16 +84,37 @@
 
 
 
-<meta name="description" content="刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。">
+<meta name="description" content="现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个TextInputLayout的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。
+还是先看看效果吧：
+
+大概的思路是这样的：
+
+控件有两层，一层是浮动的标签，一层是输入框。  
+当点击控件后，标签同时执行一个横向和纵向的缩放动画，还有一个向上移动的动画，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决Volley获取网络数据出现乱码">
-<meta property="og:url" content="http://yoursite.com/2016/11/12/201611122333/index.html">
+<meta property="og:title" content="实现一个带浮动标签的输入框">
+<meta property="og:url" content="http://yoursite.com/2016/11/27/201611271321/index.html">
 <meta property="og:site_name" content="SouthernBox">
-<meta property="og:description" content="刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。">
-<meta property="og:updated_time" content="2016-11-23T13:36:41.910Z">
+<meta property="og:description" content="现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个TextInputLayout的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。
+还是先看看效果吧：
+
+大概的思路是这样的：
+
+控件有两层，一层是浮动的标签，一层是输入框。  
+当点击控件后，标签同时执行一个横向和纵向的缩放动画，还有一个向上移动的动画，">
+<meta property="og:image" content="http://yoursite.com/uploads/images/FloatEditText/FloatEditText.gif">
+<meta property="og:image" content="http://yoursite.com/uploads/images/FloatEditText/Interpolator.png">
+<meta property="og:updated_time" content="2016-11-27T05:26:57.174Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决Volley获取网络数据出现乱码">
-<meta name="twitter:description" content="刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。">
+<meta name="twitter:title" content="实现一个带浮动标签的输入框">
+<meta name="twitter:description" content="现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个TextInputLayout的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。
+还是先看看效果吧：
+
+大概的思路是这样的：
+
+控件有两层，一层是浮动的标签，一层是输入框。  
+当点击控件后，标签同时执行一个横向和纵向的缩放动画，还有一个向上移动的动画，">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/FloatEditText/FloatEditText.gif">
 
 
 
@@ -121,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/12/201611122333/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/27/201611271321/"/>
 
 
 
 
 
-  <title> 解决Volley获取网络数据出现乱码 | SouthernBox </title>
+  <title> 实现一个带浮动标签的输入框 | SouthernBox </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +282,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/12/201611122333/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/27/201611271321/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="SouthernBox">
@@ -285,7 +306,7 @@
             
             
               
-                解决Volley获取网络数据出现乱码
+                实现一个带浮动标签的输入框
               
             
           </h1>
@@ -297,8 +318,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-12T23:33:27+08:00">
-              2016-11-12
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-27T13:22:03+08:00">
+              2016-11-27
             </time>
 
             &nbsp;|&nbsp;
@@ -306,8 +327,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-11-23T21:36:41+08:00">
-              2016-11-23
+            <time title="Post modified" itemprop="dateModified" datetime="2016-11-27T13:26:57+08:00">
+              2016-11-27
             </time>
             
           </span>
@@ -318,8 +339,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/12/201611122333/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/12/201611122333/" itemprop="commentCount"></span>
+                <a href="/2016/11/27/201611271321/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/27/201611271321/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -329,7 +350,7 @@
 
           
           
-             <span id="/2016/11/12/201611122333/" class="leancloud_visitors" data-flag-title="解决Volley获取网络数据出现乱码">
+             <span id="/2016/11/27/201611271321/" class="leancloud_visitors" data-flag-title="实现一个带浮动标签的输入框">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -354,11 +375,31 @@
       
 
       
-        <p>刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。</p>
-<a id="more"></a>
-<p>以StringRequest请求为例，其它的类似写一个类继承StringRequest，然后重写Response<string> parseNetworkResponse(NetworkResponse response)方法，将编码指定为utf-8，代码如下：</string></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyStringRequest</span> <span class="keyword">extends</span> <span class="title">StringRequest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyStringRequest</span><span class="params">(String url, Response.Listener&lt;String&gt; listener,</span></span></div><div class="line">                           Response.ErrorListener errorListener) &#123;</div><div class="line">        <span class="keyword">super</span>(url, listener, errorListener);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 重写以解决乱码问题</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> Response&lt;String&gt; <span class="title">parseNetworkResponse</span><span class="params">(NetworkResponse response)</span> </span>&#123;</div><div class="line">        String str = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            str = <span class="keyword">new</span> String(response.data, <span class="string">"utf-8"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Response.success(str,</div><div class="line">                HttpHeaderParser.parseCacheHeaders(response));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用的时候用我们继承过的MyStringRequest类，而不是StringRequest，问题就解决了。<br>妥妥的。</p>
+        <p>现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个TextInputLayout的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。</p>
+<p>还是先看看效果吧：</p>
+<p><img src="/uploads/images/FloatEditText/FloatEditText.gif" alt=""></p>
+<p>大概的思路是这样的：</p>
+<ul>
+<li>控件有两层，一层是浮动的标签，一层是输入框。  </li>
+<li>当点击控件后，标签同时执行一个横向和纵向的缩放动画，还有一个向上移动的动画，让输入框获取到焦点并弹出键盘。  </li>
+<li>当输入框失去焦点时，判断是否有内容，如果没有则让标签执行一个复原的动画。</li>
+</ul>
+<p>下面看看控件的布局：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/fl_content"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"55dp"</span></div><div class="line">    <span class="attr">android:background</span>=<span class="string">"@color/white"</span></div><div class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></div><div class="line">    <span class="attr">android:paddingLeft</span>=<span class="string">"20dp"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">EditText</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/et_content_name"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"30dp"</span></div><div class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center_vertical"</span></div><div class="line">        <span class="attr">android:background</span>=<span class="string">"@color/white"</span></div><div class="line">        <span class="attr">android:textColor</span>=<span class="string">"@color/black"</span></div><div class="line">        <span class="attr">android:textCursorDrawable</span>=<span class="string">"@null"</span></div><div class="line">        <span class="attr">android:textSize</span>=<span class="string">"14sp"</span></div><div class="line">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/tv_content_hint"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center_vertical"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"标题"</span></div><div class="line">        <span class="attr">android:textColor</span>=<span class="string">"@color/text_gray"</span></div><div class="line">        <span class="attr">android:textSize</span>=<span class="string">"14sp"</span></div><div class="line">        <span class="attr">android:transformPivotX</span>=<span class="string">"0dp"</span></div><div class="line">        <span class="attr">android:transformPivotY</span>=<span class="string">"-30dp"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>由于EditText会默认获取到焦点，所以我先把它隐藏了。这里面值得注意的是transformPivotXY这个参数，等下会讲到。</p>
+<p>然后我们创建标签向上缩放的方法，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">animationUp</span><span class="params">()</span> </span>&#123;</div><div class="line">    ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleX"</span>, <span class="number">0.6f</span>);</div><div class="line">    ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleY"</span>, <span class="number">0.6f</span>);</div><div class="line"></div><div class="line">    AnimatorSet animatorSet = <span class="keyword">new</span> AnimatorSet();</div><div class="line">    animatorSet.setDuration(<span class="number">100</span>);</div><div class="line">    animatorSet.setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</div><div class="line">    animatorSet.play(scaleX).with(scaleY); <span class="comment">//两个动画同时开始</span></div><div class="line">    animatorSet.start();</div><div class="line"></div><div class="line">    animatorSet.addListener(<span class="keyword">new</span> Animator.AnimatorListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">            etContent.setVisibility(View.VISIBLE);</div><div class="line">            etContent.requestFocus();</div><div class="line">            <span class="comment">//弹出键盘</span></div><div class="line">            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);</div><div class="line">            imm.showSoftInput(etContent, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationCancel</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">        </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码不难理解，就是同时执行了横向和纵向的缩放动画，让标签缩小到60%。动画执行完后显示EditText，让它获取到焦点并弹出键盘。如果animatorSet.setInterpolator(new DecelerateInterpolator());这句不懂的话，看看下面这张图就明白了：</p>
+<p><img src="/uploads/images/FloatEditText/Interpolator.png" alt=""></p>
+<p>到这里，你可能还有的一个疑问就是，向上移动的动画呢？<br>缩放动画是根据控件的基准坐标来进行缩放的。也就是说，当我们把基准坐标设在控件上方时，缩放的时候也会有一个移动的效果。所以在布局里面用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android:transformPivotX=&quot;0dp&quot;</div><div class="line">android:transformPivotY=&quot;-30dp&quot;</div></pre></td></tr></table></figure>
+<p>将标签的基准点设为(0dp, -30dp)，这样我们就省去了移动动画。</p>
+<p>至于复原的动画，就更简单了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">animationDown</span><span class="params">()</span> </span>&#123;</div><div class="line">    etContent.setVisibility(View.GONE);</div><div class="line"></div><div class="line">    ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleX"</span>, <span class="number">1</span>);</div><div class="line">    ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleY"</span>, <span class="number">1</span>);</div><div class="line"></div><div class="line">    AnimatorSet animatorSet = <span class="keyword">new</span> AnimatorSet();</div><div class="line">    animatorSet.setDuration(<span class="number">100</span>);</div><div class="line">    animatorSet.setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</div><div class="line">    animatorSet.play(scaleX).with(scaleY); <span class="comment">//两个动画同时开始</span></div><div class="line">    animatorSet.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了实现失去焦点，标签复原，我们需要监听输入框是否有焦点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">etContent.setOnFocusChangeListener(<span class="keyword">new</span> OnFocusChangeListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFocusChange</span><span class="params">(View view, <span class="keyword">boolean</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!b &amp;&amp; TextUtils.isEmpty(etContent.getText())) &#123;</div><div class="line">            animationDown();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这样就已经完成了一个带浮动标签的输入框，妥妥的。  </p>
+<p>虽然实现一个这样的控件不难，但我个人还是希望可以使用原生控件的，希望移动端的设计能多去了解一下材料设计吧。(T_T)</p>
 
       
     </div>
@@ -382,7 +423,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/坑/" rel="tag"># 坑</a>
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/自定义控件/" rel="tag"># 自定义控件</a>
           
         </div>
       
@@ -391,15 +434,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/11/21/201611212239/" rel="next" title="解决用drawBitmap绘制点九图时，点九图不生效的问题">
+                <i class="fa fa-chevron-left"></i> 解决用drawBitmap绘制点九图时，点九图不生效的问题
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/13/201611130905/" rel="prev" title="解决5.0以上系统，ScrollView嵌套RecyclerView时，惯性滑动失效的问题">
-                解决5.0以上系统，ScrollView嵌套RecyclerView时，惯性滑动失效的问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -425,8 +468,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/12/201611122333/"
-           data-title="解决Volley获取网络数据出现乱码" data-url="http://yoursite.com/2016/11/12/201611122333/">
+      <div class="ds-thread" data-thread-key="2016/11/27/201611271321/"
+           data-title="实现一个带浮动标签的输入框" data-url="http://yoursite.com/2016/11/27/201611271321/">
       </div>
     
   </div>
