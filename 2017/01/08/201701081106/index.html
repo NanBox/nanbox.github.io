@@ -90,10 +90,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/08/201701081106/index.html">
 <meta property="og:site_name" content="SouthernBox">
 <meta property="og:description" content="当短时间内多次调用Toast.makeText方法时，会出现吐司显示的内容显示时间过长，或者当前吐司没有显示最新内容的情况。">
-<meta property="og:updated_time" content="2017-01-08T03:11:09.736Z">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201701081106.png">
+<meta property="og:updated_time" content="2017-01-08T05:20:10.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="避免重复吐司(Toast)时，显示时间过长">
 <meta name="twitter:description" content="当短时间内多次调用Toast.makeText方法时，会出现吐司显示的内容显示时间过长，或者当前吐司没有显示最新内容的情况。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201701081106.png">
 
 
 
@@ -306,7 +308,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2017-01-08T11:11:09+08:00">
+            <time title="Post modified" itemprop="dateModified" datetime="2017-01-08T13:20:10+08:00">
               2017-01-08
             </time>
             
@@ -354,11 +356,12 @@
       
 
       
-        <p>当短时间内多次调用Toast.makeText方法时，会出现吐司显示的内容显示时间过长，或者当前吐司没有显示最新内容的情况。</p>
+        <p><img src="/uploads/images/cover/cover_201701081106.png" alt=""></p>
+<p>当短时间内多次调用Toast.makeText方法时，会出现吐司显示的内容显示时间过长，或者当前吐司没有显示最新内容的情况。</p>
 <a id="more"></a>
 <p>这是因为吐司会像排队一样，每一个吐司都会有自己固定的时间（短吐司为2秒，长吐司为3.5秒），新的吐司需要在前面的吐司显示结束之后才会出现。解决这种情况也很简单。</p>
 <p>在公共的工具类里面，增加这样一个方法来弹吐司：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showToast</span><span class="params">(Context context, String text, <span class="keyword">boolean</span> isLongLength)</span> </span>&#123;</div><div class="line">	<span class="keyword">int</span> length;</div><div class="line">	<span class="keyword">if</span> (isLongLength) &#123;</div><div class="line">		length = Toast.LENGTH_LONG;</div><div class="line">	&#125; <span class="keyword">else</span> &#123;         </div><div class="line">		length = Toast.LENGTH_SHORT;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span> (toast == <span class="keyword">null</span>) &#123;</div><div class="line">		toast = Toast.makeText(context, text, length);</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		toast.setText(text);</div><div class="line">		toast.setDuration(length);</div><div class="line">	&#125;</div><div class="line">	toast.show();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showToast</span><span class="params">(Context context, String text, <span class="keyword">boolean</span> isLongLength)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> length;</div><div class="line">    <span class="keyword">if</span> (isLongLength) &#123;</div><div class="line">        length = Toast.LENGTH_LONG;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;         </div><div class="line">        length = Toast.LENGTH_SHORT;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (toast == <span class="keyword">null</span>) &#123;</div><div class="line">        toast = Toast.makeText(context, text, length);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        toast.setText(text);</div><div class="line">        toast.setDuration(length);</div><div class="line">    &#125;</div><div class="line">    toast.show();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>妥妥的。</p>
 
       

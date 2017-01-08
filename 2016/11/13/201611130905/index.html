@@ -90,10 +90,12 @@
 <meta property="og:url" content="http://yoursite.com/2016/11/13/201611130905/index.html">
 <meta property="og:site_name" content="SouthernBox">
 <meta property="og:description" content="大家知道ScrollView是带有惯性滑动效果的。但是在5.0以上系统使用ScrollView嵌套RecyleView时，惯性滑动会失效，滑起来会感觉很不顺畅。那怎么解决呢？">
-<meta property="og:updated_time" content="2016-11-27T12:24:11.562Z">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_default.png">
+<meta property="og:updated_time" content="2017-01-08T04:51:05.995Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决ScrollView嵌套RecyclerView时，惯性滑动失效的问题">
 <meta name="twitter:description" content="大家知道ScrollView是带有惯性滑动效果的。但是在5.0以上系统使用ScrollView嵌套RecyleView时，惯性滑动会失效，滑起来会感觉很不顺畅。那怎么解决呢？">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_default.png">
 
 
 
@@ -306,8 +308,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-11-27T20:24:11+08:00">
-              2016-11-27
+            <time title="Post modified" itemprop="dateModified" datetime="2017-01-08T12:51:05+08:00">
+              2017-01-08
             </time>
             
           </span>
@@ -354,7 +356,8 @@
       
 
       
-        <p>大家知道ScrollView是带有惯性滑动效果的。但是在5.0以上系统使用ScrollView嵌套RecyleView时，惯性滑动会失效，滑起来会感觉很不顺畅。那怎么解决呢？</p>
+        <p><img src="/uploads/images/cover/cover_default.png" alt=""></p>
+<p>大家知道ScrollView是带有惯性滑动效果的。但是在5.0以上系统使用ScrollView嵌套RecyleView时，惯性滑动会失效，滑起来会感觉很不顺畅。那怎么解决呢？</p>
 <a id="more"></a>
 <p>方法很简单，我们只要让RecyleView不可滑动就可以了。RecyleView是否可左右、上下滑动，是由LayoutManager的canScrollHorizontally和canScrollVertically方法控制的，我们让相应的方法返回false就可以了。代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">LinearLayoutManager layoutManager = <span class="keyword">new</span> LinearLayoutManager(mContext)&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canScrollVertically</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">recyclerView.setLayoutManager(layoutManager);</div></pre></td></tr></table></figure>

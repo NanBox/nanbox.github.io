@@ -90,12 +90,12 @@
 <meta property="og:url" content="http://yoursite.com/2016/12/13/201612132202/index.html">
 <meta property="og:site_name" content="SouthernBox">
 <meta property="og:description" content="做统计图时，经常会有这样的需求：x坐标需要换行显示，日和月或者是月和年需要分两行显示。但是找遍MPAndroidChart的各种教程，好像也没有相关的方法可以实现……">
-<meta property="og:image" content="http://yoursite.com/uploads/images\MPAndroidChart/LineChart.png">
-<meta property="og:updated_time" content="2016-12-13T14:06:46.821Z">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201612132202.png">
+<meta property="og:updated_time" content="2017-01-08T04:52:30.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="给Android图表库MPAndroidChart的坐标换行">
 <meta name="twitter:description" content="做统计图时，经常会有这样的需求：x坐标需要换行显示，日和月或者是月和年需要分两行显示。但是找遍MPAndroidChart的各种教程，好像也没有相关的方法可以实现……">
-<meta name="twitter:image" content="http://yoursite.com/uploads/images\MPAndroidChart/LineChart.png">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201612132202.png">
 
 
 
@@ -308,8 +308,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-12-13T22:06:46+08:00">
-              2016-12-13
+            <time title="Post modified" itemprop="dateModified" datetime="2017-01-08T12:52:30+08:00">
+              2017-01-08
             </time>
             
           </span>
@@ -356,13 +356,12 @@
       
 
       
-        <p>做统计图时，经常会有这样的需求：x坐标需要换行显示，日和月或者是月和年需要分两行显示。但是找遍MPAndroidChart的各种教程，好像也没有相关的方法可以实现……</p>
+        <p><img src="/uploads/images/cover/cover_201612132202.png" alt=""></p>
+<p>做统计图时，经常会有这样的需求：x坐标需要换行显示，日和月或者是月和年需要分两行显示。但是找遍MPAndroidChart的各种教程，好像也没有相关的方法可以实现……</p>
 <a id="more"></a>
-<p>以LineChart为例，我们想要的效果是类似这样子的:</p>
-<p><img src="/uploads/images\MPAndroidChart/LineChart.png" alt=""></p>
 <p>首先，MPAndroidChart确实是没有提供更改坐标换行显示的方法。在看这篇文章之前，你可能已经尝试过实现一个ValueFormatter，或者是”\r\n”这样的挣扎，发现并没有什么卵用。但就算真给你换行了，如何居中，如何设置两行不同字体也是问题。</p>
 <p>咋办？看一下源码吧。看看设进去的数据是如何显示出来的。</p>
-<p>我们是这样来设置坐标轴要显示的内容的：</p>
+<p>以LineChart为例，我们是这样来设置坐标轴要显示的内容的：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">LineData data = <span class="keyword">new</span> LineData(xValues, dataSets);</div><div class="line">mChart.setData(data);</div><div class="line">mChart.invalidate();</div></pre></td></tr></table></figure>
 <p>跟着setData方法进源码，一路经过Chart，BarLineChartBase，最终来到了XAxisRenderer这个类，我们的xValues被赋值给了它的mXAxis。然后，好像就没有然后了……</p>
 <p>不对，别忘了我们setData之后还调用了invalidate方法请求重绘，重绘会去调用Chart的onDraw方法。再看看继承Chart的BarLineChartBase，它的onDraw方法里出现了这一句:</p>

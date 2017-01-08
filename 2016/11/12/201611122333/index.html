@@ -90,10 +90,12 @@
 <meta property="og:url" content="http://yoursite.com/2016/11/12/201611122333/index.html">
 <meta property="og:site_name" content="SouthernBox">
 <meta property="og:description" content="刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。">
-<meta property="og:updated_time" content="2016-11-23T13:36:41.910Z">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_default.png">
+<meta property="og:updated_time" content="2017-01-08T04:51:12.805Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决Volley获取网络数据出现乱码">
 <meta name="twitter:description" content="刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_default.png">
 
 
 
@@ -306,8 +308,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-11-23T21:36:41+08:00">
-              2016-11-23
+            <time title="Post modified" itemprop="dateModified" datetime="2017-01-08T12:51:12+08:00">
+              2017-01-08
             </time>
             
           </span>
@@ -354,7 +356,8 @@
       
 
       
-        <p>刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。</p>
+        <p><img src="/uploads/images/cover/cover_default.png" alt=""></p>
+<p>刚接触使用Volley的时候，发现Volley会出现UTF-8编码的中文字符串乱码的情况。这里给出一个解决方法。</p>
 <a id="more"></a>
 <p>以StringRequest请求为例，其它的类似写一个类继承StringRequest，然后重写Response<string> parseNetworkResponse(NetworkResponse response)方法，将编码指定为utf-8，代码如下：</string></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyStringRequest</span> <span class="keyword">extends</span> <span class="title">StringRequest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyStringRequest</span><span class="params">(String url, Response.Listener&lt;String&gt; listener,</span></span></div><div class="line">                           Response.ErrorListener errorListener) &#123;</div><div class="line">        <span class="keyword">super</span>(url, listener, errorListener);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 重写以解决乱码问题</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> Response&lt;String&gt; <span class="title">parseNetworkResponse</span><span class="params">(NetworkResponse response)</span> </span>&#123;</div><div class="line">        String str = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            str = <span class="keyword">new</span> String(response.data, <span class="string">"utf-8"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Response.success(str,</div><div class="line">                HttpHeaderParser.parseCacheHeaders(response));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
