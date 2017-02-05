@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[简单实现带节点的进度条]]></title>
+      <url>%2F2017%2F02%2F05%2F201702051620%2F</url>
+      <content type="text"><![CDATA[实现带节点的进度条方法不止一个，但是如果要实现图中这种效果的，初步看好像还不简单。进度条的形状不规则、背景是渐变颜色、节点上面还有个勾。这里提供一个很简单的思路，简单的都不好意思说了…… 为了实现这个效果，我们需要三张图片，就是下面这三张。 看到这里可能你已经知道要怎么做了，三张图片分别是： 1.进度条填充部分的背景，带渐变颜色带节点小勾2.进度条未填充部分的背景，纯色3.进度条外框背景，是一张镂空图，颜色和进度条外的颜色一致 注意这三张图片的大小必须一致，将这三张图片叠加到一起就是我们的进度条了。至于进度条的动画，我们只要对第二层的那张图片实现一个属性动画就可以了： 12345678public void setProgress(float stage) &#123; int progressWidth = ivProgress.getWidth(); ObjectAnimator animator = ObjectAnimator.ofFloat(ivProgress, "translationX", stage * progressWidth); animator.setDuration((int) (Math.abs(stage - currentStage) * 1000)); animator.start(); currentStage = stage;&#125; 至于如何控制到哪一个节点，这个可以自己拿尺子量一下，多试几次，上面代码中的stage就是这个作用，它从这里取值： 12345678//不同阶段进度条所在位置public static final float STAGE0 = 0f;public static final float STAGE1 = 0.046f;public static final float STAGE2 = 0.285f;public static final float STAGE3 = 0.523f;public static final float STAGE4 = 0.761f;public static final float STAGE5 = 1f; 这样就已经实现了一个看上去有点复杂的进度条了，妥妥的。 源码地址]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[避免重复吐司(Toast)时，显示时间过长]]></title>
       <url>%2F2017%2F01%2F08%2F201701081106%2F</url>
       <content type="text"><![CDATA[当短时间内多次调用Toast.makeText方法时，会出现吐司显示的内容显示时间过长，或者当前吐司没有显示最新内容的情况。 这是因为吐司会像排队一样，每一个吐司都会有自己固定的时间（短吐司为2秒，长吐司为3.5秒），新的吐司需要在前面的吐司显示结束之后才会出现。解决这种情况也很简单。 在公共的工具类里面，增加这样一个方法来弹吐司： 123456789101112131415public void showToast(Context context, String text, boolean isLongLength) &#123; int length; if (isLongLength) &#123; length = Toast.LENGTH_LONG; &#125; else &#123; length = Toast.LENGTH_SHORT; &#125; if (toast == null) &#123; toast = Toast.makeText(context, text, length); &#125; else &#123; toast.setText(text); toast.setDuration(length); &#125; toast.show();&#125; 妥妥的。]]></content>
