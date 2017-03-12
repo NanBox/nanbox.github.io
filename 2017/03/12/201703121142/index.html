@@ -1,0 +1,1002 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="教程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在项目中，如果要用到滑动控件嵌套滑动控件，总会让人很心塞。因为很可能会出现冲突的问题。这里举个例子，利用事件分发机制，处理侧滑菜单控件和列表中的侧滑删除控件间的冲。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="像QQ一样处理侧滑菜单和侧滑删除间的冲突">
+<meta property="og:url" content="http://yoursite.com/2017/03/12/201703121142/index.html">
+<meta property="og:site_name" content="SouthernBox">
+<meta property="og:description" content="在项目中，如果要用到滑动控件嵌套滑动控件，总会让人很心塞。因为很可能会出现冲突的问题。这里举个例子，利用事件分发机制，处理侧滑菜单控件和列表中的侧滑删除控件间的冲。">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201703121142.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/SwipeMenuLayout/SwipeMenuLayout.gif">
+<meta property="og:updated_time" content="2017-03-12T04:48:30.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="像QQ一样处理侧滑菜单和侧滑删除间的冲突">
+<meta name="twitter:description" content="在项目中，如果要用到滑动控件嵌套滑动控件，总会让人很心塞。因为很可能会出现冲突的问题。这里举个例子，利用事件分发机制，处理侧滑菜单控件和列表中的侧滑删除控件间的冲。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201703121142.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/12/201703121142/"/>
+
+
+
+
+
+  <title> 像QQ一样处理侧滑菜单和侧滑删除间的冲突 | SouthernBox </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SouthernBox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/201703121142/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="SouthernBox">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="SouthernBox">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="SouthernBox" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                像QQ一样处理侧滑菜单和侧滑删除间的冲突
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T11:43:44+08:00">
+              2017-03-12
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2017-03-12T12:48:30+08:00">
+              2017-03-12
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/12/201703121142/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/201703121142/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/03/12/201703121142/" class="leancloud_visitors" data-flag-title="像QQ一样处理侧滑菜单和侧滑删除间的冲突">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/uploads/images/cover/cover_201703121142.png" alt=""></p>
+<p>在项目中，如果要用到滑动控件嵌套滑动控件，总会让人很心塞。因为很可能会出现冲突的问题。这里举个例子，利用事件分发机制，处理侧滑菜单控件和列表中的侧滑删除控件间的冲。</p>
+<a id="more"></a>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>提到侧滑删除，一个经典的例子就是QQ了。QQ的首页是一个大的侧滑菜单控件，嵌套一个列表，列表里面再嵌套侧滑删除的控件。我们就仿照这个样式，看看能不能做一个和它类似的效果。</p>
+<p>这里关注的重点是在滑动手势的处理上，简单分析一下需要做什么处理：</p>
+<p>（下面把侧滑菜单控件称作菜单控件，列表侧滑删除控件称作删除控件。）</p>
+<ol>
+<li><p>在首页上下滑动时，滚动列表。</p>
+</li>
+<li><p>菜单控件关闭的情况下，如果列表里面没有展开的删除项，则手指向右滑动是滑动菜单控件，向左滑动是滑动删除控件。</p>
+</li>
+<li><p>如果列表里面有展开的删除控件，则菜单控件和列表项都不可滑动。除了删除按键，点击其他区域，都是将展开项关闭。</p>
+</li>
+<li><p>当手指滑动删除控件时，手指滑动到屏幕的任意区域都可以滑动展开项。</p>
+</li>
+<li><p>菜单控件打开的情况下，点击右边主页区域，将菜单控件关闭。</p>
+</li>
+</ol>
+<p>有点复杂的感觉啊，我们一个个来解决。</p>
+<p>我自定义了上面说到的三个控件，根据嵌套关系，从大到小分别是：</p>
+<ul>
+<li>菜单控件SwipeMenuLayout</li>
+<li>列表控件MyRecyclerView</li>
+<li>删除控件SwipeDeleteLayout</li>
+</ul>
+<p>其中，SwipeMenuLayout和SwipeDeleteLayout都是继承自FrameLayout，用ViewDragHelper实现滑动效果。MyRecyclerView则继承自RecyclerView。</p>
+<p>我们知道事件分发和三个方法有关：</p>
+<ul>
+<li>负责分发的dispatchTouchEvent</li>
+<li>负责拦截的onInterceptTouchEvent</li>
+<li>负责消费的onTouchEvent</li>
+</ul>
+<p>简单概括一下这个机制就是：分发从父到子，消费从子到父。</p>
+<p>一般我们不对分发做特殊处理，下面按执行顺序看看三个控件的onInterceptTouchEvent和onTouchEvent方法是怎么写的。</p>
+<h1 id="onInterceptTouchEvent"><a href="#onInterceptTouchEvent" class="headerlink" title="onInterceptTouchEvent"></a>onInterceptTouchEvent</h1><p>onInterceptTouchEvent方法的返回值决定是否拦截事件。</p>
+<h2 id="菜单控件"><a href="#菜单控件" class="headerlink" title="菜单控件"></a>菜单控件</h2><p>这部分要稍微啰嗦一点。我们先看看菜单关闭的情况，这时如果手指向右滑且没有展开的删除控件，我们就可以把事件拦截了，所以onInterceptTouchEvent可以写成这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (mState == State.CLOSE) &#123;</div><div class="line">    <span class="keyword">switch</span> (ev.getAction()) &#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN: &#123;</div><div class="line">            mDownX = ev.getRawX();</div><div class="line">            mDownY = ev.getRawY();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE: &#123;</div><div class="line">            <span class="keyword">float</span> deltaX = ev.getRawX() - mDownX;</div><div class="line">            <span class="keyword">float</span> deltaY = ev.getRawY() - mDownY;</div><div class="line"></div><div class="line">            <span class="comment">//向右滑动且列表没有展开项且横向滑动距离比竖向滑动距离大，则拦截</span></div><div class="line">            <span class="keyword">if</span> (deltaX &gt; <span class="number">0</span> &amp;&amp;</div><div class="line">                    MainAdapter.mOpenItems.size() == <span class="number">0</span> &amp;&amp;</div><div class="line">                    Math.abs(deltaY / deltaX) &lt; <span class="number">1</span>) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>mState代表当前侧滑控件的状态，MainAdapter.mOpenItems保存的是当前打开的删除控件。我使用Math.abs(deltaY / deltaX)是否小于1来判断手指的滑动方向。</p>
+<p>这里还有两种不拦截的情况，向左滑动或者有展开项的话，都是和侧滑菜单没关系的，滑动事件里面再加入以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果是向左滑，且竖直滑动距离大于横向滑动距离，不拦截</span></div><div class="line"><span class="comment">//MainPage打开的item个数大于0，不拦截</span></div><div class="line"><span class="keyword">if</span> ((deltaX &lt; <span class="number">0</span> &amp;&amp; Math.abs(deltaY / deltaX) &gt; <span class="number">1</span>) ||</div><div class="line">    MainAdapter.mOpenItems.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来是菜单打开的情况。这时候当手指点击了右侧的主页面区域是需要拦截并且将菜单关闭。如果手指向右滑动则不需要拦截：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (mState == State.OPEN) &#123;</div><div class="line">    <span class="comment">//完全展开时并且点到主页面，拦截并关闭菜单</span></div><div class="line">    <span class="keyword">if</span> (mMainContent.getLeft() &lt;= mRange &amp;&amp; ev.getRawX() &gt; mRange) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">switch</span> (ev.getAction()) &#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">            mDownX = ev.getRawX();</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">            <span class="comment">//如果是向右滑，不拦截</span></div><div class="line">            <span class="keyword">float</span> deltaX = ev.getRawX() - mDownX;</div><div class="line">            <span class="keyword">if</span> (deltaX &gt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>mRange是侧滑出来的菜单宽度，关闭菜单的操作可以放在ViewDragHelper的Callback房里里处理。</p>
+<p>除了上面这些情况，默认情况下是否拦截交给ViewDragHelper处理就好了，调用它的shouldInterceptTouchEvent方法。</p>
+<p>完整代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mState == State.CLOSE) &#123;</div><div class="line">        <span class="keyword">switch</span> (ev.getAction()) &#123;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN: &#123;</div><div class="line">                mDownX = ev.getRawX();</div><div class="line">                mDownY = ev.getRawY();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE: &#123;</div><div class="line">                <span class="keyword">float</span> deltaX = ev.getRawX() - mDownX;</div><div class="line">                <span class="keyword">float</span> deltaY = ev.getRawY() - mDownY;</div><div class="line">                <span class="comment">//向右滑动且列表没有展开项且横向滑动距离比竖向滑动距离大，则拦截</span></div><div class="line">                <span class="keyword">if</span> (deltaX &gt; <span class="number">0</span> &amp;&amp;</div><div class="line">                    MainAdapter.mOpenItems.size() == <span class="number">0</span> &amp;&amp;</div><div class="line">                    Math.abs(deltaY / deltaX) &lt; <span class="number">1</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="comment">//如果是向左滑，且竖直滑动距离大于横向滑动距离，不拦截</span></div><div class="line">                <span class="comment">//MainPage打开的item个数大于0，不拦截</span></div><div class="line">                <span class="keyword">if</span> ((deltaX &lt; <span class="number">0</span> &amp;&amp; Math.abs(deltaY / deltaX) &gt; <span class="number">1</span>) ||</div><div class="line">                        MainAdapter.mOpenItems.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mState == State.OPEN) &#123;</div><div class="line">        <span class="comment">//完全展开时并且点到主页面，拦截并关闭菜单</span></div><div class="line">        <span class="keyword">if</span> (mMainContent.getLeft() &lt;= mRange &amp;&amp; ev.getRawX() &gt; mRange) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">switch</span> (ev.getAction()) &#123;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">                mDownX = ev.getRawX();</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">                <span class="comment">//如果是向右滑，不拦截</span></div><div class="line">                <span class="keyword">float</span> deltaX = ev.getRawX() - mDownX;</div><div class="line">                <span class="keyword">if</span> (deltaX &gt; <span class="number">0</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> mDragHelper.shouldInterceptTouchEvent(ev);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="列表控件"><a href="#列表控件" class="headerlink" title="列表控件"></a>列表控件</h2><p>列表里面其实只做了一个处理，就是判断上下滑动的时候就把事件拦截了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent e)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (e.getAction()) &#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">            mDownX = e.getRawX();</div><div class="line">            mDownY = e.getRawY();</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">            <span class="comment">//竖向滑动时拦截事件</span></div><div class="line">            <span class="keyword">float</span> deltaX = e.getRawX() - mDownX;</div><div class="line">            <span class="keyword">float</span> deltaY = e.getRawY() - mDownY;</div><div class="line">            <span class="keyword">if</span> (deltaY != <span class="number">0.0</span> &amp;&amp;</div><div class="line">                Math.abs(deltaX / deltaY) &lt; <span class="number">1</span>) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onInterceptTouchEvent(e);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="删除控件"><a href="#删除控件" class="headerlink" title="删除控件"></a>删除控件</h2><p>这里什么都不用做，交给ViewDragHelper就好了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> mDragHelper.shouldInterceptTouchEvent(ev);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="onTouchEvent"><a href="#onTouchEvent" class="headerlink" title="onTouchEvent"></a>onTouchEvent</h1><p>onTouchEvent方法的返回值决定是否消费事件。</p>
+<h2 id="删除控件-1"><a href="#删除控件-1" class="headerlink" title="删除控件"></a>删除控件</h2><p>删除控件的onTouchEvent又有几个地方要做特殊处理的。当有展开的删除项时，点击别的删除项时就将展开的关闭。这样就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//存在已展开的控件且当前控件为关闭状态，则将所有展开控件关闭</span></div><div class="line"><span class="keyword">if</span> (MainAdapter.mOpenItems.size() &gt; <span class="number">0</span> &amp;&amp; mState == State.CLOSE) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我没有消费事件，也没有进行关闭的操作，因为我把关闭的操作交给父控件去处理了，否则会有卡顿的现象（QQ就有这个问题）。</p>
+<p>如果点击的是展开的删除项左边区域，这个又比较特殊了。因为手指按下之后，有可能是滑动，也可能是点击。滑动的话是滑动删除项，点击则是将删除项关闭。所以我们要判断一下用户是否有滑动的操作:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">switch</span> (event.getAction()) &#123;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">        mDownX = event.getRawX();</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">        <span class="keyword">float</span> deltaX = event.getRawX() - mDownX;</div><div class="line">        <span class="keyword">if</span> (Math.abs(deltaX) &gt; <span class="number">50</span>) &#123;</div><div class="line">            isDrag = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">        <span class="keyword">if</span> (!isDrag &amp;&amp;</div><div class="line">                event.getRawX() &lt;= mWidth - mBackWidth) &#123;</div><div class="line">            close();</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        isDrag = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当活动距离大于50时，我就把它当做是一个滑动操作，这时候把滑动交给ViewDragHelper处理，否则就将当前控件关闭。</p>
+<p>最后还有一个，当我滑动删除控件时，如果手指滑到了别的地方，滑动的依然是当前这个删除控件。换一个说法，其实就是一旦滑动了，父控件就不能再拦截我的滑动事件了。其实ViewGroup里面有一个requestDisallowInterceptTouchEvent方法，传true的时候，相当于通知它的所有父控件不要再拦截了。所以可以这样来处理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">switch</span> (event.getAction()) &#123;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">        requestDisallowInterceptTouchEvent(<span class="keyword">true</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">        requestDisallowInterceptTouchEvent(<span class="keyword">false</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">        requestDisallowInterceptTouchEvent(<span class="keyword">false</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>完整代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">    <span class="comment">//存在已展开的控件且当前控件为关闭状态，则将所有展开控件关闭</span></div><div class="line">    <span class="keyword">if</span> (MainAdapter.mOpenItems.size() &gt; <span class="number">0</span> &amp;&amp; mState == State.CLOSE) &#123;</div><div class="line">        MainAdapter.closeAll();</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">switch</span> (event.getAction()) &#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">            mDownX = event.getRawX();</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">            requestDisallowInterceptTouchEvent(<span class="keyword">true</span>);</div><div class="line">            <span class="keyword">float</span> deltaX = event.getRawX() - mDownX;</div><div class="line">            <span class="keyword">if</span> (Math.abs(deltaX) &gt; <span class="number">50</span>) &#123;</div><div class="line">                isDrag = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">            requestDisallowInterceptTouchEvent(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">            requestDisallowInterceptTouchEvent(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">if</span> (!isDrag &amp;&amp;</div><div class="line">                    event.getRawX() &lt;= mWidth - mBackWidth) &#123;</div><div class="line">                <span class="comment">//展开状态下，点击左侧部分将其关闭</span></div><div class="line">                close();</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            isDrag = <span class="keyword">false</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    mDragHelper.processTouchEvent(event);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="列表控件-1"><a href="#列表控件-1" class="headerlink" title="列表控件"></a>列表控件</h2><p>当有展开删除项且点击了别的删除项的时候，把关闭的操作继续往父控件抛就好了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent e)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> MainAdapter.mOpenItems.size() == <span class="number">0</span> &amp;&amp; <span class="keyword">super</span>.onTouchEvent(e);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="菜单控件-1"><a href="#菜单控件-1" class="headerlink" title="菜单控件"></a>菜单控件</h2><p>在这里处理一下上面说的那种情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (MainAdapter.mOpenItems.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">        MainAdapter.closeAll();</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    mDragHelper.processTouchEvent(event);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p>扯了这么多，看下效果吧：</p>
+<p><img src="/uploads/images/SwipeMenuLayout/SwipeMenuLayout.gif" alt=""></p>
+<p>搞半天其实也就这么样而已。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>这篇有点啰嗦啊，里面涉及到的细节比较多。最后可能还会存在一些问题，这里主要是提供利用事件分发机制，处理手势冲突的思路。</p>
+<p>写这个的时候发现QQ也有一些小问题，比如QQ在删除控件展开的情况下，按住删除控件左边区域下滑后，再左右滑，会出现列表跳动的问题。</p>
+<p>大家可以点下面去看源码。就到这吧，妥妥的。</p>
+<p><a href="https://github.com/SouthernBox/SwipeMenuLayout" target="_blank" rel="external">源码地址</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/04/201703041507/" rel="next" title="Android Studio 2.3 正式版发布！看看有什么新功能">
+                <i class="fa fa-chevron-left"></i> Android Studio 2.3 正式版发布！看看有什么新功能
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/12/201703121142/"
+           data-title="像QQ一样处理侧滑菜单和侧滑删除间的冲突" data-url="http://yoursite.com/2017/03/12/201703121142/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="SouthernBox" />
+          <p class="site-author-name" itemprop="name">SouthernBox</p>
+          <p class="site-description motion-element" itemprop="description">Android</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/southernbox" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/4819d8ed1d8b/latest_articles" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#onInterceptTouchEvent"><span class="nav-number">2.</span> <span class="nav-text">onInterceptTouchEvent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#菜单控件"><span class="nav-number">2.1.</span> <span class="nav-text">菜单控件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表控件"><span class="nav-number">2.2.</span> <span class="nav-text">列表控件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除控件"><span class="nav-number">2.3.</span> <span class="nav-text">删除控件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#onTouchEvent"><span class="nav-number">3.</span> <span class="nav-text">onTouchEvent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除控件-1"><span class="nav-number">3.1.</span> <span class="nav-text">删除控件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表控件-1"><span class="nav-number">3.2.</span> <span class="nav-text">列表控件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#菜单控件-1"><span class="nav-number">3.3.</span> <span class="nav-text">菜单控件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#效果"><span class="nav-number">4.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SouthernBox</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"southernbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("yUWAc1uEvk6u3zVnrTkA7Kc1-gzGzoHsz", "Xu2GAwK8aLTEMnkL3A5FxkXS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
