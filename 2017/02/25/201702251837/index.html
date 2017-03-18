@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="无意中了解到iOS开发里面有一个叫Reveal的神器，用于UI调试。要是俺们安卓也能实现类似效果就好了。">
+<meta name="description" content="无意中了解到 iOS 开发里面有一个叫 Reveal 的神器，用于 UI 调试。要是俺们安卓也能实现类似效果就好了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 Scalpel 3D展示界面布局">
+<meta property="og:title" content="使用 Scalpel 3D 展示界面布局">
 <meta property="og:url" content="http://yoursite.com/2017/02/25/201702251837/index.html">
 <meta property="og:site_name" content="SouthernBox">
-<meta property="og:description" content="无意中了解到iOS开发里面有一个叫Reveal的神器，用于UI调试。要是俺们安卓也能实现类似效果就好了。">
+<meta property="og:description" content="无意中了解到 iOS 开发里面有一个叫 Reveal 的神器，用于 UI 调试。要是俺们安卓也能实现类似效果就好了。">
 <meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201702251837.png">
 <meta property="og:image" content="http://yoursite.com/uploads/images/Scalpel/Reveal.png">
 <meta property="og:image" content="http://yoursite.com/uploads/images/Scalpel/Scalpel.gif">
-<meta property="og:updated_time" content="2017-02-25T10:40:05.639Z">
+<meta property="og:updated_time" content="2017-03-18T08:08:46.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 Scalpel 3D展示界面布局">
-<meta name="twitter:description" content="无意中了解到iOS开发里面有一个叫Reveal的神器，用于UI调试。要是俺们安卓也能实现类似效果就好了。">
+<meta name="twitter:title" content="使用 Scalpel 3D 展示界面布局">
+<meta name="twitter:description" content="无意中了解到 iOS 开发里面有一个叫 Reveal 的神器，用于 UI 调试。要是俺们安卓也能实现类似效果就好了。">
 <meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201702251837.png">
 
 
@@ -131,7 +131,7 @@
 
 
 
-  <title> 使用 Scalpel 3D展示界面布局 | SouthernBox </title>
+  <title> 使用 Scalpel 3D 展示界面布局 | SouthernBox </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -289,7 +289,7 @@
             
             
               
-                使用 Scalpel 3D展示界面布局
+                使用 Scalpel 3D 展示界面布局
               
             
           </h1>
@@ -310,8 +310,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2017-02-25T18:40:05+08:00">
-              2017-02-25
+            <time title="Post modified" itemprop="dateModified" datetime="2017-03-18T16:08:46+08:00">
+              2017-03-18
             </time>
             
           </span>
@@ -333,7 +333,7 @@
 
           
           
-             <span id="/2017/02/25/201702251837/" class="leancloud_visitors" data-flag-title="使用 Scalpel 3D展示界面布局">
+             <span id="/2017/02/25/201702251837/" class="leancloud_visitors" data-flag-title="使用 Scalpel 3D 展示界面布局">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -359,17 +359,17 @@
 
       
         <p><img src="/uploads/images/cover/cover_201702251837.png" alt=""></p>
-<p>无意中了解到iOS开发里面有一个叫Reveal的神器，用于UI调试。要是俺们安卓也能实现类似效果就好了。</p>
+<p>无意中了解到 iOS 开发里面有一个叫 Reveal 的神器，用于 UI 调试。要是俺们安卓也能实现类似效果就好了。</p>
 <a id="more"></a>
-<p>Reveal看上去是这个样子的：</p>
+<p>Reveal 看上去是这个样子的：</p>
 <p><img src="/uploads/images/Scalpel/Reveal.png" alt=""></p>
 <p>很酷炫有木有！</p>
-<p>什么？Jake Wharton大神早在几年前就给我们准备了类似的开源库了！</p>
-<p>今天要介绍的就是大神的Scalpel，可以实现在手机上3D展示届满布局，而且用起来超级简单！</p>
-<p>在Gradle中引入Scalpel：</p>
+<p>什么？Jake Wharton 大神早在几年前就给我们准备了类似的开源库了！</p>
+<p>今天要介绍的就是大神的 Scalpel，可以实现在手机上 3D 展示届满布局，而且用起来超级简单！</p>
+<p>在 Gradle 中引入 Scalpel：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.jakewharton.scalpel:scalpel:1.1.2&apos;</div></pre></td></tr></table></figure>
-<p>然后我们来到需要展示效果的布局文件，将它的根布局修改为ScalpelFrameLayout，看名字也能猜到它是继承FrameLayout的。（要是去看源码你会发现，其实整个库只有ScalpelFrameLayout这一个文件，四百多行代码，膜拜大神！）</p>
-<p>然后在代码里面将setContentView修改成以下代码：</p>
+<p>然后我们来到需要展示效果的布局文件，将它的根布局修改为 ScalpelFrameLayout，看名字也能猜到它是继承 FrameLayout 的。（要是去看源码你会发现，其实整个库只有 ScalpelFrameLayout这一个文件，四百多行代码，膜拜大神！）</p>
+<p>然后在代码里面将 setContentView 修改成以下代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">View mainView = getLayoutInflater().inflate(R.layout.activity_main, <span class="keyword">null</span>);</div><div class="line">ScalpelFrameLayout mScalpelFrameLayout = <span class="keyword">new</span> ScalpelFrameLayout(<span class="keyword">this</span>);</div><div class="line">mScalpelFrameLayout.addView(mainView);</div><div class="line">mScalpelFrameLayout.setLayerInteractionEnabled(<span class="keyword">true</span>); <span class="comment">//开启3D效果</span></div><div class="line"><span class="comment">//mScalpelFrameLayout.setDrawIds(true); //是否显示控件id</span></div><div class="line"><span class="comment">//mScalpelFrameLayout.setDrawViews(false); //是否展示控件内容，默认为true</span></div><div class="line"><span class="comment">//mScalpelFrameLayout.setChromeColor(Color.RED); //修改边框颜色</span></div><div class="line"><span class="comment">//mScalpelFrameLayout.setChromeShadowColor(Color.YELLOW); //修改阴影颜色</span></div><div class="line">setContentView(mScalpelFrameLayout);</div></pre></td></tr></table></figure>
 <p>跑一下看看效果：</p>
 <p><img src="/uploads/images/Scalpel/Scalpel.gif" alt=""></p>
@@ -407,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/18/201702181254/" rel="next" title="给RecyclerView加上折叠的效果">
-                <i class="fa fa-chevron-left"></i> 给RecyclerView加上折叠的效果
+              <a href="/2017/02/18/201702181254/" rel="next" title="给 RecyclerView 加上折叠的效果">
+                <i class="fa fa-chevron-left"></i> 给 RecyclerView 加上折叠的效果
               </a>
             
           </div>
@@ -446,7 +446,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2017/02/25/201702251837/"
-           data-title="使用 Scalpel 3D展示界面布局" data-url="http://yoursite.com/2017/02/25/201702251837/">
+           data-title="使用 Scalpel 3D 展示界面布局" data-url="http://yoursite.com/2017/02/25/201702251837/">
       </div>
     
   </div>

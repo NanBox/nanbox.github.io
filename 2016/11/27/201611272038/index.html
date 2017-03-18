@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="列表顶部的标签悬浮大家应该都知道，但“顶上去”是个啥玩意？">
+<meta name="description" content="列表顶部的标签悬浮大家应该都知道，但「顶上去」是个啥玩意？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实现列表悬浮标签“顶上去”的效果">
+<meta property="og:title" content="实现列表悬浮标签「顶上去」的效果">
 <meta property="og:url" content="http://yoursite.com/2016/11/27/201611272038/index.html">
 <meta property="og:site_name" content="SouthernBox">
-<meta property="og:description" content="列表顶部的标签悬浮大家应该都知道，但“顶上去”是个啥玩意？">
+<meta property="og:description" content="列表顶部的标签悬浮大家应该都知道，但「顶上去」是个啥玩意？">
 <meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201611272038.png">
 <meta property="og:image" content="http://yoursite.com/uploads/images/IndexBar/FlowIndex.gif">
-<meta property="og:updated_time" content="2017-01-08T04:52:19.291Z">
+<meta property="og:updated_time" content="2017-03-18T08:02:57.744Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实现列表悬浮标签“顶上去”的效果">
-<meta name="twitter:description" content="列表顶部的标签悬浮大家应该都知道，但“顶上去”是个啥玩意？">
+<meta name="twitter:title" content="实现列表悬浮标签「顶上去」的效果">
+<meta name="twitter:description" content="列表顶部的标签悬浮大家应该都知道，但「顶上去」是个啥玩意？">
 <meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201611272038.png">
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <title> 实现列表悬浮标签“顶上去”的效果 | SouthernBox </title>
+  <title> 实现列表悬浮标签「顶上去」的效果 | SouthernBox </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -288,7 +288,7 @@
             
             
               
-                实现列表悬浮标签“顶上去”的效果
+                实现列表悬浮标签「顶上去」的效果
               
             
           </h1>
@@ -309,8 +309,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2017-01-08T12:52:19+08:00">
-              2017-01-08
+            <time title="Post modified" itemprop="dateModified" datetime="2017-03-18T16:02:57+08:00">
+              2017-03-18
             </time>
             
           </span>
@@ -332,7 +332,7 @@
 
           
           
-             <span id="/2016/11/27/201611272038/" class="leancloud_visitors" data-flag-title="实现列表悬浮标签“顶上去”的效果">
+             <span id="/2016/11/27/201611272038/" class="leancloud_visitors" data-flag-title="实现列表悬浮标签「顶上去」的效果">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -358,7 +358,7 @@
 
       
         <p><img src="/uploads/images/cover/cover_201611272038.png" alt=""></p>
-<p>列表顶部的标签悬浮大家应该都知道，但“顶上去”是个啥玩意？  </p>
+<p>列表顶部的标签悬浮大家应该都知道，但「顶上去」是个啥玩意？  </p>
 <a id="more"></a>
 <p>看一下效果图就知道了，注意看顶部的悬浮标签切换时的效果：</p>
 <p><img src="/uploads/images/IndexBar/FlowIndex.gif" alt=""></p>
@@ -372,8 +372,8 @@
 <p>感觉比想象中简单啊。可以看出逻辑都是在滑动事件里，我们用RecyclerView的addOnScrollListener方法监听列表的滑动事件，在监听器里面实现上面的逻辑。说的可能不是很好，看代码就知道多简单了。</p>
 <p>监听器的代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">mScrollListener</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">OnScrollListener</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mFlowHeight;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mCurrentPosition = -<span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrollStateChanged</span><span class="params">(RecyclerView recyclerView, <span class="keyword">int</span> newState)</span> </span>&#123;</div><div class="line">        mFlowHeight = vFlow.getMeasuredHeight();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrolled</span><span class="params">(RecyclerView recyclerView, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();</div><div class="line">        View view = layoutManager.findViewByPosition(firstVisibleItemPosition + <span class="number">1</span>);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (view != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (view.getTop() &lt;= mFlowHeight &amp;&amp; isItem(firstVisibleItemPosition + <span class="number">1</span>)) &#123;</div><div class="line">                vFlow.setY(view.getTop() - mFlowHeight);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                vFlow.setY(<span class="number">0</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mCurrentPosition != firstVisibleItemPosition) &#123;</div><div class="line">            mCurrentPosition = firstVisibleItemPosition;</div><div class="line">            tvFlowIndex.setText(mList.get(mCurrentPosition).getFirstWord());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> position 对应项的下标</div><div class="line">     * <span class="doctag">@return</span> 是否为标签项</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isItem</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mAdapter.getItemViewType(position) == MainAdapter.VIEW_INDEX;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样就已经实现“顶上去的效果了”，妥妥的。</p>
-<p>最后说明一下，这个代码是使用RecyclerView实现的，要是用ListView的话是有问题的。ListView的item使用getTop()方法，刚开始拿到的应该是item距离整个ListView最顶部的距离，要都是这样还好处理，但是复用item的时候这个值又发生了变化。<br>总之就是，在使用ListView的时候，我还没有好的实现方法。要是哪位知道怎么实现，希望可以留言分享一下，不胜感激！</p>
+<p>这样就已经实现「顶上去」的效果了，妥妥的。</p>
+<p>最后说明一下，这个代码是使用 RecyclerView 实现的，要是用 ListView 的话是有问题的。ListView的item 使用 getTop() 方法，刚开始拿到的应该是 item 距离整个 ListView 最顶部的距离，要都是这样还好处理，但是复用item的时候这个值又发生了变化。<br>总之就是，在使用 ListView 的时候，我还没有好的实现方法。要是哪位知道怎么实现，希望可以留言分享一下，不胜感激！</p>
 <p><a href="https://github.com/SouthernBox/IndexBar" target="_blank" rel="external">源码地址</a></p>
 
       
@@ -419,8 +419,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/12/13/201612132202/" rel="prev" title="给Android图表库MPAndroidChart的坐标换行">
-                给Android图表库MPAndroidChart的坐标换行 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/12/13/201612132202/" rel="prev" title="给 Android 图表库 MPAndroidChart 的坐标换行">
+                给 Android 图表库 MPAndroidChart 的坐标换行 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -448,7 +448,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/11/27/201611272038/"
-           data-title="实现列表悬浮标签“顶上去”的效果" data-url="http://yoursite.com/2016/11/27/201611272038/">
+           data-title="实现列表悬浮标签「顶上去」的效果" data-url="http://yoursite.com/2016/11/27/201611272038/">
       </div>
     
   </div>

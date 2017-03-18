@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://yoursite.com/uploads/images/SectionProgressBar/section_progress_bar_bg.png">
 <meta property="og:image" content="http://yoursite.com/uploads/images/SectionProgressBar/section_progress_bar_cover.png">
 <meta property="og:image" content="http://yoursite.com/uploads/images/SectionProgressBar/SectionProgressBar.png">
-<meta property="og:updated_time" content="2017-02-05T08:49:22.958Z">
+<meta property="og:updated_time" content="2017-03-18T08:04:21.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单实现带节点的进度条">
 <meta name="twitter:description" content="带节点进度条的实现方法不止一个，但是如果要实现图中这种效果的，初步看好像还不简单。进度条的形状不规则、背景是渐变颜色、节点上面还有个勾。这里提供一个很简单的思路，简单的都不好意思说了……">
@@ -312,8 +312,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2017-02-05T16:49:22+08:00">
-              2017-02-05
+            <time title="Post modified" itemprop="dateModified" datetime="2017-03-18T16:04:21+08:00">
+              2017-03-18
             </time>
             
           </span>
@@ -371,7 +371,7 @@
 <p>1.进度条填充部分的背景，带渐变颜色带节点小勾<br>2.进度条未填充部分的背景，纯色<br>3.进度条外框背景，是一张镂空图，颜色和进度条外的颜色一致  </p>
 <p>注意这三张图片的大小必须一致，将这三张图片叠加到一起就是我们的进度条了。至于进度条的动画，我们只要对第二层的那张图片实现一个属性动画就可以了：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProgress</span><span class="params">(<span class="keyword">float</span> stage)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> progressWidth = ivProgress.getWidth();</div><div class="line">    ObjectAnimator animator = ObjectAnimator.ofFloat(ivProgress, <span class="string">"translationX"</span>, stage * progressWidth);</div><div class="line">    animator.setDuration((<span class="keyword">int</span>) (Math.abs(stage - currentStage) * <span class="number">1000</span>));</div><div class="line">    animator.start();</div><div class="line">    currentStage = stage;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>至于如何控制到哪一个节点，这个可以自己拿尺子量一下，多试几次，上面代码中的stage就是这个作用，它从这里取值：</p>
+<p>至于如何控制到哪一个节点，这个可以自己拿尺子量一下，多试几次，上面代码中的 stage 就是这个作用，它从这里取值：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//不同阶段进度条所在位置</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> STAGE0 = <span class="number">0f</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> STAGE1 = <span class="number">0.046f</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> STAGE2 = <span class="number">0.285f</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> STAGE3 = <span class="number">0.523f</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> STAGE4 = <span class="number">0.761f</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> STAGE5 = <span class="number">1f</span>;</div></pre></td></tr></table></figure>
 <p>最后看一下效果。</p>
 <p><img src="/uploads/images/SectionProgressBar/SectionProgressBar.png" alt=""></p>
@@ -409,8 +409,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/08/201701081106/" rel="next" title="避免重复吐司(Toast)时，显示时间过长">
-                <i class="fa fa-chevron-left"></i> 避免重复吐司(Toast)时，显示时间过长
+              <a href="/2017/01/08/201701081106/" rel="next" title="避免重复吐司( Toast )时，显示时间过长">
+                <i class="fa fa-chevron-left"></i> 避免重复吐司( Toast )时，显示时间过长
               </a>
             
           </div>
@@ -419,8 +419,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/18/201702181254/" rel="prev" title="给RecyclerView加上折叠的效果">
-                给RecyclerView加上折叠的效果 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/18/201702181254/" rel="prev" title="给 RecyclerView 加上折叠的效果">
+                给 RecyclerView 加上折叠的效果 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
