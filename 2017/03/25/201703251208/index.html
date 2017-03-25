@@ -84,20 +84,19 @@
 
 
 
-<meta name="description" content="现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个 TextInputLayout 的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。">
+<meta name="description" content="在刚推出的 Support Library 25.3.0 里面新增了一个叫 SpringAnimation 的动画，也就是弹簧动画。要是用它来做一个滑动控件下拉回弹的效果，应该不错吧。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实现一个带浮动标签的输入框">
-<meta property="og:url" content="http://yoursite.com/2016/11/27/201611271321/index.html">
+<meta property="og:title" content="带下拉弹簧动画的 ScrollView">
+<meta property="og:url" content="http://yoursite.com/2017/03/25/201703251208/index.html">
 <meta property="og:site_name" content="SouthernBox">
-<meta property="og:description" content="现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个 TextInputLayout 的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。">
-<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201611271321.png">
-<meta property="og:image" content="http://yoursite.com/uploads/images/FloatEditText/FloatEditText.gif">
-<meta property="og:image" content="http://yoursite.com/uploads/images/FloatEditText/Interpolator.png">
-<meta property="og:updated_time" content="2017-03-18T08:01:46.728Z">
+<meta property="og:description" content="在刚推出的 Support Library 25.3.0 里面新增了一个叫 SpringAnimation 的动画，也就是弹簧动画。要是用它来做一个滑动控件下拉回弹的效果，应该不错吧。">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201703251208.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/SpringScrollView/SpringScrollView.gif">
+<meta property="og:updated_time" content="2017-03-25T04:17:01.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实现一个带浮动标签的输入框">
-<meta name="twitter:description" content="现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个 TextInputLayout 的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。">
-<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201611271321.png">
+<meta name="twitter:title" content="带下拉弹簧动画的 ScrollView">
+<meta name="twitter:description" content="在刚推出的 Support Library 25.3.0 里面新增了一个叫 SpringAnimation 的动画，也就是弹簧动画。要是用它来做一个滑动控件下拉回弹的效果，应该不错吧。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201703251208.png">
 
 
 
@@ -125,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/27/201611271321/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/03/25/201703251208/"/>
 
 
 
 
 
-  <title> 实现一个带浮动标签的输入框 | SouthernBox </title>
+  <title> 带下拉弹簧动画的 ScrollView | SouthernBox </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -265,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/27/201611271321/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/25/201703251208/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="SouthernBox">
@@ -289,7 +288,7 @@
             
             
               
-                实现一个带浮动标签的输入框
+                带下拉弹簧动画的 ScrollView
               
             
           </h1>
@@ -301,8 +300,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-27T13:22:03+08:00">
-              2016-11-27
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-25T12:17:37+08:00">
+              2017-03-25
             </time>
 
             &nbsp;|&nbsp;
@@ -310,8 +309,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2017-03-18T16:01:46+08:00">
-              2017-03-18
+            <time title="Post modified" itemprop="dateModified" datetime="2017-03-25T12:17:01+08:00">
+              2017-03-25
             </time>
             
           </span>
@@ -322,8 +321,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/27/201611271321/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/27/201611271321/" itemprop="commentCount"></span>
+                <a href="/2017/03/25/201703251208/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/25/201703251208/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -333,7 +332,7 @@
 
           
           
-             <span id="/2016/11/27/201611271321/" class="leancloud_visitors" data-flag-title="实现一个带浮动标签的输入框">
+             <span id="/2017/03/25/201703251208/" class="leancloud_visitors" data-flag-title="带下拉弹簧动画的 ScrollView">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -358,33 +357,50 @@
       
 
       
-        <p><img src="/uploads/images/cover/cover_201611271321.png" alt=""></p>
-<p>现在带浮动标签的输入框也是一个很常见的东西了，在材料设计里面有一个 TextInputLayout 的控件，我们可以用它实现这个效果。但是材料设计控件的样式比较固定，并不能满足我们产品设计的脑洞。这里提供一个用属性动画实现的方法。</p>
+        <p><img src="/uploads/images/cover/cover_201703251208.png" alt=""></p>
+<p>在刚推出的 Support Library 25.3.0 里面新增了一个叫 SpringAnimation 的动画，也就是弹簧动画。要是用它来做一个滑动控件下拉回弹的效果，应该不错吧。</p>
 <a id="more"></a>
-<p>还是先看看效果吧：</p>
-<p><img src="/uploads/images/FloatEditText/FloatEditText.gif" alt=""></p>
-<p>大概的思路是这样的：</p>
+<h1 id="SpringAnimation"><a href="#SpringAnimation" class="headerlink" title="SpringAnimation"></a>SpringAnimation</h1><p>开始之前，别忘了在 app 的 build.gradle 加上：</p>
+<blockquote>
+<p>compile ‘com.android.support:appcompat-v7:25.3.0’<br>compile ‘com.android.support:design:25.3.0’<br>compile ‘com.android.support:support-dynamic-animation:25.3.0’</p>
+</blockquote>
+<p>然后我们看看 SpringAnimation 的基本用法，首先是它的构造方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringAnimation</span><span class="params">(View v, ViewProperty property, <span class="keyword">float</span> finalPosition)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>(v, property);</div><div class="line">    mSpring = <span class="keyword">new</span> SpringForce(finalPosition);</div><div class="line">    setSpringThreshold();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看命名可以大概猜到参数的意义了：</p>
 <ul>
-<li>控件有两层，一层是浮动的标签，一层是输入框。  </li>
-<li>当点击控件后，标签同时执行一个横向和纵向的缩放动画，还有一个向上移动的动画，让输入框获取到焦点并弹出键盘。  </li>
-<li>当输入框失去焦点时，判断是否有内容，如果没有则让标签执行一个复原的动画。</li>
+<li>v - 要执行动画的控件</li>
+<li>property - 动画的性质，可以选择平移、缩放、旋转等</li>
+<li>finalPosition - 动画结束时，控件所在位置的坐标偏移量</li>
 </ul>
-<p>下面看看控件的布局：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/fl_content"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"55dp"</span></div><div class="line">    <span class="attr">android:background</span>=<span class="string">"@color/white"</span></div><div class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></div><div class="line">    <span class="attr">android:paddingLeft</span>=<span class="string">"20dp"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">EditText</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/et_content_name"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"30dp"</span></div><div class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center_vertical"</span></div><div class="line">        <span class="attr">android:background</span>=<span class="string">"@color/white"</span></div><div class="line">        <span class="attr">android:textColor</span>=<span class="string">"@color/black"</span></div><div class="line">        <span class="attr">android:textCursorDrawable</span>=<span class="string">"@null"</span></div><div class="line">        <span class="attr">android:textSize</span>=<span class="string">"14sp"</span></div><div class="line">        <span class="attr">android:visibility</span>=<span class="string">"gone"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/tv_content_hint"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center_vertical"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"标题"</span></div><div class="line">        <span class="attr">android:textColor</span>=<span class="string">"@color/text_gray"</span></div><div class="line">        <span class="attr">android:textSize</span>=<span class="string">"14sp"</span></div><div class="line">        <span class="attr">android:transformPivotX</span>=<span class="string">"0dp"</span></div><div class="line">        <span class="attr">android:transformPivotY</span>=<span class="string">"-30dp"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>由于 EditText 会默认获取到焦点，所以我先把它隐藏了。这里面值得注意的是 transformPivotXY 这个参数，等下会讲到。</p>
-<p>然后我们创建标签向上缩放的方法，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">animationUp</span><span class="params">()</span> </span>&#123;</div><div class="line">    ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleX"</span>, <span class="number">0.6f</span>);</div><div class="line">    ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleY"</span>, <span class="number">0.6f</span>);</div><div class="line"></div><div class="line">    AnimatorSet animatorSet = <span class="keyword">new</span> AnimatorSet();</div><div class="line">    animatorSet.setDuration(<span class="number">100</span>);</div><div class="line">    animatorSet.setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</div><div class="line">    animatorSet.play(scaleX).with(scaleY); <span class="comment">//两个动画同时开始</span></div><div class="line">    animatorSet.start();</div><div class="line"></div><div class="line">    animatorSet.addListener(<span class="keyword">new</span> Animator.AnimatorListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">            etContent.setVisibility(View.VISIBLE);</div><div class="line">            etContent.requestFocus();</div><div class="line">            <span class="comment">//弹出键盘</span></div><div class="line">            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);</div><div class="line">            imm.showSoftInput(etContent, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationCancel</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">        </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码不难理解，就是同时执行了横向和纵向的缩放动画，让标签缩小到 60%。动画执行完后显示 EditText，让它获取到焦点并弹出键盘。如果 animatorSet.setInterpolator(new DecelerateInterpolator()); 这句不懂的话，看看下面这张图就明白了：</p>
-<p><img src="/uploads/images/FloatEditText/Interpolator.png" alt=""></p>
-<p>到这里，你可能还有的一个疑问就是，向上移动的动画呢？<br>缩放动画是根据控件的基准坐标来进行缩放的。也就是说，当我们把基准坐标设在控件上方时，缩放的时候也会有一个移动的效果。所以在布局里面用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android:transformPivotX=&quot;0dp&quot;</div><div class="line">android:transformPivotY=&quot;-30dp&quot;</div></pre></td></tr></table></figure>
-<p>将标签的基准点设为(0dp, -30dp)，这样我们就省去了移动动画。</p>
-<p>至于复原的动画，就更简单了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">animationDown</span><span class="params">()</span> </span>&#123;</div><div class="line">    etContent.setVisibility(View.GONE);</div><div class="line"></div><div class="line">    ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleX"</span>, <span class="number">1</span>);</div><div class="line">    ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvHint, <span class="string">"scaleY"</span>, <span class="number">1</span>);</div><div class="line"></div><div class="line">    AnimatorSet animatorSet = <span class="keyword">new</span> AnimatorSet();</div><div class="line">    animatorSet.setDuration(<span class="number">100</span>);</div><div class="line">    animatorSet.setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</div><div class="line">    animatorSet.play(scaleX).with(scaleY); <span class="comment">//两个动画同时开始</span></div><div class="line">    animatorSet.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>为了实现失去焦点，标签复原，我们需要监听输入框是否有焦点：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">etContent.setOnFocusChangeListener(<span class="keyword">new</span> OnFocusChangeListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFocusChange</span><span class="params">(View view, <span class="keyword">boolean</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!b &amp;&amp; TextUtils.isEmpty(etContent.getText())) &#123;</div><div class="line">            animationDown();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>这样就已经完成了一个带浮动标签的输入框，妥妥的。  </p>
-<p>虽然实现一个这样的控件不难，但我个人还是希望可以使用原生控件的，希望移动端的设计能多去了解一下材料设计吧。(T_T)</p>
+<p>这里实现的滑动控件是上下滑动的，所以我们这样来获取 SpringAnimation ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">springAnim = <span class="keyword">new</span> SpringAnimation(<span class="keyword">this</span>, SpringAnimation.TRANSLATION_X, <span class="number">0</span>);</div></pre></td></tr></table></figure>
+<p>SpringAnimation 里面有两个比较重要的属性，分别是：</p>
+<ul>
+<li>Stiffness - 刚度，值越大回弹的速度越快，类似于劲度系数，默认值是 1500f  </li>
+<li>DampingRatio - 阻尼，值越小，回弹后，动画来回的次数越多，就是更有「DUANG」的感觉，默认值是 0.5f</li>
+</ul>
+<p>通过</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">springAnim.getSpring().setStiffness(<span class="keyword">float</span> stiffness)</div></pre></td></tr></table></figure>
+<p>和<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">springAnim.getSpring().setDampingRatio(<span class="keyword">float</span> dampingRatio)</div></pre></td></tr></table></figure></p>
+<p>来设置上面两个属性。</p>
+<p>再调用 springAnim.start() 就可以开始动画啦。</p>
+<h1 id="SpringScrollViewion"><a href="#SpringScrollViewion" class="headerlink" title="SpringScrollViewion"></a>SpringScrollViewion</h1><p>我们自定义一个 SpringScrollView 继承 NestedScrollView，重写 onTouchEvent 方法让它有回弹的效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent e)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (e.getAction()) &#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">            <span class="keyword">if</span> (getScrollY() &lt;= <span class="number">0</span>) &#123;</div><div class="line">                <span class="comment">//顶部下拉</span></div><div class="line">                <span class="keyword">if</span> (startDragY == <span class="number">0</span>) &#123;</div><div class="line">                    startDragY = e.getRawY();</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (e.getRawY() - startDragY &gt; <span class="number">0</span>) &#123;</div><div class="line">                    setTranslationY((e.getRawY() - startDragY) / <span class="number">3</span>);</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    springAnim.cancel();</div><div class="line">                    setTranslationY(<span class="number">0</span>);</div><div class="line">                &#125;</div><div class="line">            &#125; </div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">            <span class="keyword">if</span> (getTranslationY() != <span class="number">0</span>) &#123;</div><div class="line">                springAnim.start();</div><div class="line">            &#125;</div><div class="line">            startDragY = <span class="number">0</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onTouchEvent(e);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>简单解释一下哈。</p>
+<p>当 ScrollView 在顶部时，记录下手指所在的 y 轴位置。在顶部并且是往下滑动的时候，给 ScrollView 设置一个纵向的偏移。之所以除以 3，是为了让控件有种要用力才能拖动的感觉。</p>
+<p>在顶部的时候如果是往上滑动，则把动画效果取消，把控件位置复原，否则可能出现控件一直偏移的情况。</p>
+<p>最后当手指抬起时，执行弹簧动画就好了。</p>
+<p>为什么这里用 getRawY() 获取坐标，而不是用 getY() 来获取。因为 getY() 是相对于控件的坐标，当设置了 TranslationY 之后会改变它的值，也就是在滑动的时候 getY() 的值是不连续的，会出现卡顿的现象。而 getRawY() 是相对于屏幕的位置，管你控件怎么动，屏幕都是固定的。 </p>
+<p>下拉回弹的效果就已经完成了。对了，我们顺便把底部上拉的回弹也做一下呗。由于ScrollView只有一个子布局，所以可以通过</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">getScrollY() + getHeight()) &gt;= getChildAt(<span class="number">0</span>).getMeasuredHeight()</div></pre></td></tr></table></figure>
+<p>判断是否滑动到了底部。</p>
+<p>完整代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringScrollView</span> <span class="keyword">extends</span> <span class="title">NestedScrollView</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> startDragY;</div><div class="line">    <span class="keyword">private</span> SpringAnimation springAnim;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SpringScrollView</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SpringScrollView</span><span class="params">(Context context, @Nullable AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SpringScrollView</span><span class="params">(Context context, @Nullable AttributeSet attrs, <span class="keyword">int</span> defStyle)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyle);</div><div class="line">        springAnim = <span class="keyword">new</span> SpringAnimation(<span class="keyword">this</span>, SpringAnimation.TRANSLATION_Y, <span class="number">0</span>);</div><div class="line">        <span class="comment">//刚度 默认1200 值越大回弹的速度越快</span></div><div class="line">        springAnim.getSpring().setStiffness(<span class="number">800.0f</span>);</div><div class="line">        <span class="comment">//阻尼 默认0.5 值越小，回弹之后来回的次数越多</span></div><div class="line">        springAnim.getSpring().setDampingRatio(<span class="number">0.50f</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent e)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (e.getAction()) &#123;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">                <span class="keyword">if</span> (getScrollY() &lt;= <span class="number">0</span>) &#123;</div><div class="line">                    <span class="comment">//顶部下拉</span></div><div class="line">                    <span class="keyword">if</span> (startDragY == <span class="number">0</span>) &#123;</div><div class="line">                        startDragY = e.getRawY();</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span> (e.getRawY() - startDragY &gt; <span class="number">0</span>) &#123;</div><div class="line">                        setTranslationY((e.getRawY() - startDragY) / <span class="number">3</span>);</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        springAnim.cancel();</div><div class="line">                        setTranslationY(<span class="number">0</span>);</div><div class="line">                    &#125;</div><div class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((getScrollY() + getHeight()) &gt;= getChildAt(<span class="number">0</span>).getMeasuredHeight()) &#123;</div><div class="line">                    <span class="comment">//底部上拉</span></div><div class="line">                    <span class="keyword">if</span> (startDragY == <span class="number">0</span>) &#123;</div><div class="line">                        startDragY = e.getRawY();</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span> (e.getRawY() - startDragY &lt; <span class="number">0</span>) &#123;</div><div class="line">                        setTranslationY((e.getRawY() - startDragY) / <span class="number">3</span>);</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        springAnim.cancel();</div><div class="line">                        setTranslationY(<span class="number">0</span>);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">                <span class="keyword">if</span> (getTranslationY() != <span class="number">0</span>) &#123;</div><div class="line">                    springAnim.start();</div><div class="line">                &#125;</div><div class="line">                startDragY = <span class="number">0</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onTouchEvent(e);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后看看效果吧：</p>
+<p><img src="/uploads/images/SpringScrollView/SpringScrollView.gif" alt=""></p>
+<p>同样的思路也可以用在别的滑动控件里面。</p>
+<p>妥妥的。</p>
+<p><a href="https://github.com/SouthernBox/SpringScrollView" target="_blank" rel="external">源码地址</a></p>
 
       
     </div>
@@ -419,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/21/201611212239/" rel="next" title="解决用 drawBitmap 绘制点九图时，点九图不生效的问题">
-                <i class="fa fa-chevron-left"></i> 解决用 drawBitmap 绘制点九图时，点九图不生效的问题
+              <a href="/2017/03/18/201703181630/" rel="next" title="说一说世界上最贵的几幅画（纯属扯淡）">
+                <i class="fa fa-chevron-left"></i> 说一说世界上最贵的几幅画（纯属扯淡）
               </a>
             
           </div>
@@ -428,10 +444,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/27/201611272038/" rel="prev" title="实现列表悬浮标签「顶上去」的效果">
-                实现列表悬浮标签「顶上去」的效果 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -457,8 +469,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/27/201611271321/"
-           data-title="实现一个带浮动标签的输入框" data-url="http://yoursite.com/2016/11/27/201611271321/">
+      <div class="ds-thread" data-thread-key="2017/03/25/201703251208/"
+           data-title="带下拉弹簧动画的 ScrollView" data-url="http://yoursite.com/2017/03/25/201703251208/">
       </div>
     
   </div>
@@ -482,8 +494,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -549,6 +570,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringAnimation"><span class="nav-number">1.</span> <span class="nav-text">SpringAnimation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringScrollViewion"><span class="nav-number">2.</span> <span class="nav-text">SpringScrollViewion</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
