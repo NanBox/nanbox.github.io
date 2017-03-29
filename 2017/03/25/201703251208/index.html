@@ -86,15 +86,15 @@
 
 <meta name="description" content="在刚推出的 Support Library 25.3.0 里面新增了一个叫 SpringAnimation 的动画，也就是弹簧动画。要是用它来做一个滑动控件下拉回弹的效果，应该不错吧。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="带下拉弹簧动画的 ScrollView">
+<meta property="og:title" content="实现一个带下拉弹簧动画的 ScrollView">
 <meta property="og:url" content="http://yoursite.com/2017/03/25/201703251208/index.html">
 <meta property="og:site_name" content="SouthernBox">
 <meta property="og:description" content="在刚推出的 Support Library 25.3.0 里面新增了一个叫 SpringAnimation 的动画，也就是弹簧动画。要是用它来做一个滑动控件下拉回弹的效果，应该不错吧。">
 <meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201703251208.png">
 <meta property="og:image" content="http://yoursite.com/uploads/images/SpringScrollView/SpringScrollView.gif">
-<meta property="og:updated_time" content="2017-03-25T04:17:01.045Z">
+<meta property="og:updated_time" content="2017-03-29T14:40:09.708Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="带下拉弹簧动画的 ScrollView">
+<meta name="twitter:title" content="实现一个带下拉弹簧动画的 ScrollView">
 <meta name="twitter:description" content="在刚推出的 Support Library 25.3.0 里面新增了一个叫 SpringAnimation 的动画，也就是弹簧动画。要是用它来做一个滑动控件下拉回弹的效果，应该不错吧。">
 <meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201703251208.png">
 
@@ -130,7 +130,7 @@
 
 
 
-  <title> 带下拉弹簧动画的 ScrollView | SouthernBox </title>
+  <title> 实现一个带下拉弹簧动画的 ScrollView | SouthernBox </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -288,7 +288,7 @@
             
             
               
-                带下拉弹簧动画的 ScrollView
+                实现一个带下拉弹簧动画的 ScrollView
               
             
           </h1>
@@ -309,8 +309,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2017-03-25T12:17:01+08:00">
-              2017-03-25
+            <time title="Post modified" itemprop="dateModified" datetime="2017-03-29T22:40:09+08:00">
+              2017-03-29
             </time>
             
           </span>
@@ -332,7 +332,7 @@
 
           
           
-             <span id="/2017/03/25/201703251208/" class="leancloud_visitors" data-flag-title="带下拉弹簧动画的 ScrollView">
+             <span id="/2017/03/25/201703251208/" class="leancloud_visitors" data-flag-title="实现一个带下拉弹簧动画的 ScrollView">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -384,7 +384,7 @@
 <p>和<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">springAnim.getSpring().setDampingRatio(<span class="keyword">float</span> dampingRatio)</div></pre></td></tr></table></figure></p>
 <p>来设置上面两个属性。</p>
 <p>再调用 springAnim.start() 就可以开始动画啦。</p>
-<h1 id="SpringScrollViewion"><a href="#SpringScrollViewion" class="headerlink" title="SpringScrollViewion"></a>SpringScrollViewion</h1><p>我们自定义一个 SpringScrollView 继承 NestedScrollView，重写 onTouchEvent 方法让它有回弹的效果：</p>
+<h1 id="SpringScrollView"><a href="#SpringScrollView" class="headerlink" title="SpringScrollView"></a>SpringScrollView</h1><p>我们自定义一个 SpringScrollView 继承 NestedScrollView，重写 onTouchEvent 方法让它有回弹的效果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent e)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (e.getAction()) &#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">            <span class="keyword">if</span> (getScrollY() &lt;= <span class="number">0</span>) &#123;</div><div class="line">                <span class="comment">//顶部下拉</span></div><div class="line">                <span class="keyword">if</span> (startDragY == <span class="number">0</span>) &#123;</div><div class="line">                    startDragY = e.getRawY();</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (e.getRawY() - startDragY &gt; <span class="number">0</span>) &#123;</div><div class="line">                    setTranslationY((e.getRawY() - startDragY) / <span class="number">3</span>);</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    springAnim.cancel();</div><div class="line">                    setTranslationY(<span class="number">0</span>);</div><div class="line">                &#125;</div><div class="line">            &#125; </div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">            <span class="keyword">if</span> (getTranslationY() != <span class="number">0</span>) &#123;</div><div class="line">                springAnim.start();</div><div class="line">            &#125;</div><div class="line">            startDragY = <span class="number">0</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onTouchEvent(e);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>简单解释一下哈。</p>
 <p>当 ScrollView 在顶部时，记录下手指所在的 y 轴位置。在顶部并且是往下滑动的时候，给 ScrollView 设置一个纵向的偏移。之所以除以 3，是为了让控件有种要用力才能拖动的感觉。</p>
@@ -470,7 +470,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2017/03/25/201703251208/"
-           data-title="带下拉弹簧动画的 ScrollView" data-url="http://yoursite.com/2017/03/25/201703251208/">
+           data-title="实现一个带下拉弹簧动画的 ScrollView" data-url="http://yoursite.com/2017/03/25/201703251208/">
       </div>
     
   </div>
@@ -580,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringAnimation"><span class="nav-number">1.</span> <span class="nav-text">SpringAnimation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringScrollViewion"><span class="nav-number">2.</span> <span class="nav-text">SpringScrollViewion</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringAnimation"><span class="nav-number">1.</span> <span class="nav-text">SpringAnimation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringScrollView"><span class="nav-number">2.</span> <span class="nav-text">SpringScrollView</span></a></li></ol></div>
             
 
           </div>
