@@ -1,0 +1,970 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="教程,自定义控件," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="侧滑菜单我们见的太多了，有没有想过有别的方式弹出菜单？比如，让 Toolbar 变成菜单？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我把 Toolbar 转了一下变成了菜单">
+<meta property="og:url" content="http://yoursite.com/2017/04/13/201704132119/index.html">
+<meta property="og:site_name" content="SouthernBox">
+<meta property="og:description" content="侧滑菜单我们见的太多了，有没有想过有别的方式弹出菜单？比如，让 Toolbar 变成菜单？">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201704132119.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/SpringRotateMenu/SpringRotateMenu.gif">
+<meta property="og:updated_time" content="2017-04-13T13:29:21.142Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我把 Toolbar 转了一下变成了菜单">
+<meta name="twitter:description" content="侧滑菜单我们见的太多了，有没有想过有别的方式弹出菜单？比如，让 Toolbar 变成菜单？">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201704132119.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/13/201704132119/"/>
+
+
+
+
+
+  <title> 我把 Toolbar 转了一下变成了菜单 | SouthernBox </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SouthernBox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/201704132119/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="SouthernBox">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="SouthernBox">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="SouthernBox" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                我把 Toolbar 转了一下变成了菜单
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-13T21:27:09+08:00">
+              2017-04-13
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2017-04-13T21:29:21+08:00">
+              2017-04-13
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/04/13/201704132119/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/13/201704132119/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/04/13/201704132119/" class="leancloud_visitors" data-flag-title="我把 Toolbar 转了一下变成了菜单">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/uploads/images/cover/cover_201704132119.png" alt=""></p>
+<p>侧滑菜单我们见的太多了，有没有想过有别的方式弹出菜单？<br>比如，让 Toolbar 变成菜单？</p>
+<a id="more"></a>
+<p>我也不知道怎么描述这个效果了，直接放效果图吧：</p>
+<p><img src="/uploads/images/SpringRotateMenu/SpringRotateMenu.gif" alt=""></p>
+<p>炸不炸！</p>
+<p>其实实现起来超简单。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>看上去好像 Toolbar 变成了菜单，但大家也能猜到，这里面的旋转菜单其实和 Toolbar 是两个控件，左上角的菜单按钮也是也是两个按钮，只不过在同样的位置放了同样的图片。</p>
+<p>所以我自定义了一个旋转控件 SpringRotateMenu，继承 FrameLayout，在这里面实现旋转动画及手势操作。</p>
+<h1 id="旋转动画"><a href="#旋转动画" class="headerlink" title="旋转动画"></a>旋转动画</h1><p>Gif 图可能不明显，菜单展开和收起的时候是会抖一下的，有一种「DUANG」的感觉。是不是有种弹簧的感觉？没错，我用的就是新出的弹簧动画（SpringAnimation）。</p>
+<p>关于 SpringAnimation，我之前的这篇会有更详细的介绍：</p>
+<p><a href="http://www.jianshu.com/p/ce6497cada9c" target="_blank" rel="external">实现一个带下拉弹簧动画的 ScrollView</a></p>
+<p>SpringAnimation 支持平移、缩放、旋转等效果，这次我们用到的是它的旋转效果。</p>
+<p>我们先定义展开和收起状态的两个角度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> ROTATE_EXPAND = <span class="number">0</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> ROTATE_COLLAPSE = -<span class="number">90</span>;</div></pre></td></tr></table></figure>
+<p>然后这样来获取旋转弹簧动画：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">expandAnimation = <span class="keyword">new</span> SpringAnimation(<span class="keyword">this</span>, SpringAnimation.ROTATION, ROTATE_EXPAND);</div><div class="line">collapseAnimation = <span class="keyword">new</span> SpringAnimation(<span class="keyword">this</span>, SpringAnimation.ROTATION, ROTATE_COLLAPSE);</div></pre></td></tr></table></figure>
+<p>需要注意的是第三个参数。在平移动画里面，第三个参数是偏移量，而在旋转动画里面代表的是度数。在这里我定义了展开动画（旋转到0°）及收起动画（旋转到 -90°）。</p>
+<p>然后提供两个方法来设置展开和收起的按钮：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 设置展开按钮</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExpandButton</span><span class="params">(View expandButton)</span> </span>&#123;</div><div class="line">    expandButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">            expand();</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 设置折叠按钮</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCollapseButton</span><span class="params">(View collapseButton)</span> </span>&#123;</div><div class="line">    collapseButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">            collapse();</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>展开按钮就是 Toolbar 上的按钮，收起按钮则是菜单上的按钮。</p>
+<p>展开、收起的方法也很简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 展开菜单</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">expand</span><span class="params">()</span> </span>&#123;</div><div class="line">    setVisibility(VISIBLE);</div><div class="line">    expandAnimation.start();</div><div class="line">    <span class="keyword">if</span> (listener != <span class="keyword">null</span>) &#123;</div><div class="line">        listener.expandBegin();</div><div class="line">        collapseAnimation.addEndListener(<span class="keyword">new</span> DynamicAnimation.OnAnimationEndListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(DynamicAnimation animation,</span></span></div><div class="line">                                       <span class="keyword">boolean</span> canceled,</div><div class="line">                                       <span class="keyword">float</span> value,</div><div class="line">                                       <span class="keyword">float</span> velocity) &#123;</div><div class="line">                setVisibility(INVISIBLE);</div><div class="line">                listener.expandEnd();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 折叠菜单</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">collapse</span><span class="params">()</span> </span>&#123;</div><div class="line">    collapseAnimation.start();</div><div class="line">    <span class="keyword">if</span> (listener != <span class="keyword">null</span>) &#123;</div><div class="line">        listener.collapseBegin();</div><div class="line">        collapseAnimation.addEndListener(<span class="keyword">new</span> DynamicAnimation.OnAnimationEndListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(DynamicAnimation animation,</span></span></div><div class="line">                                       <span class="keyword">boolean</span> canceled,</div><div class="line">                                       <span class="keyword">float</span> value,</div><div class="line">                                       <span class="keyword">float</span> velocity) &#123;</div><div class="line">                listener.collapseEnd();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其实就是让对应的动画执行，菜单在开始展开的时候显示，在完全收起的时候隐藏。至于这里的 listener 是我加的一个动画监听器，监听两个动画的开始和结束，供外部使用。</p>
+<h1 id="手势操作"><a href="#手势操作" class="headerlink" title="手势操作"></a>手势操作</h1><p>手势操作就是重写 onTouchEvent，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">float</span> mDownX;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (expandAnimation.isRunning() || collapseAnimation.isRunning()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onTouchEvent(event);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">switch</span> (event.getAction()) &#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">            mDownX = event.getRawX();</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">            <span class="comment">//滑动距离</span></div><div class="line">            <span class="keyword">float</span> deltaX = event.getRawX() - mDownX;</div><div class="line">            <span class="comment">//设置角度</span></div><div class="line">            <span class="keyword">float</span> rotation = (deltaX / (screenWidth * <span class="number">0.8f</span>)) * ROTATE_COLLAPSE;</div><div class="line">            <span class="keyword">if</span> (rotation &lt;= ROTATE_EXPAND &amp;&amp; rotation &gt;= ROTATE_COLLAPSE) &#123;</div><div class="line">                setRotation(rotation);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rotation &gt; ROTATE_EXPAND) &#123;</div><div class="line">                setRotation(ROTATE_EXPAND);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rotation &lt; ROTATE_COLLAPSE) &#123;</div><div class="line">                setRotation(ROTATE_COLLAPSE);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">            <span class="keyword">if</span> (getRotation() &lt; ROTATE_COLLAPSE / <span class="number">3</span>) &#123;</div><div class="line">                collapse();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                expand();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>核心就是将手指的横向滑动距离转换为旋转角度。我的计算方法是，菜单控件的旋转角度，等于横向滑动距离占屏幕宽度的比例，乘以 -90°。至于为什么宽度要乘以 0.8，我是为了让手指在屏幕上滑过 80% 的宽度，就可以将菜单完全收起。</p>
+<p>还有就是手指抬起时的处理。我觉得在用户向右滑动菜单时，大部分情况下是希望将菜单收起的，应该让它更容易收起。所以我的做法是，当手指抬起时，菜单竖直的角度超过 30°，就让它执行收起的动画，否则执行展开的动画。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>使用 SpringRotateMenu 作为旋转菜单的根布局，并设置控件的旋转中心点。默认的 Toolbar 高度为 56dp，如果菜单按钮居中显示的话，可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android:transformPivotX=&quot;28dp&quot;</div><div class="line">android:transformPivotY=&quot;28dp&quot;</div></pre></td></tr></table></figure>
+<p>然后用 FrameLayout 将它覆盖在 Toolbar 上面。</p>
+<p>建议让菜单布局的背景颜色和 Toolbar 的颜色一致，并使用同一个菜单图标，菜单图标里面加一个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:rotation=&quot;90&quot;</div></pre></td></tr></table></figure>
+<p>让图标旋转九十度。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>在代码里面找到我们的 SpringRotateMenu，然后简单的设置一下，比如这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">springRotateMenu.setExpandButton(findViewById(R.id.iv_menu));</div><div class="line">springRotateMenu.setCollapseButton(springRotateMenu.findViewById(R.id.iv_menu));</div><div class="line">springRotateMenu.setAnimationListener(<span class="keyword">new</span> SpringRotateMenu.OnAnimationListener() &#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">expandBegin</span><span class="params">()</span> </span>&#123;</div><div class="line">        toolbar.setVisibility(View.INVISIBLE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">expandEnd</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">collapseBegin</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">collapseEnd</span><span class="params">()</span> </span>&#123;</div><div class="line">        toolbar.setVisibility(View.VISIBLE);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这样就完成啦，妥妥的。</p>
+<p><a href="https://github.com/SouthernBox/SpringRotateMenu" target="_blank" rel="external">源码地址</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/自定义控件/" rel="tag"># 自定义控件</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/02/201704021829/" rel="next" title="在 Android Studio 上调试数据库 ( SQLite )">
+                <i class="fa fa-chevron-left"></i> 在 Android Studio 上调试数据库 ( SQLite )
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/13/201704132119/"
+           data-title="我把 Toolbar 转了一下变成了菜单" data-url="http://yoursite.com/2017/04/13/201704132119/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="SouthernBox" />
+          <p class="site-author-name" itemprop="name">SouthernBox</p>
+          <p class="site-description motion-element" itemprop="description">Android</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/southernbox" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/4819d8ed1d8b/latest_articles" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#旋转动画"><span class="nav-number">2.</span> <span class="nav-text">旋转动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手势操作"><span class="nav-number">3.</span> <span class="nav-text">手势操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#布局"><span class="nav-number">4.1.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">4.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SouthernBox</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"southernbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("yUWAc1uEvk6u3zVnrTkA7Kc1-gzGzoHsz", "Xu2GAwK8aLTEMnkL3A5FxkXS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
