@@ -1,0 +1,1011 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="教程,自定义控件," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在 Android 的画布 Canvas 里面有个 drawBitmapMesh 方法，通过它可以实现对 Bitmap 的各种扭曲。我们试一下用它把图像扭出水波纹的效果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浪起来！使用 drawBitmapMesh 实现仿真水波纹效果">
+<meta property="og:url" content="http://yoursite.com/2017/04/22/201704221946/index.html">
+<meta property="og:site_name" content="SouthernBox">
+<meta property="og:description" content="在 Android 的画布 Canvas 里面有个 drawBitmapMesh 方法，通过它可以实现对 Bitmap 的各种扭曲。我们试一下用它把图像扭出水波纹的效果。">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201704221946.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/RippleLayout/RippleLayout.gif">
+<meta property="og:image" content="http://yoursite.com/uploads/images/RippleLayout/drawBitmapMesh.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/RippleLayout/ripple1.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/RippleLayout/ripple2.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/RippleLayout/cos.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/RippleLayout/atan.png">
+<meta property="og:updated_time" content="2017-04-22T12:17:57.606Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浪起来！使用 drawBitmapMesh 实现仿真水波纹效果">
+<meta name="twitter:description" content="在 Android 的画布 Canvas 里面有个 drawBitmapMesh 方法，通过它可以实现对 Bitmap 的各种扭曲。我们试一下用它把图像扭出水波纹的效果。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201704221946.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/22/201704221946/"/>
+
+
+
+
+
+  <title> 浪起来！使用 drawBitmapMesh 实现仿真水波纹效果 | SouthernBox </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SouthernBox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/22/201704221946/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="SouthernBox">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="SouthernBox">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="SouthernBox" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                浪起来！使用 drawBitmapMesh 实现仿真水波纹效果
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-22T20:18:16+08:00">
+              2017-04-22
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2017-04-22T20:17:57+08:00">
+              2017-04-22
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/04/22/201704221946/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/22/201704221946/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/04/22/201704221946/" class="leancloud_visitors" data-flag-title="浪起来！使用 drawBitmapMesh 实现仿真水波纹效果">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/uploads/images/cover/cover_201704221946.png" alt=""></p>
+<p>在 Android 的画布 Canvas 里面有个 drawBitmapMesh 方法，通过它可以实现对 Bitmap 的各种扭曲。我们试一下用它把图像扭出水波纹的效果。</p>
+<a id="more"></a>
+<p>和 Material Design 里扁平化的水波纹不同，这里是通过对图像的处理，模拟真实的水波纹效果，最后实现的效果如下：</p>
+<p><img src="/uploads/images/RippleLayout/RippleLayout.gif" alt=""></p>
+<h1 id="drawBitmapMesh-简介"><a href="#drawBitmapMesh-简介" class="headerlink" title="drawBitmapMesh 简介"></a>drawBitmapMesh 简介</h1><p>我们先了解一下「网格」的概念。</p>
+<p>将一个图片横向、纵向均匀切割成 n 份，就会形成一个「网格」，我把所有网格线的交点称为「顶点」。</p>
+<p>正常情况下，顶点是均匀分布的。当我们改变了顶点的位置时，系统会拿偏移后的顶点坐标，和原来的坐标进行对比，通过一套算法，将图片进行扭曲，像这样：</p>
+<p><img src="/uploads/images/RippleLayout/drawBitmapMesh.png" alt=""></p>
+<p>接下来看看 drawBitmapMesh 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawBitmapMesh</span><span class="params">(Bitmap bitmap,</span></span></div><div class="line">                           <span class="keyword">int</span> meshWidth,</div><div class="line">                           <span class="keyword">int</span> meshHeight,</div><div class="line">                           <span class="keyword">float</span>[] verts,</div><div class="line">                           <span class="keyword">int</span> vertOffset,</div><div class="line">                           <span class="keyword">int</span>[] colors,</div><div class="line">                           <span class="keyword">int</span> colorOffset,</div><div class="line">                           Paint paint)</div></pre></td></tr></table></figure>
+<p>它的参数如下：</p>
+<ul>
+<li>bitmap - 需要转换的位图</li>
+<li>meshWidth - 横向的格数，需大于 0</li>
+<li>meshHeight - 纵向的格数，需大于 0</li>
+<li>verts - 网格顶点坐标数组，记录扭曲后图片各顶点的坐标，数组大小为 (meshWidth+1) <em> (meshHeight+1) </em> 2 + vertOffset</li>
+<li>vertOffset - 从第几个顶点开始对位图进行扭曲，通常传 0</li>
+<li>colors - 设置网格顶点的颜色，该颜色会和位图对应像素的颜色叠加，数组大小为 (meshWidth+1) * (meshHeight+1) + colorOffset，可以传 null</li>
+<li>colorOffset - 从第几个顶点开始转换颜色，通常传 0</li>
+<li>paint - 「画笔」，可以传 null</li>
+</ul>
+<p>需要说明一下的是，可以用 colors 这个参数来实现阴影的效果，但在 API 18 以下开启了硬件加速，colors 这个参数是不起作用的。我们这里只关注前面四个参数，后面四个传 0、null、0、null 就可以了。</p>
+<h1 id="创建-RippleLayout"><a href="#创建-RippleLayout" class="headerlink" title="创建 RippleLayout"></a>创建 RippleLayout</h1><p>创建自定义控件 RippleLayout，为了让控件用起来更灵活，我让它继承了 FrameLayout（套上哪个哪个浪！）。</p>
+<p>定义了如下成员变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//图片横向、纵向的格数</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> MESH_WIDTH = <span class="number">20</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> MESH_HEIGHT = <span class="number">20</span>;</div><div class="line"><span class="comment">//图片的顶点数</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> VERTS_COUNT = (MESH_WIDTH + <span class="number">1</span>) * (MESH_HEIGHT + <span class="number">1</span>);</div><div class="line"><span class="comment">//原坐标数组</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">float</span>[] staticVerts = <span class="keyword">new</span> <span class="keyword">float</span>[VERTS_COUNT * <span class="number">2</span>];</div><div class="line"><span class="comment">//转换后的坐标数组</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">float</span>[] targetVerts = <span class="keyword">new</span> <span class="keyword">float</span>[VERTS_COUNT * <span class="number">2</span>];</div><div class="line"><span class="comment">//当前控件的图片</span></div><div class="line"><span class="keyword">private</span> Bitmap bitmap;</div><div class="line"><span class="comment">//水波宽度的一半</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">float</span> rippleWidth = <span class="number">100f</span>;</div><div class="line"><span class="comment">//水波扩散速度</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">float</span> rippleSpeed = <span class="number">15f</span>;</div><div class="line"><span class="comment">//水波半径</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">float</span> rippleRadius;</div><div class="line"><span class="comment">//水波动画是否执行中</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isRippling;</div></pre></td></tr></table></figure>
+<p>看注释就知道什么意思啦，下面会用到的。</p>
+<p>然后又定义了一个这里会经常用到的方法，根据宽高计算对角线的距离（勾股定理）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 根据宽高，获取对角线距离</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> width  宽</div><div class="line"> * <span class="doctag">@param</span> height 高</div><div class="line"> * <span class="doctag">@return</span> 距离</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">float</span> <span class="title">getLength</span><span class="params">(<span class="keyword">float</span> width, <span class="keyword">float</span> height)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> (<span class="keyword">float</span>) Math.sqrt(width * width + height * height);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="获取-Bitmap"><a href="#获取-Bitmap" class="headerlink" title="获取 Bitmap"></a>获取 Bitmap</h1><p>要处理 Bitmap，第一步当然是先拿到 Bitmap，拿到后就可以根据 Bitmap 的宽高初始化两个顶点坐标数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 初始化 Bitmap 及对应数组</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initData</span><span class="params">()</span> </span>&#123;</div><div class="line">    bitmap = getCacheBitmapFromView(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">if</span> (bitmap == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">float</span> bitmapWidth = bitmap.getWidth();</div><div class="line">    <span class="keyword">float</span> bitmapHeight = bitmap.getHeight();</div><div class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> height = <span class="number">0</span>; height &lt;= MESH_HEIGHT; height++) &#123;</div><div class="line">        <span class="keyword">float</span> y = bitmapHeight * height / MESH_HEIGHT;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> width = <span class="number">0</span>; width &lt;= MESH_WIDTH; width++) &#123;</div><div class="line">            <span class="keyword">float</span> x = bitmapWidth * width / MESH_WIDTH;</div><div class="line">            staticVerts[index * <span class="number">2</span>] = targetVerts[index * <span class="number">2</span>] = x;</div><div class="line">            staticVerts[index * <span class="number">2</span> + <span class="number">1</span>] = targetVerts[index * <span class="number">2</span> + <span class="number">1</span>] = y;</div><div class="line">            index += <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取 View 的缓存视图</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> view 对应的View</div><div class="line"> * <span class="doctag">@return</span> 对应View的缓存视图</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> Bitmap <span class="title">getCacheBitmapFromView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">    view.setDrawingCacheEnabled(<span class="keyword">true</span>);</div><div class="line">    view.buildDrawingCache(<span class="keyword">true</span>);</div><div class="line">    <span class="keyword">final</span> Bitmap drawingCache = view.getDrawingCache();</div><div class="line">    Bitmap bitmap;</div><div class="line">    <span class="keyword">if</span> (drawingCache != <span class="keyword">null</span>) &#123;</div><div class="line">        bitmap = Bitmap.createBitmap(drawingCache);</div><div class="line">        view.setDrawingCacheEnabled(<span class="keyword">false</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        bitmap = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> bitmap;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="计算偏移坐标"><a href="#计算偏移坐标" class="headerlink" title="计算偏移坐标"></a>计算偏移坐标</h1><p>接下来是重点了。这里要实现的水波的位置在下图的灰色区域：</p>
+<p><img src="/uploads/images/RippleLayout/ripple1.png" alt=""></p>
+<p>我定义了一个 warp 方法，根据手指按下的坐标（原点）来重绘 Bitmap：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 图片转换</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> originX 原点 x 坐标</div><div class="line"> * <span class="doctag">@param</span> originY 原点 y 坐标</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">warp</span><span class="params">(<span class="keyword">float</span> originX, <span class="keyword">float</span> originY)</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; VERTS_COUNT * <span class="number">2</span>; i += <span class="number">2</span>) &#123;</div><div class="line">        <span class="keyword">float</span> staticX = staticVerts[i];</div><div class="line">        <span class="keyword">float</span> staticY = staticVerts[i + <span class="number">1</span>];</div><div class="line">        <span class="keyword">float</span> length = getLength(staticX - originX, staticY - originY);</div><div class="line">        <span class="keyword">if</span> (length &gt; rippleRadius - rippleWidth &amp;&amp; length &lt; rippleRadius + rippleWidth) &#123;</div><div class="line">            PointF point = getRipplePoint(originX, originY, staticX, staticY);</div><div class="line">            targetVerts[i] = point.x;</div><div class="line">            targetVerts[i + <span class="number">1</span>] = point.y;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">//复原</span></div><div class="line">            targetVerts[i] = staticVerts[i];</div><div class="line">            targetVerts[i + <span class="number">1</span>] = staticVerts[i + <span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    invalidate();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法里面遍历了所有的顶点，如果顶点是在水波范围内，则需要对这个顶点进行偏移。</p>
+<p>偏移后的坐标计算，思路大概是这样的：</p>
+<p>为了让水波有突起的感觉，以水波中间（波峰）为分界线，里面的顶点往里偏移，外面的顶点往外偏移：</p>
+<p><img src="/uploads/images/RippleLayout/ripple2.png" alt=""></p>
+<p>至于偏移的距离，我想要实现类似放大镜的效果，离波峰越近的顶点，偏移的距离会越大。离波峰的距离和偏移距离的关系，可以看作一个余弦曲线：</p>
+<p><img src="/uploads/images/RippleLayout/cos.png" alt=""></p>
+<p>我们来看一下 getRipplePoint 方法，传入的参数是原点的坐标及需要转换的顶点坐标，在它里面做了下面这些处理：</p>
+<ol>
+<li>通过反正切函数获取到顶点和原点间的水平角度：</li>
+</ol>
+<p><img src="/uploads/images/RippleLayout/atan.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">float</span> angle = (<span class="keyword">float</span>) Math.atan(Math.abs((staticY - originY) / (staticX - originX)));</div></pre></td></tr></table></figure>
+<ol>
+<li>通过余弦函数计算顶点的偏移距离：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">float</span> length = getLength(staticX - originX, staticY - originY);</div><div class="line"><span class="keyword">float</span> rate = (length - rippleRadius) / rippleWidth;</div><div class="line"><span class="keyword">float</span> offset = (<span class="keyword">float</span>) Math.cos(rate) * <span class="number">10f</span>;</div></pre></td></tr></table></figure>
+<p>这里的 10f 是最大偏移距离。</p>
+<ol>
+<li>计算出来的偏移距离是直线距离，还需要根据顶点和原点的角度，用余弦、正弦函数将它转换成水平、竖直方向的偏移距离：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">float</span> offsetX = offset * (<span class="keyword">float</span>) Math.cos(angle);</div><div class="line"><span class="keyword">float</span> offsetY = offset * (<span class="keyword">float</span>) Math.sin(angle);</div></pre></td></tr></table></figure>
+<ol>
+<li>根据顶点原来的坐标和偏移量就可以得出偏移后的坐标了，至于是加还是减，还要看顶点所在的位置。</li>
+</ol>
+<p>getRipplePoint 的完整代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取水波的偏移坐标</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> originX 原点 x 坐标</div><div class="line"> * <span class="doctag">@param</span> originY 原点 y 坐标</div><div class="line"> * <span class="doctag">@param</span> staticX 待偏移顶点的原 x 坐标</div><div class="line"> * <span class="doctag">@param</span> staticY 待偏移顶点的原 y 坐标</div><div class="line"> * <span class="doctag">@return</span> 偏移后坐标</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> PointF <span class="title">getRipplePoint</span><span class="params">(<span class="keyword">float</span> originX, <span class="keyword">float</span> originY, <span class="keyword">float</span> staticX, <span class="keyword">float</span> staticY)</span> </span>&#123;</div><div class="line">    <span class="keyword">float</span> length = getLength(staticX - originX, staticY - originY);</div><div class="line">    <span class="comment">//偏移点与原点间的角度</span></div><div class="line">    <span class="keyword">float</span> angle = (<span class="keyword">float</span>) Math.atan(Math.abs((staticY - originY) / (staticX - originX)));</div><div class="line">    <span class="comment">//计算偏移距离</span></div><div class="line">    <span class="keyword">float</span> rate = (length - rippleRadius) / rippleWidth;</div><div class="line">    <span class="keyword">float</span> offset = (<span class="keyword">float</span>) Math.cos(rate) * <span class="number">10f</span>;</div><div class="line">    <span class="keyword">float</span> offsetX = offset * (<span class="keyword">float</span>) Math.cos(angle);</div><div class="line">    <span class="keyword">float</span> offsetY = offset * (<span class="keyword">float</span>) Math.sin(angle);</div><div class="line">    <span class="comment">//计算偏移后的坐标</span></div><div class="line">    <span class="keyword">float</span> targetX;</div><div class="line">    <span class="keyword">float</span> targetY;</div><div class="line">    <span class="keyword">if</span> (length &lt; rippleRadius + rippleWidth &amp;&amp; length &gt; rippleRadius) &#123;</div><div class="line">        <span class="comment">//波峰外的偏移坐标</span></div><div class="line">        <span class="keyword">if</span> (staticX &gt; originY) &#123;</div><div class="line">            targetX = staticX + offsetX;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            targetX = staticX - offsetX;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (staticY &gt; originY) &#123;</div><div class="line">            targetY = staticY + offsetY;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            targetY = staticY - offsetY;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//波峰内的偏移坐标</span></div><div class="line">        <span class="keyword">if</span> (staticX &gt; originY) &#123;</div><div class="line">            targetX = staticX - offsetX;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            targetX = staticX + offsetX;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (staticY &gt; originY) &#123;</div><div class="line">            targetY = staticY - offsetY;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            targetY = staticY + offsetY;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> PointF(targetX, targetY);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我也不知道这种计算方法是否符合物理规律，反正感觉像那么回事。</p>
+<h1 id="执行水波动画"><a href="#执行水波动画" class="headerlink" title="执行水波动画"></a>执行水波动画</h1><p>大家都知道事件分发机制，作为一个 ViewGroup，会先执行 dispatchTouchEvent 方法。我在事件分发之前执行水波动画，也保证了事件传递不受影响：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (ev.getAction()) &#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">            showRipple(ev.getX(), ev.getY());</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.dispatchTouchEvent(ev);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>showRipple 的任务就是循环执行 warp 方法，并且不断改变水波半径，达到向外扩散的效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 显示水波动画</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> originX 原点 x 坐标</div><div class="line"> * <span class="doctag">@param</span> originY 原点 y 坐标</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showRipple</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> originX, <span class="keyword">final</span> <span class="keyword">float</span> originY)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (isRippling) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    initData();</div><div class="line">    <span class="keyword">if</span> (bitmap == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    isRippling = <span class="keyword">true</span>;</div><div class="line">    <span class="comment">//循环次数，通过控件对角线距离计算，确保水波纹完全消失</span></div><div class="line">    <span class="keyword">int</span> viewLength = (<span class="keyword">int</span>) getLength(bitmap.getWidth(), bitmap.getHeight());</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> count = (<span class="keyword">int</span>) ((viewLength + rippleWidth) / rippleSpeed);</div><div class="line">    Observable.interval(<span class="number">0</span>, <span class="number">10</span>, TimeUnit.MILLISECONDS)</div><div class="line">            .subscribeOn(Schedulers.io())</div><div class="line">            .observeOn(AndroidSchedulers.mainThread())</div><div class="line">            .take(count + <span class="number">1</span>)</div><div class="line">            .subscribe(<span class="keyword">new</span> Consumer&lt;Long&gt;() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(@NonNull Long aLong)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                    rippleRadius = aLong * rippleSpeed;</div><div class="line">                    warp(originX, originY);</div><div class="line">                    <span class="keyword">if</span> (aLong == count) &#123;</div><div class="line">                        isRippling = <span class="keyword">false</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里用了 RxJava 2 实现循环，循环的次数是根据控件的对角线计算的，保证水波会完全消失。水波消失后再点击才会执行下一次的水波动画。</p>
+<p>注意！要点题了。</p>
+<p>讲了这么多还没用到 drawBitmapMesh 方法。ViewGroup 绘制子控件的方法是 dispatchDraw，warp 方法最后调用的 invalidate() 也会触发 dispatchDraw 的执行，所以可以在这里做手脚：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispatchDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (isRippling &amp;&amp; bitmap != <span class="keyword">null</span>) &#123;</div><div class="line">        canvas.drawBitmapMesh(bitmap, MESH_WIDTH, MESH_HEIGHT, targetVerts, <span class="number">0</span>, <span class="keyword">null</span>, <span class="number">0</span>, <span class="keyword">null</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">super</span>.dispatchDraw(canvas);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果是自定义 View 的话，要修改 onDraw 方法。</p>
+<p>到这就完成啦。妥妥的。</p>
+<p>对了，不建议用这个控件包裹可滑动或者有动画的控件，因为在绘制水波的时候，子控件的变化都是看不到的。</p>
+<p><a href="https://github.com/SouthernBox/RippleLayout" target="_blank" rel="external">源码地址</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/自定义控件/" rel="tag"># 自定义控件</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/13/201704132119/" rel="next" title="我把 Toolbar 转了一下变成了菜单">
+                <i class="fa fa-chevron-left"></i> 我把 Toolbar 转了一下变成了菜单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/22/201704221946/"
+           data-title="浪起来！使用 drawBitmapMesh 实现仿真水波纹效果" data-url="http://yoursite.com/2017/04/22/201704221946/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="SouthernBox" />
+          <p class="site-author-name" itemprop="name">SouthernBox</p>
+          <p class="site-description motion-element" itemprop="description">Android</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/southernbox" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/4819d8ed1d8b/latest_articles" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#drawBitmapMesh-简介"><span class="nav-number">1.</span> <span class="nav-text">drawBitmapMesh 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-RippleLayout"><span class="nav-number">2.</span> <span class="nav-text">创建 RippleLayout</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取-Bitmap"><span class="nav-number">3.</span> <span class="nav-text">获取 Bitmap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算偏移坐标"><span class="nav-number">4.</span> <span class="nav-text">计算偏移坐标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行水波动画"><span class="nav-number">5.</span> <span class="nav-text">执行水波动画</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SouthernBox</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"southernbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("yUWAc1uEvk6u3zVnrTkA7Kc1-gzGzoHsz", "Xu2GAwK8aLTEMnkL3A5FxkXS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
