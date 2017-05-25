@@ -1,0 +1,981 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="教程,自定义控件," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="之前做过一个仿 iOS 列表的编辑删除功能，在快做完的时候发现在 iOS 里，编辑的时候还带有排序的功能，所以这次把排序功能加上，并做了一些优化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿 iOS 列表的编辑功能 - 排序篇">
+<meta property="og:url" content="http://yoursite.com/2017/05/25/201705252139/index.html">
+<meta property="og:site_name" content="SouthernBox">
+<meta property="og:description" content="之前做过一个仿 iOS 列表的编辑删除功能，在快做完的时候发现在 iOS 里，编辑的时候还带有排序的功能，所以这次把排序功能加上，并做了一些优化。">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_201705252139.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/EditLayout/EditLayout1.gif">
+<meta property="og:image" content="http://yoursite.com/uploads/images/EditLayout/EditLayout666.png">
+<meta property="og:updated_time" content="2017-05-25T13:44:06.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="仿 iOS 列表的编辑功能 - 排序篇">
+<meta name="twitter:description" content="之前做过一个仿 iOS 列表的编辑删除功能，在快做完的时候发现在 iOS 里，编辑的时候还带有排序的功能，所以这次把排序功能加上，并做了一些优化。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_201705252139.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/25/201705252139/"/>
+
+
+
+
+
+  <title> 仿 iOS 列表的编辑功能 - 排序篇 | SouthernBox </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SouthernBox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/25/201705252139/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="SouthernBox">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="SouthernBox">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="SouthernBox" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                仿 iOS 列表的编辑功能 - 排序篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-25T21:44:21+08:00">
+              2017-05-25
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2017-05-25T21:44:06+08:00">
+              2017-05-25
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/25/201705252139/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/25/201705252139/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/05/25/201705252139/" class="leancloud_visitors" data-flag-title="仿 iOS 列表的编辑功能 - 排序篇">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/uploads/images/cover/cover_201705252139.png" alt=""></p>
+<p>之前做过一个仿 iOS 列表的编辑删除功能，在快做完的时候发现在 iOS 里，编辑的时候还带有排序的功能，所以这次把排序功能加上，并做了一些优化。</p>
+<a id="more"></a>
+<p>现在的效果如下：</p>
+<p><img src="/uploads/images/EditLayout/EditLayout1.gif" alt="怎么变成灰色了"></p>
+<p>有兴趣的可以先看一下之前删除的那篇：</p>
+<p><a href="https://southernbox.github.io/2017/05/07/201705071147/" target="_blank" rel="external">仿 iOS 列表的编辑功能 - 删除篇</a></p>
+<h1 id="按键布局"><a href="#按键布局" class="headerlink" title="按键布局"></a>按键布局</h1><p>首先，我们需要在布局中增加一个排序的按键，所以在 EditLayout 的成员变量增加：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> View mSortView;     <span class="comment">//排序按键</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> mSortWidth;     <span class="comment">//排序按键宽度</span></div></pre></td></tr></table></figure>
+<p>处于编辑状态时，才会显示编辑按键。</p>
+<p>我把右边的删除按钮固定在右侧底部（感觉好看一点），为了让它处于其它控件的底部，item 布局文件的控件摆放顺序变成这样：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">EditLayout...</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="comment">&lt;!--右侧删除按键--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">view...</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--内容区域--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">view...</span>/&gt;</span></div><div class="line">    </div><div class="line">    <span class="comment">&lt;!--左侧预删除按键--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">view...</span>/&gt;</span></div><div class="line">    </div><div class="line">    <span class="comment">&lt;!--排序按键--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">view...</span>/&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">EditLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>相应的，获取及摆放控件改成这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onFinishInflate</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onFinishInflate();</div><div class="line">    mRightView = getChildAt(<span class="number">0</span>);</div><div class="line">    mContentView = getChildAt(<span class="number">1</span>);</div><div class="line">    mLeftView = getChildAt(<span class="number">2</span>);</div><div class="line">    mSortView = getChildAt(<span class="number">3</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSizeChanged</span><span class="params">(<span class="keyword">int</span> w, <span class="keyword">int</span> h, <span class="keyword">int</span> oldw, <span class="keyword">int</span> oldh)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onSizeChanged(w, h, oldw, oldh);</div><div class="line">    mWidth = w;</div><div class="line">    mHeight = h;</div><div class="line">    mRightWidth = mRightView.getMeasuredWidth();</div><div class="line">    mLeftWidth = mLeftView.getMeasuredWidth();</div><div class="line">    mSortWidth = mSortView.getMeasuredWidth();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> right, <span class="keyword">int</span> bottom)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onLayout(changed, left, top, right, bottom);</div><div class="line">    <span class="comment">//判断是否为编辑模式,摆放每个子View的位置</span></div><div class="line">    mRightView.layout(mWidth - mRightWidth, <span class="number">0</span>, mWidth, mHeight);</div><div class="line">    mSortView.layout(mWidth - mSortWidth, <span class="number">0</span>, mWidth, mHeight);</div><div class="line">    <span class="keyword">if</span> (isEdit) &#123;</div><div class="line">        mContentView.layout(mLeftWidth, <span class="number">0</span>, mWidth, mHeight);</div><div class="line">        mLeftView.layout(<span class="number">0</span>, <span class="number">0</span>, mLeftWidth, mHeight);</div><div class="line">        mSortView.setVisibility(VISIBLE);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        mContentView.layout(<span class="number">0</span>, <span class="number">0</span>, mWidth, mHeight);</div><div class="line">        mLeftView.layout(-mLeftWidth, <span class="number">0</span>, <span class="number">0</span>, mHeight);</div><div class="line">        mSortView.setVisibility(INVISIBLE);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="三种状态"><a href="#三种状态" class="headerlink" title="三种状态"></a>三种状态</h1><p>在增加了排序功能后，三个状态也有了变化：</p>
+<p><img src="/uploads/images/EditLayout/EditLayout666.png" alt="哥用画图工具溜得飞起"></p>
+<p>可以看到，进入编辑状态后，mContentView 的宽度发生了变化，那么我们在哪里改变它的宽度呢？</p>
+<h2 id="缩短-mContentView-宽度"><a href="#缩短-mContentView-宽度" class="headerlink" title="缩短 mContentView 宽度"></a>缩短 mContentView 宽度</h2><p>在 ViewDragHelper.Callback 中，onViewPositionChanged 方法负责监听控件的位置变化。我们在这里判断，当左侧完全展开时，缩短 mContentView 的宽度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewPositionChanged</span><span class="params">(View changedView, <span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (changedView == mContentView) &#123;</div><div class="line">        mLeftView.offsetLeftAndRight(dx);</div><div class="line">        mSortView.offsetLeftAndRight(dx);</div><div class="line">    &#125;</div><div class="line">    invalidate();</div><div class="line">    <span class="comment">//左侧展开时，修改 mContentView 宽度</span></div><div class="line">    <span class="keyword">if</span> (left == mLeftWidth) &#123;</div><div class="line">        mContentView.layout(mLeftWidth, <span class="number">0</span>, mWidth, mHeight);</div><div class="line">        mSortView.layout(mWidth - mSortWidth, <span class="number">0</span>, mWidth, mHeight);</div><div class="line">        mSortView.setVisibility(VISIBLE);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="复原-mContentView-宽度"><a href="#复原-mContentView-宽度" class="headerlink" title="复原 mContentView 宽度"></a>复原 mContentView 宽度</h2><p>当结束编辑状态时，就将控件的宽度复原。我们需要先将宽度复原，再让它滑动到关闭的状态。这里会有两种情况，左边展开关闭和右边展开关闭。关闭时会调用 close() 方法，我们在这里做处理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mOnStateChangeListener != <span class="keyword">null</span>) &#123;</div><div class="line">        mOnStateChangeListener.onClose(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//将 mContentView 宽度复原</span></div><div class="line">    <span class="keyword">if</span> (mContentView.getLeft() &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="comment">//左边展开复原</span></div><div class="line">        mContentView.layout(mLeftWidth, <span class="number">0</span>, mWidth + mLeftWidth, mHeight);</div><div class="line">        mLeftView.layout(<span class="number">0</span>, <span class="number">0</span>, mLeftWidth, mHeight);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//右边展开复原</span></div><div class="line">        mContentView.layout(-mRightWidth, <span class="number">0</span>, mWidth - mRightWidth, mHeight);</div><div class="line">        mLeftView.layout(-mLeftWidth - mRightWidth, <span class="number">0</span>, -mRightWidth, mHeight);</div><div class="line">    &#125;</div><div class="line">    mSortView.setVisibility(INVISIBLE);</div><div class="line">    <span class="comment">//滑动到关闭位置</span></div><div class="line">    mDragHelper.smoothSlideViewTo(mContentView, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">    invalidate();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>UI 方面的改动就到这里。</p>
+<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>ItemTouchHelper 可以让 RecyclerView 的 item 实现上下左右拖动，我们把排序的操作交给它处理。</p>
+<h2 id="ItemTouchHelper-Callback"><a href="#ItemTouchHelper-Callback" class="headerlink" title="ItemTouchHelper.Callback"></a>ItemTouchHelper.Callback</h2><p>和 ViewDragHelper 类似，ItemTouchHelper 也有一个 Callback，我们自定义一个 EditTouchHelperCallback：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EditTouchHelperCallback</span> <span class="keyword">extends</span> <span class="title">ItemTouchHelper</span>.<span class="title">Callback</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMovementFlags</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)</span> </span>&#123;</div><div class="line">        <span class="comment">// 允许上下拖拽</span></div><div class="line">        <span class="keyword">int</span> dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;</div><div class="line">        <span class="comment">// 禁止左右拖拽</span></div><div class="line">        <span class="keyword">int</span> swipeFlags = <span class="number">0</span>;</div><div class="line">        <span class="keyword">return</span> makeMovementFlags(dragFlags, swipeFlags);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onMove</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSwiped</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> direction)</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isLongPressDragEnabled</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//禁止长按触发拖拽</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这几个方法都很好理解：</p>
+<ul>
+<li>getMovementFlags - 确定 item 是否可上下左右拖动，我们这里只允许上下拖动</li>
+<li>onMove - 上下拖动 item 到另一个位置的回调</li>
+<li>onSwiped - 左右拖动 item 的回调，这里不需要实现</li>
+<li>isLongPressDragEnabled - 长按 item 是否会触发可拖动，默认返回 true，这里不需要</li>
+</ul>
+<p>在 Activity 中，需要将 ItemTouchHelper 和 RecyclerView 绑定：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mItemTouchHelper = <span class="keyword">new</span> ItemTouchHelper(<span class="keyword">new</span> EditTouchHelperCallback());</div><div class="line">mItemTouchHelper.attachToRecyclerView(mRecyclerView);</div></pre></td></tr></table></figure>
+<p>这样，我们的 item 就已经支持上下拖动了，但是要如何触发拖动以及交换控件位置呢？</p>
+<h2 id="OnItemSortListener"><a href="#OnItemSortListener" class="headerlink" title="OnItemSortListener"></a>OnItemSortListener</h2><p>ItemTouchHelper 有两种方式可以触发拖动，一个是上面说到的长按，还有就是调用它的 startDrag 方法。</p>
+<p>至于交换位置，ItemTouchHelper 是不支持的，毕竟它负责的是单个 item 的操作。但我们 RecyclerView 的 Adapter 支持啊，它的 notifyItemMoved 方法就是用来交换 item 位置的。</p>
+<p>所以我们创建一个监听器，用于监听开始拖拽及位置交换：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 排序监听器</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnItemSortListener</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onStartDrags</span><span class="params">(RecyclerView.ViewHolder viewHolder)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onItemMove</span><span class="params">(<span class="keyword">int</span> fromPosition, <span class="keyword">int</span> toPosition)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个监听器由 Activity 实现:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStartDrags</span><span class="params">(RecyclerView.ViewHolder viewHolder)</span> </span>&#123;</div><div class="line">    mItemTouchHelper.startDrag(viewHolder);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemMove</span><span class="params">(<span class="keyword">int</span> fromPosition, <span class="keyword">int</span> toPosition)</span> </span>&#123;</div><div class="line">    Collections.swap(mList, fromPosition, toPosition);</div><div class="line">    mAdapter.notifyItemMoved(fromPosition, toPosition);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这两个方法在哪里调用？</p>
+<h2 id="调用-Listener"><a href="#调用-Listener" class="headerlink" title="调用 Listener"></a>调用 Listener</h2><p>触发拖动的当然是排序按键。将 ItemTouchHelper 传给 Adapter，然后给排序按键设置触摸事件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">viewHolder.vSort.setOnTouchListener(<span class="keyword">new</span> View.OnTouchListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouch</span><span class="params">(View view, MotionEvent motionEvent)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (isEdit &amp;&amp; mRightOpenItem != <span class="keyword">null</span>) &#123;</div><div class="line">            mRightOpenItem.openLeft();</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            mOnItemSortListener.onStartDrags(viewHolder);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>至于位置交换，不要忘了 ItemTouchHelper.Callback 里有个 onMove 方法。创建 EditTouchHelperCallback 时，将 OnItemSortListener 传入，然后在 onMove 里加一句代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onMove</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)</span> </span>&#123;</div><div class="line">    mOnItemSortListener.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就完成啦，妥妥。目前的效果还是比较满意的。</p>
+<p><a href="https://github.com/SouthernBox/EditLayout" target="_blank" rel="external">源码地址</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/自定义控件/" rel="tag"># 自定义控件</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/07/201705071147/" rel="next" title="仿 iOS 列表的编辑功能 - 删除篇">
+                <i class="fa fa-chevron-left"></i> 仿 iOS 列表的编辑功能 - 删除篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/05/25/201705252139/"
+           data-title="仿 iOS 列表的编辑功能 - 排序篇" data-url="http://yoursite.com/2017/05/25/201705252139/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="SouthernBox" />
+          <p class="site-author-name" itemprop="name">SouthernBox</p>
+          <p class="site-description motion-element" itemprop="description">Android</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/southernbox" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/4819d8ed1d8b/latest_articles" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#按键布局"><span class="nav-number">1.</span> <span class="nav-text">按键布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三种状态"><span class="nav-number">2.</span> <span class="nav-text">三种状态</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缩短-mContentView-宽度"><span class="nav-number">2.1.</span> <span class="nav-text">缩短 mContentView 宽度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复原-mContentView-宽度"><span class="nav-number">2.2.</span> <span class="nav-text">复原 mContentView 宽度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排序"><span class="nav-number">3.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ItemTouchHelper-Callback"><span class="nav-number">3.1.</span> <span class="nav-text">ItemTouchHelper.Callback</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OnItemSortListener"><span class="nav-number">3.2.</span> <span class="nav-text">OnItemSortListener</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用-Listener"><span class="nav-number">3.3.</span> <span class="nav-text">调用 Listener</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SouthernBox</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"southernbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("yUWAc1uEvk6u3zVnrTkA7Kc1-gzGzoHsz", "Xu2GAwK8aLTEMnkL3A5FxkXS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
