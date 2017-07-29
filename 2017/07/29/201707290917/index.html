@@ -1,0 +1,1026 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="教程,个人项目," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="开始「冰与火百科」开发之旅！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="打造自己的 APP「冰与火百科」（二）：接口、索引页">
+<meta property="og:url" content="http://yoursite.com/2017/07/29/201707290917/index.html">
+<meta property="og:site_name" content="SouthernBox">
+<meta property="og:description" content="开始「冰与火百科」开发之旅！">
+<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_iceandfirewiki.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/IceAndFire/style-color-palette-7.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/IceAndFire/inf_index.png">
+<meta property="og:image" content="http://yoursite.com/uploads/images/IceAndFire/inf_indexgif.gif">
+<meta property="og:updated_time" content="2017-07-29T01:22:31.659Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="打造自己的 APP「冰与火百科」（二）：接口、索引页">
+<meta name="twitter:description" content="开始「冰与火百科」开发之旅！">
+<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_iceandfirewiki.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/29/201707290917/"/>
+
+
+
+
+
+  <title> 打造自己的 APP「冰与火百科」（二）：接口、索引页 | SouthernBox </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SouthernBox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/29/201707290917/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="SouthernBox">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="SouthernBox">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="SouthernBox" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                打造自己的 APP「冰与火百科」（二）：接口、索引页
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-29T09:22:53+08:00">
+              2017-07-29
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2017-07-29T09:22:31+08:00">
+              2017-07-29
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/29/201707290917/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/29/201707290917/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/07/29/201707290917/" class="leancloud_visitors" data-flag-title="打造自己的 APP「冰与火百科」（二）：接口、索引页">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/uploads/images/cover/cover_iceandfirewiki.png" alt=""></p>
+<p>开始「冰与火百科」开发之旅！</p>
+<a id="more"></a>
+<h1 id="网络数据"><a href="#网络数据" class="headerlink" title="网络数据"></a>网络数据</h1><p>先说一下我的接口是怎么来的。</p>
+<h2 id="存放数据"><a href="#存放数据" class="headerlink" title="存放数据"></a>存放数据</h2><p>首先确定自己需要一些什么数据，在满足自己要求的情况下越简单越好。对每个详情页面，我需要一张图片和一个 html 显示描述就够了。以奶德为例，在服务器的对应目录下，就会有 Eddard_Stark.png 和 Eddard_Stark.html 这两个文件。</p>
+<p>这一步其实是整个项目最麻烦的地方。图片还好，但收集整理描述的内容真的要非常有耐心，至今才造了十几条数据。</p>
+<h2 id="创建数据集合"><a href="#创建数据集合" class="headerlink" title="创建数据集合"></a>创建数据集合</h2><p>我需要两个实体类。一个是分类，也就是到时 TabLayout 中的 Tab，另一个就是内容。对应的要生成两个 json 文件。</p>
+<p>创建一个 java 项目，添加 Gson 依赖，建立两个要转换 json 的集合：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;TabDTO&gt; tabList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;ContentDTO&gt; contentList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div></pre></td></tr></table></figure>
+<p>再次以奶德为例，往里面添加数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tabList.add(new TabDTO(10100,&quot;person&quot;,&quot;Stark&quot;,&quot;史塔克&quot;));</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">String starkUrl = &quot;person/Stark/&quot;;</div><div class="line">contentList.add(new ContentDTO(</div><div class="line">        &quot;Eddard_Stark&quot;,</div><div class="line">        &quot;person&quot;,</div><div class="line">        &quot;Stark&quot;,</div><div class="line">        starkUrl + &quot;Eddard_Stark.png&quot;,</div><div class="line">        &quot;艾德·史塔克&quot;,</div><div class="line">        &quot;临冬城公爵、北境守护&quot;,</div><div class="line">        starkUrl + &quot;Eddard_Stark.html&quot;));</div></pre></td></tr></table></figure>
+<h2 id="生成-json-文件"><a href="#生成-json-文件" class="headerlink" title="生成 json 文件"></a>生成 json 文件</h2><p>完了输出为 json 文件就好了，以 content 为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Gson gson = <span class="keyword">new</span> Gson();</div><div class="line">String jsonString = gson.toJson(contentList);</div><div class="line">File contentJsonFile = <span class="keyword">new</span> File(<span class="string">"../IceAndFireServer/content.json"</span>);</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    OutputStreamWriter osw = <span class="keyword">new</span> OutputStreamWriter(</div><div class="line">            <span class="keyword">new</span> FileOutputStream(contentJsonFile), <span class="string">"UTF-8"</span>);</div><div class="line">    BufferedWriter bw = <span class="keyword">new</span> BufferedWriter(osw);</div><div class="line">    bw.write(jsonString, <span class="number">0</span>, jsonString.length());</div><div class="line">    bw.flush();</div><div class="line">    bw.close();</div><div class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后将数据上传到网络就好了，json 文件所在的网络地址就是你的接口了。刚开始我上传到了 GitHub，但发现经常会发生灵异事件，导致数据无法访问或者速度超慢，后来又上传到了九牛云。</p>
+<p>这部分内容大家看一下就好了，毕竟不是常规的做法。有兴趣的可以到<a href="https://github.com/SouthernBox/IceAndFireServer" target="_blank" rel="external">这里</a>，数据和代码都在里面了。</p>
+<h1 id="APP主题色"><a href="#APP主题色" class="headerlink" title="APP主题色"></a>APP主题色</h1><p>下面终于来到我们的 Android 项目了。</p>
+<p>创建 Android 项目后，第一反应是主题色得改一改。</p>
+<p>在官方 Material Design 的色板里面，我选用了这一套：</p>
+<p><img src="/uploads/images/IceAndFire/style-color-palette-7.png" alt=""></p>
+<p>对应的，color 文件的主题色值修改如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>#607d8b<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>#546e7a<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorAccent"</span>&gt;</span>#40c4ff<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="索引页"><a href="#索引页" class="headerlink" title="索引页"></a>索引页</h1><p>我也学着别的 APP，做一个索引页 IndexActivity。就简单展示一句「挖了蘑菇立死」，噢不对，展示一句「Valar Morghulis」就好了，像这样：</p>
+<p><img src="/uploads/images/IceAndFire/inf_index.png" alt=""></p>
+<p>加入一点简单的动画，然后还能做一些耗时的启动操作。</p>
+<h2 id="DataBinding"><a href="#DataBinding" class="headerlink" title="DataBinding"></a>DataBinding</h2><p>我会比较在意代码的简洁性，在实现同样功能的情况下代码越少越好，而且排版一定要看上去舒服，缩进要少，甚至不允许代码里面有警告。</p>
+<p>DataBinding 是一个可以增加代码简洁性的东西。这里以索引页为例，简单介绍一下它最简单的一个应用，代替 findViewByid。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在对应 Module 的 build.grade 里配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ....</div><div class="line">    dataBinding &#123;</div><div class="line">        enabled = <span class="keyword">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h3><p>在需要绑定的布局文件里，最外层增加一个 layout 标签，比如这里的 activity_index.xml ：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/tv_index"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"@string/valar_morghulis"</span></div><div class="line">        <span class="attr">android:textColor</span>=<span class="string">"@color/color3A3A3A"</span></div><div class="line">        <span class="attr">android:textSize</span>=<span class="string">"36sp"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>创建一个成员变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> ActivityIndexBinding binding;</div></pre></td></tr></table></figure>
+<p>注意，这里的变量类型是和布局文件相关的，比如 ActivityIndexBinding 对应 activity_index。</p>
+<p>然后将原来 setContentView 的地方修改为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">binding = DataBindingUtil.setContentView(<span class="keyword">this</span>, R.layout.activity_index);</div></pre></td></tr></table></figure>
+<p>当我要使用布局里的 TextView 的时候，直接用 binding.tvIndex 就可以了。tvIndex 这个名字是和布局里的 id：tv_title 相对应的。</p>
+<p>DataBinding 的一些更高级的用法这里就不赘述了，网上的教程很多，大家可以多搜索了解一下。</p>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p>为了让索引页的字更生动，我打算加一个渐变放大的动画效果。</p>
+<h3 id="xml"><a href="#xml" class="headerlink" title="xml"></a>xml</h3><p>我这里用的是 View Animation（视图动画），动画过程是通过 xml 文件定义的。在 res/anim 文件夹下新建一个 xml 文件，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">set</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:interpolator</span>=<span class="string">"@android:anim/decelerate_interpolator"</span></div><div class="line">    <span class="attr">android:shareInterpolator</span>=<span class="string">"true"</span> &gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">scale</span></span></div><div class="line">        <span class="attr">android:duration</span>=<span class="string">"1300"</span></div><div class="line">        <span class="attr">android:fillAfter</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:fromXScale</span>=<span class="string">"0.95"</span></div><div class="line">        <span class="attr">android:fromYScale</span>=<span class="string">"0.95"</span></div><div class="line">        <span class="attr">android:pivotX</span>=<span class="string">"50%"</span></div><div class="line">        <span class="attr">android:pivotY</span>=<span class="string">"50%"</span></div><div class="line">        <span class="attr">android:toXScale</span>=<span class="string">"1"</span></div><div class="line">        <span class="attr">android:toYScale</span>=<span class="string">"1"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">alpha</span></span></div><div class="line">        <span class="attr">android:duration</span>=<span class="string">"1300"</span></div><div class="line">        <span class="attr">android:fillAfter</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:fromAlpha</span>=<span class="string">"0"</span></div><div class="line">        <span class="attr">android:toAlpha</span>=<span class="string">"1"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">set</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这个的意思很好理解，就是用 1.3 秒的时间，控件大小从 95% 渐变到 100%，透明度从 0 渐变到10%。</p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>执行动画的代码也很简单，大家直接看吧：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">Animation animation = AnimationUtils</div><div class="line">        .loadAnimation(<span class="keyword">this</span>, R.anim.anim_valar_morghulis);</div><div class="line">animation.setAnimationListener(<span class="keyword">new</span> AnimationListener() &#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line">        SystemClock.sleep(<span class="number">500</span>);</div><div class="line">        animationComplete = <span class="keyword">true</span>;</div><div class="line">        goMainPage();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;);</div><div class="line">SystemClock.sleep(<span class="number">200</span>);</div><div class="line">binding.tvIndex.startAnimation(animation);</div></pre></td></tr></table></figure>
+<p>为了让用户能看清动画，我在里面加入了一些停顿。经过我自己的多次试验，最终定下的这个停顿时常，我认为长度是在能看清动画的情况下，又不会长到让人感到厌烦的，效果如下：</p>
+<p><img src="/uploads/images/IceAndFire/inf_indexgif.gif" alt=""></p>
+<h2 id="耗时操作"><a href="#耗时操作" class="headerlink" title="耗时操作"></a>耗时操作</h2><p>前面说到，在索引页可以做一些耗时的操作。动画的执行总共有两秒的时间，用户的时间是宝贵的，要是在这两秒里面什么都不做就太浪费了。</p>
+<p>最耗时的操作，应该是调接口了。</p>
+<p>其实刚开始我是进入到首页才调接口的，进入不同的页面获取不同的数据。但这样会有一个问题，由于我没有后台，只有两个假接口，所以搜索功能就无法实现了。</p>
+<p>所以现在改为，在索引页获取到所有数据并保存起来，在不同分类页面下通过筛选展示数据，这样搜索也可以实现了。</p>
+<p>下面就简单讲一下目前比较流行的两个框架 Retrofit 2 和 Realm，来完成数据的获取和保存。</p>
+<h2 id="Retrofit-2"><a href="#Retrofit-2" class="headerlink" title="Retrofit 2"></a>Retrofit 2</h2><p>Retrofit 的厉害之处我就不多说了，网上的教程很多的，我只讲最最简单的用法。</p>
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><p>在 Module 的 build.grade 里添加依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">compile &quot;com.squareup.retrofit2:retrofit:$&#123;RETROFIT_VERSION&#125;&quot;</div><div class="line">compile &quot;com.squareup.retrofit2:converter-scalars:$&#123;RETROFIT_VERSION&#125;&quot;</div><div class="line">compile &quot;com.squareup.retrofit2:converter-gson:$&#123;RETROFIT_VERSION&#125;&quot;</div></pre></td></tr></table></figure>
+<p>目前最新版是 2.3.0，大家可以自行替换。</p>
+<p>这里面 converter-scalars 是添加 String 类型的返回，converter-gson 是添加 Gson 的支持（返回实体类）。</p>
+<h3 id="接口定义"><a href="#接口定义" class="headerlink" title="接口定义"></a>接口定义</h3><p>新建一个接口文件（interface），用来统一管理所有要调用的接口（url），我暂时只有两个接口，再留一个通用的 Get 请求备用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RequestServes</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@GET</span>(<span class="string">"&#123;url&#125;"</span>)</div><div class="line">    <span class="function">Call&lt;String&gt; <span class="title">get</span><span class="params">(@Path(<span class="string">"url"</span>)</span> String url)</span>;</div><div class="line"></div><div class="line">    <span class="meta">@GET</span>(<span class="string">"tab.json"</span>)</div><div class="line">    Call&lt;List&lt;TabDTO&gt;&gt; getTab();</div><div class="line"></div><div class="line">    <span class="meta">@GET</span>(<span class="string">"content.json"</span>)</div><div class="line">    Call&lt;List&lt;ContentDTO&gt;&gt; getContent();</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注解 @GET 后面的内容就是要请求的接口，这里不用写基础域名（BaseUrl）。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>需要通过 Retrofit.Builder 初始化 Retrofit，调用 baseUrl 设置基础域名：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">        .baseUrl(ServerAPI.BASE_URL)</div><div class="line">        <span class="comment">//增加返回值为String的支持</span></div><div class="line">        .addConverterFactory(ScalarsConverterFactory.create())</div><div class="line">        <span class="comment">//增加返回值为实体类的支持</span></div><div class="line">        .addConverterFactory(GsonConverterFactory.create())</div><div class="line">        .build();</div><div class="line">requestServes = retrofit.create(RequestServes.class);</div></pre></td></tr></table></figure>
+<p>需要注意的是，BaseUrl 必须以斜杠「/」结尾，否则会报错。</p>
+<p>考虑到可能多个页面都需要调用接口，可以把这段代码放在 BaseActivity 里。</p>
+<h3 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h3><p>用起来超简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Call&lt;List&lt;TabDTO&gt;&gt; call = requestServes.getTab();</div><div class="line">call.enqueue(<span class="keyword">new</span> Callback&lt;List&lt;TabDTO&gt;&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(@NonNull Call&lt;List&lt;TabDTO&gt;&gt; call,</span></span></div><div class="line">                           @NonNull retrofit2.Response&lt;List&lt;TabDTO&gt;&gt; response) &#123;</div><div class="line">        List&lt;TabDTO&gt; tabList = response.body();</div><div class="line">        <span class="comment">//...</span></div><div class="line">        goMainPage();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(@NonNull Call&lt;List&lt;TabDTO&gt;&gt; call, @NonNull Throwable t)</span> </span>&#123;</div><div class="line">        netError();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>请求失败的时候，我会弹吐司提醒，并且让页面可点击重试。</p>
+<h2 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h2><p>Realm 是 SQLite 的替代者，它更快速、更易用。下面看看 Realm 的简单使用。</p>
+<h3 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h3><p>修改 Project 下的 build.gradle :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &apos;com.android.tools.build:gradle:2.3.3&apos;</div><div class="line">        classpath &quot;io.realm:realm-gradle-plugin:3.5.0&quot;</div><div class="line">        // NOTE: Do not place your application dependencies here; they belong</div><div class="line">        // in the individual module build.gradle files</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>目前最新版是 3.5.0。然后再到 Module 的 build.gradle，添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apply plugin: &apos;realm-android&apos;</div></pre></td></tr></table></figure>
+<p>配置完毕</p>
+<h3 id="初始化-1"><a href="#初始化-1" class="headerlink" title="初始化"></a>初始化</h3><p>在使用 Realm 之前，必须先调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Realm.init(<span class="keyword">this</span>);</div></pre></td></tr></table></figure>
+<p>获取 Realm 实例有以下两种方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Realm mRealm = Realm.getDefaultInstance();</div></pre></td></tr></table></figure>
+<p>这里有个小细节。如果实体类的字段发生了改变，这里是会报错的。我的做法比较粗暴，清空数据库后再重新获取：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    mRealm = Realm.getDefaultInstance();</div><div class="line">&#125; <span class="keyword">catch</span> (RuntimeException e) &#123;</div><div class="line">    Realm.deleteRealm(Realm.getDefaultConfiguration());</div><div class="line">    mRealm = Realm.getDefaultInstance();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h3><p>让需要保存下来的实体类继承 RealmObject，然后就可以使用以下代码保存了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mRealm.beginTransaction();</div><div class="line">mRealm.copyToRealm(list);</div><div class="line">mRealm.commitTransaction();</div></pre></td></tr></table></figure>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>查询也很简单，就一句代码的事：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Data&gt; list = mRealm.where(Data.class).findAll();</div></pre></td></tr></table></figure>
+<p>复杂查询这里就不多说了。</p>
+<p>需要注意的是，如果要对查询的结果进行修改或删除等操作，则必须要在 transaction 里完成，修改的结果会同步到数据库。比如，我想对上面查询到的第一个元素进行修改：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Data data = list.get(<span class="number">0</span>)</div><div class="line">mRealm.beginTransaction()</div><div class="line">mRealm.copyFromRealm(data)</div><div class="line">data.num = <span class="number">666</span></div><div class="line">mRealm.commitTransaction()</div></pre></td></tr></table></figure>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>就先到这吧，一个索引页都能扯这么多。</p>
+<p>其实我没什么想总结的，我只想提醒一下：GOT Session 7 ！！！</p>
+<p><a href="https://github.com/SouthernBox/IceAndFire" target="_blank" rel="external">项目地址</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/个人项目/" rel="tag"># 个人项目</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/08/201707080908/" rel="next" title="打造自己的 APP「冰与火百科」（一）：分析定位">
+                <i class="fa fa-chevron-left"></i> 打造自己的 APP「冰与火百科」（一）：分析定位
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/29/201707290929/" rel="prev" title="小程序可以显示群名称啦！">
+                小程序可以显示群名称啦！ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/29/201707290917/"
+           data-title="打造自己的 APP「冰与火百科」（二）：接口、索引页" data-url="http://yoursite.com/2017/07/29/201707290917/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="SouthernBox" />
+          <p class="site-author-name" itemprop="name">SouthernBox</p>
+          <p class="site-description motion-element" itemprop="description">Android</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/southernbox" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/4819d8ed1d8b/latest_articles" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络数据"><span class="nav-number">1.</span> <span class="nav-text">网络数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存放数据"><span class="nav-number">1.1.</span> <span class="nav-text">存放数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据集合"><span class="nav-number">1.2.</span> <span class="nav-text">创建数据集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成-json-文件"><span class="nav-number">1.3.</span> <span class="nav-text">生成 json 文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#APP主题色"><span class="nav-number">2.</span> <span class="nav-text">APP主题色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引页"><span class="nav-number">3.</span> <span class="nav-text">索引页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DataBinding"><span class="nav-number">3.1.</span> <span class="nav-text">DataBinding</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">3.1.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局"><span class="nav-number">3.1.2.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">3.1.3.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画"><span class="nav-number">3.2.</span> <span class="nav-text">动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xml"><span class="nav-number">3.2.1.</span> <span class="nav-text">xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#耗时操作"><span class="nav-number">3.3.</span> <span class="nav-text">耗时操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Retrofit-2"><span class="nav-number">3.4.</span> <span class="nav-text">Retrofit 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口定义"><span class="nav-number">3.4.2.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">3.4.3.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-2"><span class="nav-number">3.4.4.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Realm"><span class="nav-number">3.5.</span> <span class="nav-text">Realm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-2"><span class="nav-number">3.5.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化-1"><span class="nav-number">3.5.2.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存"><span class="nav-number">3.5.3.</span> <span class="nav-text">保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询"><span class="nav-number">3.5.4.</span> <span class="nav-text">查询</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SouthernBox</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"southernbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("yUWAc1uEvk6u3zVnrTkA7Kc1-gzGzoHsz", "Xu2GAwK8aLTEMnkL3A5FxkXS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
