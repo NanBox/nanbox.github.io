@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="教程,小程序," />
+  <meta name="keywords" content="教程,个人项目,小程序," />
 
 
 
@@ -84,20 +84,24 @@
 
 
 
-<meta name="description" content="开今年 5 月份的时候，微信宣布：「为了更好的针对群场景提供个性化服务，当用户在群聊中点击小程序分享卡片时，小程序支持开发者获取群 ID 和群名称」。但随后没多久，发现小程序只返回了群 ID，并没有给我们群名。现在，终于有方法可以显示群名称啦！">
+<meta name="description" content="前端程序员开发一个自己的小程序，比起学习小程序开发，更大的难点在于搭建小程序的后台。
+本文从一个初学者的角度，简单介绍一下腾讯云推出的小程序解决方案 wafer2，让没有后台开发经验的程序员，也能搭建起自己的小程序后台。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="小程序可以显示群名称啦！">
-<meta property="og:url" content="http://yoursite.com/2017/07/29/201707290929/index.html">
+<meta property="og:title" content="腾讯云 wafer2 上手，轻松部署小程序后端！">
+<meta property="og:url" content="http://yoursite.com/2017/09/27/201709272129/index.html">
 <meta property="og:site_name" content="SouthernBox">
-<meta property="og:description" content="开今年 5 月份的时候，微信宣布：「为了更好的针对群场景提供个性化服务，当用户在群聊中点击小程序分享卡片时，小程序支持开发者获取群 ID 和群名称」。但随后没多久，发现小程序只返回了群 ID，并没有给我们群名。现在，终于有方法可以显示群名称啦！">
-<meta property="og:image" content="http://yoursite.com/uploads/images/cover/cover_weapp.png">
-<meta property="og:image" content="http://yoursite.com/uploads/images/weapp/shareinfo.png">
-<meta property="og:image" content="http://yoursite.com/uploads/images/weapp/open-data.png">
-<meta property="og:updated_time" content="2017-07-29T01:30:30.337Z">
+<meta property="og:description" content="前端程序员开发一个自己的小程序，比起学习小程序开发，更大的难点在于搭建小程序的后台。
+本文从一个初学者的角度，简单介绍一下腾讯云推出的小程序解决方案 wafer2，让没有后台开发经验的程序员，也能搭建起自己的小程序后台。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-5faabc66d8857ca7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-dd9ec72a949006cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-3a8b84cee38f8d59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-9157ae90ea8ae066.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-09-27T13:31:56.680Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小程序可以显示群名称啦！">
-<meta name="twitter:description" content="开今年 5 月份的时候，微信宣布：「为了更好的针对群场景提供个性化服务，当用户在群聊中点击小程序分享卡片时，小程序支持开发者获取群 ID 和群名称」。但随后没多久，发现小程序只返回了群 ID，并没有给我们群名。现在，终于有方法可以显示群名称啦！">
-<meta name="twitter:image" content="http://yoursite.com/uploads/images/cover/cover_weapp.png">
+<meta name="twitter:title" content="腾讯云 wafer2 上手，轻松部署小程序后端！">
+<meta name="twitter:description" content="前端程序员开发一个自己的小程序，比起学习小程序开发，更大的难点在于搭建小程序的后台。
+本文从一个初学者的角度，简单介绍一下腾讯云推出的小程序解决方案 wafer2，让没有后台开发经验的程序员，也能搭建起自己的小程序后台。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1763614-5faabc66d8857ca7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -125,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/29/201707290929/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/27/201709272129/"/>
 
 
 
 
 
-  <title> 小程序可以显示群名称啦！ | SouthernBox </title>
+  <title> 腾讯云 wafer2 上手，轻松部署小程序后端！ | SouthernBox </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -265,7 +269,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/29/201707290929/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/27/201709272129/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="SouthernBox">
@@ -289,7 +293,7 @@
             
             
               
-                小程序可以显示群名称啦！
+                腾讯云 wafer2 上手，轻松部署小程序后端！
               
             
           </h1>
@@ -301,8 +305,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-29T09:29:22+08:00">
-              2017-07-29
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-27T21:31:39+08:00">
+              2017-09-27
             </time>
 
             &nbsp;|&nbsp;
@@ -310,8 +314,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2017-07-29T09:30:30+08:00">
-              2017-07-29
+            <time title="Post modified" itemprop="dateModified" datetime="2017-09-27T21:31:56+08:00">
+              2017-09-27
             </time>
             
           </span>
@@ -322,8 +326,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/07/29/201707290929/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/29/201707290929/" itemprop="commentCount"></span>
+                <a href="/2017/09/27/201709272129/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/09/27/201709272129/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -333,7 +337,7 @@
 
           
           
-             <span id="/2017/07/29/201707290929/" class="leancloud_visitors" data-flag-title="小程序可以显示群名称啦！">
+             <span id="/2017/09/27/201709272129/" class="leancloud_visitors" data-flag-title="腾讯云 wafer2 上手，轻松部署小程序后端！">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -358,32 +362,70 @@
       
 
       
-        <p><img src="/uploads/images/cover/cover_weapp.png" alt=""></p>
-<p>开今年 5 月份的时候，微信宣布：「为了更好的针对群场景提供个性化服务，当用户在群聊中点击小程序分享卡片时，小程序支持开发者获取群 ID 和群名称」。但随后没多久，发现小程序只返回了群 ID，并没有给我们群名。现在，终于有方法可以显示群名称啦！</p>
+        <p><img src="http://upload-images.jianshu.io/upload_images/1763614-5faabc66d8857ca7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>前端程序员开发一个自己的小程序，比起学习小程序开发，更大的难点在于搭建小程序的后台。</p>
+<p>本文从一个初学者的角度，简单介绍一下腾讯云推出的小程序解决方案 wafer2，让没有后台开发经验的程序员，也能搭建起自己的小程序后台。</p>
 <a id="more"></a>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>直到现在，网上还可以看到很多「开发者可以获取群名称」这样的新闻。在微信刚宣布的时候确实同时返回了群 ID 和 群名称，但随后就只能获取到群 ID 了。估计会有很多开发者跟我一样被文章误导了，还以为是自己代码有问题。</p>
-<p>至于微信为什么这么做，官方也作出了解释：</p>
-<p><img src="/uploads/images/weapp/shareinfo.png" alt=""></p>
-<p>这就导致了，目前很多和群关联的小程序，一进去就要设置群备注的尴尬现象。</p>
-<p>为了保护用户的隐私，同时满足开发的需求，微信需要找到一种获取不到，但又允许展示的方法。</p>
-<p>现在微信找到方法了。</p>
-<p>下面我们看看如何在小程序里面显示群名称。</p>
-<h1 id="获取群-ID"><a href="#获取群-ID" class="headerlink" title="获取群 ID"></a>获取群 ID</h1><p>显示群名的前提是，已经获取到了该群的群 ID。要是你之前已经对获取群 ID 有所了解，可以直接跳到后面看。</p>
-<p>我们通过将小程序转发到群里，获取到对应群的群 ID。</p>
-<p>首先，需要设置显示当前页面的转发按钮，转发后返回 ShareTicket，有了它才能去获取群 ID：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wx.showShareMenu(&#123;</div><div class="line">  <span class="attr">withShareTicket</span>: <span class="literal">true</span> </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>在代码里面添加 onShareAppMessage 方法，它是用来控制转发功能的。转发成功后，拿到 ShareTicket，再调用 wx.getShareInfo 获取转发目标的信息。代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">onShareAppMessage: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> that = <span class="keyword">this</span></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">title</span>: <span class="string">"转发标题"</span>,</div><div class="line">    <span class="attr">path</span>: <span class="string">'页面路径'</span>,</div><div class="line">    success(res) &#123;</div><div class="line">      wx.getShareInfo(&#123;</div><div class="line">        <span class="attr">shareTicket</span>: res.shareTickets[<span class="number">0</span>],</div><div class="line">        success(res) &#123;</div><div class="line">          <span class="built_in">console</span>.log(res.encryptedData)</div><div class="line">          <span class="built_in">console</span>.log(res.iv)</div><div class="line">          <span class="comment">// 后台解密，获取 openGId</span></div><div class="line">        &#125;</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>和 wx.getUserInfo 一样，微信给了我们一段加密的数据，加密的方式也是一样的，后台可以用同一段代码进行解密。解密后的格式如下：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"openGId"</span>: <span class="string">"xxxxxxxx"</span>,</div><div class="line">    <span class="attr">"watermark"</span>: &#123;</div><div class="line">        <span class="attr">"appid"</span>: <span class="string">"xxxxxxxx"</span>,</div><div class="line">        <span class="attr">"timestamp"</span>: <span class="number">1499841984</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>openGId 就是我们要的群 ID 了，把它保存下来。</p>
-<h1 id="显示群名"><a href="#显示群名" class="headerlink" title="显示群名"></a>显示群名</h1><p>下面我们来到布局文件。</p>
-<p>小程序刚更新，多了一个新组件 open-data：</p>
-<p><img src="/uploads/images/weapp/open-data.png" alt=""></p>
-<p>用起来很简单，在要显示群名的地方，使用以下代码：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">open-data</span> <span class="attr">type</span>=<span class="string">"groupName"</span> <span class="attr">open-gid</span>=<span class="string">"&#123;&#123;openGId&#125;&#125;"</span> /&gt;</span></div></pre></td></tr></table></figure>
-<p>将 openGId 传入，就会显示出群名称了，妥妥的。</p>
-<p>但这个东西是基础库 1.4.0 才有的东西，最好还是用 wx.getSystemInfo 获取到当前客户端的基础库版本，做一下低版本兼容。</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="wafer"><a href="#wafer" class="headerlink" title="wafer"></a>wafer</h2><p>后台的搭建涉及到购买服务器、购买数据库，然后要在服务器上安装运行环境等。说实话，我连要在服务器上装什么都不知道。所以希望能有一个东西，帮我把这些都做好，要是再提供一些登录之类的常用接口就更好了。这就是 wafer 所做的。</p>
+<p>其实在小程序后台配置域名的地方，就有跳转到腾讯云的链接:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-dd9ec72a949006cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>进入后按照指引购买，就可以拥有一个配置好的后台。</p>
+<h2 id="wafer2"><a href="#wafer2" class="headerlink" title="wafer2"></a>wafer2</h2><p>wafer 相对于自己搭建后台已经方便很多了，但我用起来还是感觉有难度。我不熟悉 Linux，也搞不懂如何测试代码。直到发现腾讯云又推出了 wafer2。</p>
+<p>如果你用上了新版小程序开发工具，会在工具的右上角发现一个「腾讯云」的按钮：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-3a8b84cee38f8d59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>这个按钮就是用来连接 wafer2 的。</p>
+<p>我们可以直接在小程序开发工具里编写后台代码，并上传代码，后台是区分开发环境和生产环境的。</p>
+<p>下面我们看看怎么使用 wafer2。</p>
+<h1 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h1><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p>搭建 wafer2 很简单，大家按照<a href="https://github.com/tencentyun/wafer2-startup" target="_blank" rel="external">官方文档</a>来，应该没什么问题的，这里就不赘述了。</p>
+<h2 id="生产环境"><a href="#生产环境" class="headerlink" title="生产环境"></a>生产环境</h2><p>官方文档说的都是开发环境，要是你想部署到生产环境，有些配置需要改一下。</p>
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>开发环境的域名是腾讯云分配的 xxx.qcloud.la，而生产环境需要使用自己在腾讯云里的域名。</p>
+<p>通过腾讯云管理中心注册的域名，会自动部署 HTTPS 证书。但是要备案的话，需要登记服务器 ip，而 wafer2 的服务器 ip 是没有提供给我们的。目前备案只能再买一个服务器……</p>
+<p>绑定域名后，可以在开发工具「详情」-「腾讯云状态」确认生产环境域名：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-9157ae90ea8ae066.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>切换到生产环境后，别忘了把客户端的接口域名也改一下。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>在腾讯云管理中心里，修改生产环境 MySql 的登录密码。然后登录 phpMyAdmin，在首页可以看到 MySql 的服务器 ip 地址，记下来。</p>
+<p>回到开发工具，找到 server/config.js，修改里面 MySql 配置的 ip 地址及登录密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mysql: &#123;</div><div class="line">  host: &apos;修改为生产环境 ip&apos;,</div><div class="line">  port: 3306,</div><div class="line">  user: &apos;root&apos;,</div><div class="line">  db: &apos;cAuth&apos;,</div><div class="line">  pass: &apos;修改为生产环境密码&apos;,</div><div class="line">  char: &apos;utf8mb4&apos;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>在开发工具上传正式代码，再到管理中心的生产环境，点击「代码部署」。这样就完成生产环境的配置及部署了。</p>
+<p>比外需要注意，开发环境的 MySql 是 5.7 的，而生产环境是 5.6 的。注意不要在开发的时候使用 JSON 等 MySql 5.7 才有的功能。</p>
+<h1 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h1><p>先说一下小程序基本都会用到的登录。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>wafer2 的客户端及服务端 sdk，已经集成了登录逻辑，在客户端引用 sdk 后，只要调用它的 login 方法就可以实现登录了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">qcloud.login(&#123;</div><div class="line">  success: res =&gt; &#123;</div><div class="line">    console.log(&apos;登录成功&apos;, res)</div><div class="line">  &#125;,</div><div class="line">  fail: err =&gt; &#123;</div><div class="line">    console.log(&apos;登录失败&apos;, err)</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>登录成功会将用户数据保存在数据库 cAuth 的 cSessionInfo 表里，并将用户数据返回。</p>
+<p>看起来很美好，但是这里面是存在一些问题的。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用户登录过之后会将用户信息缓存在本地，当有缓存的时候会将用户信息直接返回。但是 sdk 中，缓存的存取都是有问题的，有缓存的情况下，会返回 undifined。</p>
+<p>这是个很低级的错误，问题已经给官方反馈了。截止到写这篇文章，取数据的地方改了，但存的地方还没改……</p>
+<p>所以现在要正常使用，需要到 wafer2-client-sdk/lib/login.js，找到保存用户数据的地方：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Session.set(res.skey);</div></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Session.set(res);</div></pre></td></tr></table></figure>
+<p>另外，还想吐槽一下，sdk 里 wx.login 和 wx.getUserInfo 是搭配使用的。</p>
+<p>也就是说，必须要获取到用户信息，才能实现登录。而我们知道，小程序在获取用户信息时会弹窗，并且用户是可以拒绝的。拒绝后一段时间内，调用 wx.getUserInfo 都不会再弹窗。可以说 wafer2 没有考虑用户拒绝授权的情况。而这恰好是微信不提倡的做法，甚至可能导致无法通过审核。</p>
+<p>这个问题我也向官方反馈了。</p>
+<h1 id="第一个接口"><a href="#第一个接口" class="headerlink" title="第一个接口"></a>第一个接口</h1><p>学习要有目的性才能保持兴趣，配置完了我们来写一个自己的接口。</p>
+<p>wafer2 基于 Node.js 平台，使用了 Koa2 框架。</p>
+<p>在 server/controllers 下新建文件 hello.js，输入如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">module.exports = async ctx =&gt; &#123;</div><div class="line">  ctx.state.data = &quot;Hello World !&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码很简单，就是暴露一个返回结果是「Hello World !」的方法，「Hello World !」会被放在请求结果的 data 里。</p>
+<p>然后我们打开 server/routes/index.js</p>
+<p>添加一句代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 测试接口</div><div class="line">router.get(&apos;/hello&apos;, controllers.hello)</div></pre></td></tr></table></figure>
+<p>代码就只有这么多。保存之后点击「腾讯云」-「上传测试代码」，如果是第一次上传要勾上「部署后自动安装依赖」。等待上传成功，就可以测试我们的接口了。</p>
+<p>调用 xxx.qcloud.la/weapp/hello，看是否返回以下结果：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  code: 0,</div><div class="line">  data: "Hello World !"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>恭喜！你自己开发的第一个接口已经调通了！</p>
+<h1 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h1><p>wafer2 使用了 knex 作为数据库的查询构造器，并且已经配置好了。对于有 sql 经验的程序员，可以很快的上手。</p>
+<p>我们可以在 phpMyAdmin 里，在 cAppinfo 这个数据库里创建需要的表。</p>
+<p>假如已经有一个「Book」的表，下面代码，简单展示了在 wafer2 里，如何对数据库进行增查改删：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">const &#123; mysql &#125; = require(&apos;../qcloud&apos;)</div><div class="line">const uuid = require(&apos;node-uuid&apos;)</div><div class="line"></div><div class="line">module.exports = async ctx =&gt; &#123;</div><div class="line">  var id = uuid.v1()</div><div class="line">  // 增</div><div class="line">  var book = &#123;</div><div class="line">    id: id,</div><div class="line">    name: &quot;冰与火之歌&quot;,</div><div class="line">    price: 88</div><div class="line">  &#125;</div><div class="line">  await mysql(&quot;Book&quot;).insert(book)</div><div class="line">  // 查</div><div class="line">  var res = await mysql(&quot;Book&quot;).where(&#123; id &#125;).first()</div><div class="line">  // 改</div><div class="line">  await mysql(&quot;Book&quot;).update(&#123; price: 66 &#125;).where(&#123; id &#125;)</div><div class="line">  // 删</div><div class="line">  await mysql(&quot;Book&quot;).del().where(&#123; id &#125;)</div><div class="line"></div><div class="line">  ctx.state.data = &quot;OK&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>数据库操作默认都是异步执行的，如果要等待操作完成，需要在操作语句前加上 await。</p>
+<p>更高级的 sql 用法，可以查看 <a href="http://knexjs.org/" target="_blank" rel="external">knex.js 官网</a>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我已经将自己的小程序「碰词er」后台迁移到 wafer2 了。开发的时候各种坑，给腾讯云提了一些很明显的 bug。说不定「碰词er」是第一个使用 wafer2 的小程序。</p>
+<p>wafer2 用起来方便。我们不用懂太多后台配置的东西，前后端代码都在小程序开发工具编写，直接在开发工具上传后端代码，区分了开发、生产环境，而且目前还是免费的，虽说不知道会不会一直有免费版。</p>
+<p>但目前缺点同样明显，比如备案不方便，登录接口不合理，sdk 有 bug 等。我还碰到服务器宕机，需要重启的情况。希望腾讯云接下来能解决这些问题。</p>
+<p>总的来说，wafer2 使用门槛低，但现在还不够稳定。个人项目玩玩还是可以的，商业项目要用的话，建议再观察一段时间吧。</p>
+<p>刚开始，在没有推广的情况下，在我身边的人都不愿意玩的情况下，每天会有一两百个新用户。在上次知晓程序推荐过后，现在居然每天有一两千个新用户！流量费都快给不起了，非常感谢大家的捧场。</p>
+<p>最后，感谢我家宝宝做了这么好看的设计图。</p>
 
       
     </div>
@@ -409,6 +451,8 @@
           
             <a href="/tags/教程/" rel="tag"># 教程</a>
           
+            <a href="/tags/个人项目/" rel="tag"># 个人项目</a>
+          
             <a href="/tags/小程序/" rel="tag"># 小程序</a>
           
         </div>
@@ -418,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/29/201707290917/" rel="next" title="打造自己的 APP「冰与火百科」（二）：接口、索引页">
-                <i class="fa fa-chevron-left"></i> 打造自己的 APP「冰与火百科」（二）：接口、索引页
+              <a href="/2017/08/27/201708271324/" rel="next" title="我做了一个成语接龙的小程序">
+                <i class="fa fa-chevron-left"></i> 我做了一个成语接龙的小程序
               </a>
             
           </div>
@@ -427,10 +471,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/27/201708271324/" rel="prev" title="我做了一个成语接龙的小程序">
-                我做了一个成语接龙的小程序 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -456,8 +496,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/07/29/201707290929/"
-           data-title="小程序可以显示群名称啦！" data-url="http://yoursite.com/2017/07/29/201707290929/">
+      <div class="ds-thread" data-thread-key="2017/09/27/201709272129/"
+           data-title="腾讯云 wafer2 上手，轻松部署小程序后端！" data-url="http://yoursite.com/2017/09/27/201709272129/">
       </div>
     
   </div>
@@ -567,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取群-ID"><span class="nav-number">2.</span> <span class="nav-text">获取群 ID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#显示群名"><span class="nav-number">3.</span> <span class="nav-text">显示群名</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wafer"><span class="nav-number">1.1.</span> <span class="nav-text">wafer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wafer2"><span class="nav-number">1.2.</span> <span class="nav-text">wafer2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建"><span class="nav-number">2.</span> <span class="nav-text">搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发环境"><span class="nav-number">2.1.</span> <span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产环境"><span class="nav-number">2.2.</span> <span class="nav-text">生产环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名"><span class="nav-number">2.3.</span> <span class="nav-text">域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">2.4.</span> <span class="nav-text">数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录"><span class="nav-number">3.</span> <span class="nav-text">登录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">3.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">3.2.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一个接口"><span class="nav-number">4.</span> <span class="nav-text">第一个接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库操作"><span class="nav-number">5.</span> <span class="nav-text">数据库操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
