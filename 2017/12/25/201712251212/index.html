@@ -91,10 +91,9 @@
 <meta property="og:site_name" content="SouthernBox">
 <meta property="og:description" content="给大家介绍一下简单的 WebView 交互和夜间模式在「冰与火百科」中的实现。">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/25/1608bededd3d4e02?w=1080&h=607&f=png&s=15614">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/25/1608bededd3d4e02?w=1080&h=607&f=png&s=15614">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/25/1608bed8b05e83ef?w=289&h=509&f=gif&s=2235652">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/25/1608becb76543c73?w=289&h=511&f=gif&s=5170962">
-<meta property="og:updated_time" content="2017-12-25T04:35:55.082Z">
+<meta property="og:updated_time" content="2017-12-25T04:41:29.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="打造自己的 APP「冰与火百科」（四）：WebView 交互、夜间模式">
 <meta name="twitter:description" content="给大家介绍一下简单的 WebView 交互和夜间模式在「冰与火百科」中的实现。">
@@ -311,7 +310,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2017-12-25T12:35:55+08:00">
+            <time title="Post modified" itemprop="dateModified" datetime="2017-12-25T12:41:29+08:00">
               2017-12-25
             </time>
             
@@ -362,8 +361,6 @@
         <p><img src="https://user-gold-cdn.xitu.io/2017/12/25/1608bededd3d4e02?w=1080&amp;h=607&amp;f=png&amp;s=15614" alt=""></p>
 <p>给大家介绍一下简单的 WebView 交互和夜间模式在「冰与火百科」中的实现。</p>
 <a id="more"></a>
-<p><img src="https://user-gold-cdn.xitu.io/2017/12/25/1608bededd3d4e02?w=1080&amp;h=607&amp;f=png&amp;s=15614" alt=""></p>
-<p>给大家介绍一下简单的 WebView 交互和夜间模式在「冰与火百科」中的实现。</p>
 <h1 id="WebView-交互"><a href="#WebView-交互" class="headerlink" title="WebView 交互"></a>WebView 交互</h1><p>在详情页面我是用 WebView 展示的，我想实现的交互是，点击 WebView 的内容跳转另一个页面。实现过程是，让 HTML 代码调用 JavaScript 代码，再让 JavaScript 代码调用 Android 的代码，下面看看如何实现。</p>
 <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>先看 HTML 代码，假如在文本内容里有一个可以跳转的「凯特琳·徒利」，让他去调用 skip.js 的代码，指定 CatelynTully() 方法：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:void(0)"</span> <span class="attr">onclick</span>=<span class="string">"CatelynTully()"</span>&gt;</span>凯特琳·徒利<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"skip.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -379,8 +376,8 @@
 <p>这样就完成了一个简单的 JavaScript 和 Android 的交互，效果如下：</p>
 <p><img src="https://user-gold-cdn.xitu.io/2017/12/25/1608bed8b05e83ef?w=289&amp;h=509&amp;f=gif&amp;s=2235652" alt=""></p>
 <h1 id="夜间模式"><a href="#夜间模式" class="headerlink" title="夜间模式"></a>夜间模式</h1><p>关于夜间模式的实现，主要是参考了 D_clock爱吃葱花 大神的<a href="https://www.jianshu.com/p/3b55e84742e5" target="_blank" rel="external">这篇文章</a>，简单说一下实现过程如下：</p>
-<p><a href="https://user-gold-cdn.xitu.io/2017/12/11/1604339fc76f755e" target="_blank" rel="external">https://user-gold-cdn.xitu.io/2017/12/11/1604339fc76f755e</a>. 在 styles 中添加「DayTheme」和「NightTheme」两个主题；</p>
 <ol>
+<li>在 styles 中添加「DayTheme」和「NightTheme」两个主题；</li>
 <li>在布局文件中使用类似 android:background=”?attr/colorBackground” 来设置颜色，使其跟随当前主题颜色；</li>
 <li>编写 DayNightHelper，利用 SharePreferences 保存、获取当前模式；</li>
 <li>在页面 setContentView 之前，判断当前模式，并通过 setTheme 设置当前模式；</li>
@@ -403,8 +400,8 @@
 <p>但要注意的是，RecyclerView 的内部使用 Recycler 和 RecyclerViewPool 实现了缓存，有可能出现当前使用的 item 颜色改变了，但是缓存里的没有变化。</p>
 <p>解决方法是清理缓存，调用  Recycler 和 RecyclerViewPool 的 Clear() 方法，但前者无法直接调用，只能通过反射实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Class&lt;RecyclerView&gt; recyclerViewClass = RecyclerView.class;</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    Field declaredField = recyclerViewClass.getDeclaredField(<span class="string">"mRecycler"</span>);</div><div class="line">    declaredField.setAccessible(<span class="keyword">true</span>);</div><div class="line">    Method declaredMethod = Class.forName(RecyclerView.Recycler.class.getName()).getDeclaredMethod(<span class="string">"clear"</span>);</div><div class="line">    declaredMethod.setAccessible(<span class="keyword">true</span>);</div><div class="line">    declaredMethod.invoke(declaredField.get(binding.recyclerView));</div><div class="line">    RecyclerView.RecycledViewPool recycledViewPool = recyclerView.getRecycledViewPool();</div><div class="line">    recycledViewPool.clear();</div><div class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="StatusBar"><a href="#StatusBar" class="headerlink" title="StatusBar"></a>StatusBar</h2><p>在 SDK 2<a href="https://user-gold-cdn.xitu.io/2017/12/11/1604339fc76f755e" target="_blank" rel="external">https://user-gold-cdn.xitu.io/2017/12/11/1604339fc76f755e</a> 以上，允许我们修改状态栏的颜色：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">2</span>https:<span class="comment">//user-gold-cdn.xitu.io/2017/12/11/1604339fc76f755e) &#123;</span></div><div class="line">    TypedValue typedValue = <span class="keyword">new</span> TypedValue();</div><div class="line">    Resources.Theme theme = getTheme();</div><div class="line">    theme.resolveAttribute(R.attr.color, typedValue, <span class="keyword">true</span>);</div><div class="line">    getWindow().setStatusBarColor(</div><div class="line">            ContextCompat.getColor(mContext, typedValue.resourceId));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="StatusBar"><a href="#StatusBar" class="headerlink" title="StatusBar"></a>StatusBar</h2><p>在 SDK 21 以上，允许我们修改状态栏的颜色：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">21</span> &#123;</div><div class="line">    TypedValue typedValue = <span class="keyword">new</span> TypedValue();</div><div class="line">    Resources.Theme theme = getTheme();</div><div class="line">    theme.resolveAttribute(R.attr.color, typedValue, <span class="keyword">true</span>);</div><div class="line">    getWindow().setStatusBarColor(</div><div class="line">            ContextCompat.getColor(mContext, typedValue.resourceId));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>夜间模式的实现就到此，在重新设置颜色的部分比较繁琐，但这是我目前看到效果比较好的实现方式。效果如下：</p>
 <p><img src="https://user-gold-cdn.xitu.io/2017/12/25/1608becb76543c73?w=289&amp;h=511&amp;f=gif&amp;s=5170962" alt=""></p>
 <p><a href="https://github.com/SouthernBox/IceAndFire" target="_blank" rel="external">项目地址</a></p>
