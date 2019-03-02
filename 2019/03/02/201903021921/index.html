@@ -1,0 +1,1007 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="教程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="智能手表相对手机来说，由于使用场景不同，且屏幕较小，所以应用的设计、交互和手机是有些区别的。相对来说，布局会更简洁，更多地使用滑动手势进行操作。
+为此，在 Wear OS  上，官方提供了一系列新的控件和交互，通过它们，我们可以很方便地打造出一个适合手表交互的应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anroid Wear OS 手表应用开发 - UI">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/201903021921/index.html">
+<meta property="og:site_name" content="SouthernBox">
+<meta property="og:description" content="智能手表相对手机来说，由于使用场景不同，且屏幕较小，所以应用的设计、交互和手机是有些区别的。相对来说，布局会更简洁，更多地使用滑动手势进行操作。
+为此，在 Wear OS  上，官方提供了一系列新的控件和交互，通过它们，我们可以很方便地打造出一个适合手表交互的应用。">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1763614-02639f138b94c95c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-0b758d8568a630bb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-4fe8d258e8b92f8a?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-d0d00855d45b223d?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-def44e6e8cd50262?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-51c8d9bd6dfff024?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-be287d5276497a7c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-e059dbf08a972c35?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1763614-3d2c3119d547cf4c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-03-02T11:24:29.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Anroid Wear OS 手表应用开发 - UI">
+<meta name="twitter:description" content="智能手表相对手机来说，由于使用场景不同，且屏幕较小，所以应用的设计、交互和手机是有些区别的。相对来说，布局会更简洁，更多地使用滑动手势进行操作。
+为此，在 Wear OS  上，官方提供了一系列新的控件和交互，通过它们，我们可以很方便地打造出一个适合手表交互的应用。">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1763614-02639f138b94c95c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/02/201903021921/"/>
+
+
+
+
+
+  <title> Anroid Wear OS 手表应用开发 - UI | SouthernBox </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SouthernBox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/201903021921/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="SouthernBox">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="SouthernBox">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="SouthernBox" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Anroid Wear OS 手表应用开发 - UI
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-02T19:21:07+08:00">
+              2019-03-02
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2019-03-02T19:24:29+08:00">
+              2019-03-02
+            </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/03/02/201903021921/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/02/201903021921/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/03/02/201903021921/" class="leancloud_visitors" data-flag-title="Anroid Wear OS 手表应用开发 - UI">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://upload-images.jianshu.io/upload_images/1763614-02639f138b94c95c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>智能手表相对手机来说，由于使用场景不同，且屏幕较小，所以应用的设计、交互和手机是有些区别的。相对来说，布局会更简洁，更多地使用滑动手势进行操作。</p>
+<p>为此，在 Wear OS  上，官方提供了一系列新的控件和交互，通过它们，我们可以很方便地打造出一个适合手表交互的应用。</p>
+<a id="more"></a>
+<h1 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h1><p>下面用到的控件都来自 Wear 控件库，需要在 build.gradle 文件中添加以下依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">implementation &apos;com.android.support:wear:28.0.0&apos;</div></pre></td></tr></table></figure>
+<h1 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h1><p>常见的表盘有方形和圆形两种，使用普通布局的情况下，可能会出现这种情况：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-0b758d8568a630bb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>为了使圆形表盘上的内容不超出边界，同时兼容方形表盘，我们可以使用 BoxInsetLayout 这个布局：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.wear.widget.BoxInsetLayout</span></span></div><div class="line">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">app:boxedEdges</span>=<span class="string">"all"</span>&gt;</div><div class="line">        </div><div class="line">        <span class="tag">&lt;<span class="name">...</span>&gt;</span></div><div class="line">        </div><div class="line">    <span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></div><div class="line">    </div><div class="line"><span class="tag">&lt;/<span class="name">android.support.wear.widget.BoxInsetLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这样可以在保证方形表盘不受影响的情况下，圆形布局的内容，不会超过显示边界：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-4fe8d258e8b92f8a?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h1 id="导航抽屉栏"><a href="#导航抽屉栏" class="headerlink" title="导航抽屉栏"></a>导航抽屉栏</h1><p>为了节省宝贵的显示空间，通常手表应用是没有标题栏的，在使用 ViewPager 的时候，也没有 TabLayout 的显示，但因此我们无法很好的确认当前页面。</p>
+<p>导航栏 WearableNavigationDrawerView 就是用来解决这个问题的，我们先看看它的效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-d0d00855d45b223d?imageMogr2/auto-orient/strip" alt="image"></p>
+<p>从手表顶部向下滑，会出现一个导航栏，显示当前页面的图标和标题。当存在多个页面时，通过左右滑动它来切换页面。</p>
+<p>下面来看看它的用法，我们修改布局文件，使用 WearableDrawerLayout 作为根布局，添加导航栏控件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.wear.widget.drawer.WearableNavigationDrawerView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/navigation_drawer"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">app:navigationStyle</span>=<span class="string">"multiPage"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>当存在多个页面时，需要添加 app:navigationStyle=”multiPage” 这个属性。</p>
+<p>和 ViewPager 类似，我们需要给它设置一个适配器，设置每个页面的图标和标题，像这样：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainDrawerAdapter</span></span>(context: Context) :</div><div class="line">    WearableNavigationDrawerView.WearableNavigationDrawerAdapter() &#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mContext = context</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemText</span><span class="params">(pos: <span class="type">Int</span>)</span></span>: CharSequence &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">when</span> (pos) &#123;</div><div class="line">            <span class="number">0</span> -&gt; <span class="string">"第一页"</span></div><div class="line">            <span class="keyword">else</span> -&gt; <span class="string">"第二页"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemDrawable</span><span class="params">(pos: <span class="type">Int</span>)</span></span>: Drawable &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">when</span> (pos) &#123;</div><div class="line">            <span class="number">0</span> -&gt; ContextCompat.getDrawable(mContext, R.drawable.icon_one)!!</div><div class="line">            <span class="keyword">else</span> -&gt; ContextCompat.getDrawable(mContext, R.drawable.icon_two)!!</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getCount</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">2</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在 Activity 中设置：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">navigation_drawer.setAdapter(MainDrawerAdapter(<span class="keyword">this</span>))</div><div class="line">navigation_drawer.controller.peekDrawer()</div><div class="line">navigation_drawer.addOnItemSelectedListener &#123; pos -&gt;</div><div class="line">    <span class="comment">// TODO 切换页面</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里面的 controller.peekDrawer() 是让导航栏在顶部露出一小部分，提示用户这里是有东西可以下滑的，也可以调用 controller.closeDrawer() 完全隐藏导航栏。</p>
+<h1 id="操作抽屉栏"><a href="#操作抽屉栏" class="headerlink" title="操作抽屉栏"></a>操作抽屉栏</h1><p>当需要对当前页面进行一些操作的时候，但页面里又没有空间再放按钮了怎么办？既然可以从顶部下拉出导航栏，要不在底部上拉出一个操作栏？操作栏 WearableActionDrawerView 就是用来做这个的。</p>
+<p>通过给操作栏设置 menu 文件，它会以列表的形式展示可操作项，布局中这么写：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.wear.widget.drawer.WearableActionDrawerView</span></span></div><div class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/action_drawer"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">app:actionMenu</span>=<span class="string">"@menu/action_drawer_menu"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>代码中使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">action_drawer.controller.peekDrawer()</div><div class="line">action_drawer.setOnMenuItemClickListener &#123; item -&gt; </div><div class="line">    <span class="comment">// TODO 点击菜单</span></div><div class="line">    <span class="keyword">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>和顶部导航栏类似，controller.peekDrawer() 会在底部露出一小部分操作栏，如果当前页面是一个列表，这一部分会在列表滑动时隐藏，在列表到顶部和底部时显示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-def44e6e8cd50262?imageMogr2/auto-orient/strip" alt="image"></p>
+<p>露出部分默认会显示操作栏第一项的图标，可以在布局中添加 app:showOverflowInPeek=”true”，让它显示竖直三个点的省略图标。</p>
+<h1 id="自定义抽屉栏"><a href="#自定义抽屉栏" class="headerlink" title="自定义抽屉栏"></a>自定义抽屉栏</h1><p>导航栏 WearableNavigationDrawerView 和 操作栏 WearableActionDrawerView<br>用起来很简单，但是它们的样式是固定的，一个只能显示图标加标题，一个只能显示 menu 格式的列表。</p>
+<p>这两个控件都继承自 WearableDrawerView，所以两者都可以通过 WearableDrawerView 来实现自定义样式。下面是一个简单的自定义底部抽屉栏布局：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.wear.widget.drawer.WearableDrawerView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/action_drawer"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"bottom"</span></div><div class="line">        <span class="attr">app:drawerContent</span>=<span class="string">"@+id/drawer_content"</span></div><div class="line">        <span class="attr">app:peekView</span>=<span class="string">"@+id/peek_view"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">            <span class="attr">android:id</span>=<span class="string">"@+id/drawer_content"</span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">            <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">layout</span>=<span class="string">"@layout/layout_bottom_drawer"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">            <span class="attr">android:id</span>=<span class="string">"@+id/peek_view"</span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_gravity</span>=<span class="string">"center_horizontal"</span></div><div class="line">            <span class="attr">android:paddingTop</span>=<span class="string">"8dp"</span></div><div class="line">            <span class="attr">android:paddingBottom</span>=<span class="string">"8dp"</span></div><div class="line">            <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span>&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">ImageView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"16dp"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"16dp"</span></div><div class="line">                <span class="attr">android:src</span>=<span class="string">"@drawable/icon_omit"</span></div><div class="line">                <span class="attr">tools:ignore</span>=<span class="string">"ContentDescription"</span>/&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.wear.widget.drawer.WearableDrawerView</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>通过 layout_gravity 来设置抽屉栏是在顶部还是底部。它包裹了抽屉栏的主视图 drawer_content 和关闭时露出部分的视图 peek_view。这样我们就可以在 layout_bottom_drawer 中设置自己想要的布局了，其他用法都和上面是一样的。</p>
+<h1 id="确认动画"><a href="#确认动画" class="headerlink" title="确认动画"></a>确认动画</h1><p>当处理完某个业务之后，我们通常需要给用户一个处理成功或失败的提示，在 Wear OS 上，我们可以用一个 Activity 来展示确认动画。</p>
+<p>ConfirmationActivity 是官方提供的用来展示确认动画的 Activity。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-51c8d9bd6dfff024?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>用起来也很简单，先在 manifest 文件中注册：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">manifest</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">application</span>&gt;</span></div><div class="line">    ...</div><div class="line">    <span class="tag">&lt;<span class="name">activity</span></span></div><div class="line">        <span class="attr">android:name</span>=<span class="string">"android.support.wearable.activity.ConfirmationActivity"</span>&gt;</div><div class="line">    <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">application</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>需要显示确认的时候，通过传参跳转就好了：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, ConfirmationActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></div><div class="line">intent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE, ConfirmationActivity.SUCCESS_ANIMATION)</div><div class="line">intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, message)</div><div class="line">startActivity(intent)</div></pre></td></tr></table></figure>
+<p>这里面，EXTRA_ANIMATION_TYPE 是动画类型，它有以下三个可选项：</p>
+<ul>
+<li>SUCCESS_ANIMATION</li>
+<li>FAILURE_ANIMATION</li>
+<li>OPEN_ON_PHONE_ANIMATION</li>
+</ul>
+<p>EXTRA_MESSAGE 则是要显示的文字内容。</p>
+<h1 id="环形进度条"><a href="#环形进度条" class="headerlink" title="环形进度条"></a>环形进度条</h1><p>CircularProgressLayout 是一个环形的进度条，通常用它包裹一个圆形按钮：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-be287d5276497a7c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>可以用它来做防误触，用户点击按钮后，允许在进度条走完之前，点击取消操作。</p>
+<p>我们把它添加到布局中：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.wear.widget.CircularProgressLayout</span></span></div><div class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/circular_progress"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">android:padding</span>=<span class="string">"4dp"</span></div><div class="line">    <span class="attr">app:backgroundColor</span>=<span class="string">"@color/darkblue"</span></div><div class="line">    <span class="attr">app:colorSchemeColors</span>=<span class="string">"@color/lightblue"</span></div><div class="line">    <span class="attr">app:strokeWidth</span>=<span class="string">"4dp"</span>&gt;</div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></div><div class="line">      <span class="attr">android:id</span>=<span class="string">"@+id/image_view"</span></div><div class="line">      <span class="attr">android:src</span>=<span class="string">"@drawable/cancel"</span></div><div class="line">      <span class="attr">android:layout_width</span>=<span class="string">"40dp"</span></div><div class="line">      <span class="attr">android:layout_height</span>=<span class="string">"40dp"</span> /&gt;</div><div class="line">      </div><div class="line"><span class="tag">&lt;/<span class="name">android.support.wear.widget.CircularProgressLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>对 CircularProgressLayout 的监听和操作如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 监听进度</span></div><div class="line">circular_progress.setOnTimerFinishedListener &#123;</div><div class="line">    <span class="comment">// TODO 进度完成</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// 设置进度总时间</span></div><div class="line">circular_progress.totalTime = <span class="number">1000</span></div><div class="line"><span class="comment">// 开始计时</span></div><div class="line">circular_progress.startTimer()</div><div class="line"><span class="comment">// 结束计时</span></div><div class="line">circular_progress.stopTimer()</div></pre></td></tr></table></figure>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p>如果对比方形表盘和圆形表盘的手表，他们的应用列表界面是这样的：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-e059dbf08a972c35?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1763614-3d2c3119d547cf4c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>在圆形表盘上，列表是沿着表盘左边，曲线排列滚动的。这就是列表控件 WearableRecyclerView 实现的效果。</p>
+<p>WearableRecyclerView 继承自 RecyclerView，所以基本用法都是一样的。</p>
+<p>在布局中加入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.wear.widget.WearableRecyclerView</span></span></div><div class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/wearable_recycler_view"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:scrollbars</span>=<span class="string">"vertical"</span> /&gt;</div></pre></td></tr></table></figure>
+<p>代码中设置：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 使列表上的第一项和最后一个项在屏幕上垂直居中对齐</span></div><div class="line">wearable_recycler_view.isEdgeItemsCenteringEnabled = <span class="literal">true</span></div><div class="line"><span class="comment">// 使用 WearableLinearLayoutManager 管理布局</span></div><div class="line">wearable_recycler_view.layoutManager = WearableLinearLayoutManager(<span class="keyword">this</span>)</div></pre></td></tr></table></figure>
+<p>如果想自定义别的滚动效果，我们可以通过拓展 WearableLinearLayoutManager.LayoutCallback 来实现，这里就不展开说了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/17/201812171957/" rel="next" title="Anroid Wear OS 手表应用开发 - 微光模式 AmbientMode">
+                <i class="fa fa-chevron-left"></i> Anroid Wear OS 手表应用开发 - 微光模式 AmbientMode
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/03/02/201903021921/"
+           data-title="Anroid Wear OS 手表应用开发 - UI" data-url="http://yoursite.com/2019/03/02/201903021921/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="SouthernBox" />
+          <p class="site-author-name" itemprop="name">SouthernBox</p>
+          <p class="site-description motion-element" itemprop="description">Android</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/southernbox" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/4819d8ed1d8b/latest_articles" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#添加依赖"><span class="nav-number">1.</span> <span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#布局"><span class="nav-number">2.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导航抽屉栏"><span class="nav-number">3.</span> <span class="nav-text">导航抽屉栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作抽屉栏"><span class="nav-number">4.</span> <span class="nav-text">操作抽屉栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义抽屉栏"><span class="nav-number">5.</span> <span class="nav-text">自定义抽屉栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#确认动画"><span class="nav-number">6.</span> <span class="nav-text">确认动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环形进度条"><span class="nav-number">7.</span> <span class="nav-text">环形进度条</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表"><span class="nav-number">8.</span> <span class="nav-text">列表</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SouthernBox</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"southernbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("yUWAc1uEvk6u3zVnrTkA7Kc1-gzGzoHsz", "Xu2GAwK8aLTEMnkL3A5FxkXS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
